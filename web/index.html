@@ -22,12 +22,9 @@
     <div data-role="panel" id="home-panel" data-display="overlay">
       <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
       <ul data-role="listview" data-inset="true" data-icon="false">
-        <li><a href="#home" data-transition="none">Home</a></li>
-        <li><a href="#page2" data-transition="none">Page II</a></li>
-        <li><a href="#page3" data-transition="none">Page III</a></li>
-        <li><a href="#" data-transition="none">1. Connect Honeybee</a></li>
-        <li><a href="#" data-transition="none">2. Network Setup</a></li>
-        <li><a href="#" data-transition="none">3. ESDR Setup</a></li>
+        <li><a href="#page1a" data-transition="none">1. Connect Honeybee</a></li>
+        <li><a href="#page2a" data-transition="none">2. Network Setup</a></li>
+        <li><a href="#page3a" data-transition="none">3. ESDR Setup</a></li>
       </ul>
     </div>
     <!-- header -->
@@ -45,69 +42,207 @@
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
       <h1></h1>
       <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
-      <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+      <a href="#page1a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
     </div>
   </div>
 
 
-  <div data-role="page" id="page2">
-    <!-- panel -->
-    <div data-role="panel" id="page2-panel" data-display="overlay">
-      <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
-      <ul data-role="listview" data-inset="true" data-icon="false">
-        <li><a href="#home" data-transition="none">Home</a></li>
-        <li><a href="#page2" data-transition="none">Page II</a></li>
-        <li><a href="#page3" data-transition="none">Page III</a></li>
-      </ul>
-    </div>
+  <div data-role="page" id="page1a">
     <!-- header -->
     <div data-role="header" data-position="fixed" data-tap-toggle="false">
       <h1>Honeybee</h1>
-      <a href="#page2-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
     </div>
     <!-- main -->
     <div role="main" class="ui-content no-top" data-iscroll>
-      <h3>Page 2</h3>
+      <h3>Connect To Device</h3>
+      <input type="button" value="Scan"/>
+      <br/>
+      <ul data-role="listview">
+        <li><a href="#">
+          <h4>Placeholder Broadcast</h4>
+          <p>DE:AD:BE:EF</p>
+        </a></li>
+        <li><a href="#">
+          <h4>Placeholder Broadcast</h4>
+          <p>DE:AD:BE:EF</p>
+        </a></li>
+      </ul>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#home" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+      <a href="#page1b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page1b">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>Device Info</h3>
+      <div class="ui-grid-a">
+        <div class="ui-block-a"><div class="ui-body ui-body-a">Device Name</div></div>
+        <div class="ui-block-b"><div id="device-name" class="ui-body ui-body-a">Foo</div></div>
+        <div class="ui-block-a"><div class="ui-body ui-body-a">Hardware Version</div></div>
+        <div class="ui-block-b"><div id="device-hw" class="ui-body ui-body-a">Foo</div></div>
+        <div class="ui-block-a"><div class="ui-body ui-body-a">Firmware Version</div></div>
+        <div class="ui-block-b"><div id="device-fw" class="ui-body ui-body-a">Foo</div></div>
+        <div class="ui-block-a"><div class="ui-body ui-body-a">Serial Number</div></div>
+        <div class="ui-block-b"><div id="device-serial" class="ui-body ui-body-a">Foo</div></div>
+      </div>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page1a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+      <a href="#page2a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page2a">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>Scan for Networks</h3>
+      <input type="button" value="Scan"/>
+      <br/>
+      <ul data-role="listview">
+        <li><a href="#">
+          <h4>Placeholder Broadcast</h4>
+          <p>DE:AD:BE:EF</p>
+        </a></li>
+        <li><a href="#">
+          <h4>Placeholder Broadcast</h4>
+          <p>DE:AD:BE:EF</p>
+        </a></li>
+      </ul>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page1b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+      <a href="#page2b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page2b">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>WiFi Info</h3>
+      <div class="ui-grid-a">
+        <div class="ui-block-a"><div class="ui-body ui-body-a">Network Name</div></div>
+        <div class="ui-block-b"><div id="network-name" class="ui-body ui-body-a">Foo</div></div>
+        <div class="ui-block-a"><div class="ui-body ui-body-a">Status</div></div>
+        <div class="ui-block-b"><div id="network-status" class="ui-body ui-body-a">Connected</div></div>
+        <div class="ui-block-a"><div class="ui-body ui-body-a">IP Address</div></div>
+        <div class="ui-block-b"><div id="network-ip" class="ui-body ui-body-a">Foo</div></div>
+        <div class="ui-block-a"><div class="ui-body ui-body-a">MAC Address</div></div>
+        <div class="ui-block-b"><div id="network-mac" class="ui-body ui-body-a">Foo</div></div>
+      </div>
+      <input type="button" value="Remove Network"/>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page2a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+      <a href="#page3a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page3a">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>ESDR Login</h3>
       <div class="ui-field-contain">
         <label for="name">Username:</label>
-        <input data-clear-btn="true" name="username" id="username" value="" autocomplete="off">
+        <input data-clear-btn="true" name="username" id="username" value="" autocomplete="off"/>
       </div>
       <div class="ui-field-contain">
         <label for="name">Password:</label>
-        <input type="password" data-clear-btn="true" name="password" id="password" value="" autocomplete="off">
+        <input type="password" data-clear-btn="true" name="password" id="password" value="" autocomplete="off"/>
       </div>
+      <input type="button" value="Login"/>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page2b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+      <a href="#page3b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
     </div>
   </div>
 
 
-  <div data-role="page" id="page3">
+  <div data-role="page" id="page3b">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>Feed Info</h3>
+      <div class="ui-field-contain">
+        <label for="feed-name">Feed Name:</label>
+        <input data-clear-btn="true" name="feed-name" id="feed_name" value="" autocomplete="off"/>
+      </div>
+      <div class="ui-field-contain">
+        <label for="feed-exposure">Exposure:</label>
+        <select name="feed-exposure" id="feed_exposure">
+          <option value="indoor">Indoor</option>
+          <option value="outdoor">Outdoor</option>
+          <option value="virtual">Virtual</option>
+        </select>
+      </div>
+      <!-- TODO isPublic? isMobile? -->
+      <input type="button" value="Submit"/>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page3a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+      <a href="#page4" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page4">
     <!-- panel -->
-    <div data-role="panel" id="page3-panel" data-display="overlay">
+    <div data-role="panel" id="page4-panel" data-display="overlay">
       <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
       <ul data-role="listview" data-inset="true" data-icon="false">
-        <li><a href="#home" data-transition="none">Home</a></li>
-        <li><a href="#page2" data-transition="none">Page II</a></li>
-        <li><a href="#page3" data-transition="none">Page III</a></li>
+        <li><a href="#page1a" data-transition="none">1. Connect Honeybee</a></li>
+        <li><a href="#page2a" data-transition="none">2. Network Setup</a></li>
+        <li><a href="#page3a" data-transition="none">3. ESDR Setup</a></li>
       </ul>
     </div>
     <!-- header -->
     <div data-role="header" data-position="fixed" data-tap-toggle="false">
       <h1>Honeybee</h1>
-      <a href="#page3-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
+      <a href="#page4-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
     </div>
     <!-- main -->
     <div role="main" class="ui-content no-top" data-iscroll>
-      <h3>Page 3</h3>
-      <ul data-role="listview">
-        <li><a href="#home">
-          <h4>First</h4>
-          <p>One</p>
-        </a></li>
-        <li><a href="#page2">
-          <h4>Second</h4>
-          <p>Two</p>
-        </a></li>
-      </ul>
+      <div class="homepage-section-top">
+        <h3>Display All Info Here</h3>
+      </div>
     </div>
   </div>
 
