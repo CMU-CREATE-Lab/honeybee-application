@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- css -->
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <!-- libraries -->
+    <script src="lib/jquery-1.12.4.min.js"></script>
+    <script src="lib/jquery.mobile-1.4.5.min.js"></script>
+    <script src="lib/fastclick.min.js"></script>
+    <!-- app-related scripts -->
+    <script src="js/app.js"></script>
+  </head>
+  <body>
+
+
+  <div data-role="page" id="home">
+    <!-- panel -->
+    <div data-role="panel" id="home-panel" data-display="overlay">
+      <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
+      <ul data-role="listview" data-inset="true" data-icon="false">
+        <li><a href="#home" data-transition="none">Home</a></li>
+        <li><a href="#page2" data-transition="none">Page II</a></li>
+        <li><a href="#page3" data-transition="none">Page III</a></li>
+        <li><a href="#" data-transition="none">1. Connect Honeybee</a></li>
+        <li><a href="#" data-transition="none">2. Network Setup</a></li>
+        <li><a href="#" data-transition="none">3. ESDR Setup</a></li>
+      </ul>
+    </div>
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+      <a href="#home-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <div class="homepage-section-top">
+        <h3>Content Goes Here</h3>
+      </div>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page2">
+    <!-- panel -->
+    <div data-role="panel" id="page2-panel" data-display="overlay">
+      <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
+      <ul data-role="listview" data-inset="true" data-icon="false">
+        <li><a href="#home" data-transition="none">Home</a></li>
+        <li><a href="#page2" data-transition="none">Page II</a></li>
+        <li><a href="#page3" data-transition="none">Page III</a></li>
+      </ul>
+    </div>
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+      <a href="#page2-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>Page 2</h3>
+      <div class="ui-field-contain">
+        <label for="name">Username:</label>
+        <input data-clear-btn="true" name="username" id="username" value="" autocomplete="off">
+      </div>
+      <div class="ui-field-contain">
+        <label for="name">Password:</label>
+        <input type="password" data-clear-btn="true" name="password" id="password" value="" autocomplete="off">
+      </div>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="page3">
+    <!-- panel -->
+    <div data-role="panel" id="page3-panel" data-display="overlay">
+      <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
+      <ul data-role="listview" data-inset="true" data-icon="false">
+        <li><a href="#home" data-transition="none">Home</a></li>
+        <li><a href="#page2" data-transition="none">Page II</a></li>
+        <li><a href="#page3" data-transition="none">Page III</a></li>
+      </ul>
+    </div>
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+      <a href="#page3-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>Page 3</h3>
+      <ul data-role="listview">
+        <li><a href="#home">
+          <h4>First</h4>
+          <p>One</p>
+        </a></li>
+        <li><a href="#page2">
+          <h4>Second</h4>
+          <p>Two</p>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+  </body>
+</html>
