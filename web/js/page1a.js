@@ -1,30 +1,61 @@
 var Page1A = {
 
   devices_list: [],
+  html_button_scan: null,
   html_devices_ul: null,
+  isScanning: false,
 
 
   initialize: function() {
     console.log("Page1A.initialize");
-    devices_list = [];
-    html_devices_ul = $("#devices-list");
+    this.html_button_scan = $("#devices-scan");
+    this.html_devices_ul = $("#devices-list");
+
+    this.html_button_scan.off("click");
+    this.html_button_scan.on("click", Page1A.onClickScan);
+    this.setScanning(false);
+    this.notifyDeviceListChanged([]);
   },
 
 
   notifyDeviceListChanged: function(new_list) {
-    devices_list = (new_list == null) ? [] : new_list;
+    this.devices_list = (new_list == null) ? [] : new_list;
     // TODO compare old/new and only add/remove what is necessary
-    Page1A.clearList();
-    Page1A.populateList();
+    this.clearList();
+    this.populateList();
+  },
+
+
+  onClickScan: function() {
+    console.log("onClickScan");
+    Page1A.setScanning(!Page1A.isScanning);
+    // TODO app callback
   },
 
 
   // helper functions (for listview)
 
 
+  setScanning: function(isScanning) {
+    this.isScanning = isScanning;
+    if (isScanning) {
+      $.mobile.loading( "show", {
+        text: "Scanning BLE Devices",
+        textVisible: true,
+        theme: "b",
+      });
+      this.html_button_scan.val("Stop Scanning");
+    } else {
+      $.mobile.loading("hide");
+      this.html_button_scan.val("Scan");
+    }
+    this.html_button_scan.button("refresh");
+  },
+
+
   clearList: function() {
-    html_devices_ul.empty();
-    html_devices_ul.listview("refresh");
+    this.html_devices_ul.empty();
+    this.html_devices_ul.listview("refresh");
   },
 
 
@@ -36,10 +67,11 @@ var Page1A = {
     };
 
     // add from devices_list
-    for(i=0;i<devices_list.length;i++) {
-      html_devices_ul.append(createDeviceListItemFromJson(devices_list[i]));
+    for(i=0;i<this.devices_list.length;i++) {
+      // TODO handle click listeners?
+      this.html_devices_ul.append(createDeviceListItemFromJson(this.devices_list[i]));
     }
-    html_devices_ul.listview("refresh");
+    this.html_devices_ul.listview("refresh");
   },
 
 }
