@@ -35,7 +35,13 @@ var App = {
     var pageId = $.mobile.pageContainer.pagecontainer("getActivePage")[0].id;
     console.log("onPageContainerShow: " + pageId);
     App.initializePageId(pageId);
-  }
+  },
+
+
+  goToPage: function(pageId) {
+    // TODO check that we are using a real pageId (switch)
+    window.location = "#"+pageId;
+  },
 
 }
 

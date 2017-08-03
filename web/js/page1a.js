@@ -29,11 +29,17 @@ var Page1A = {
   onClickScan: function() {
     console.log("onClickScan");
     Page1A.setScanning(!Page1A.isScanning);
-    // TODO app callback
+    // TODO callback to application
   },
 
 
-  // helper functions (for listview)
+  // helper funtions (for ble)
+
+
+  onConnected: function(json) {
+    App.honeybee_device = json;
+    App.goToPage("page1b");
+  },
 
 
   setScanning: function(isScanning) {
@@ -53,6 +59,9 @@ var Page1A = {
   },
 
 
+  // helper functions (for listview)
+
+
   clearList: function() {
     this.html_devices_ul.empty();
     this.html_devices_ul.listview("refresh");
@@ -63,13 +72,30 @@ var Page1A = {
     var createDeviceListItemFromJson = function(json) {
       var name = json["name"];
       var mac = json["mac_address"];
-      return "<li><a href=\"#\"><h4>"+name+"</h4><p>"+mac+"</p></a></li>";
+      return $("<a href=\"#\"><h4>"+name+"</h4><p>"+mac+"</p></a></li>");
+    };
+    var constructCallbackWithJson = function(json) {
+      var onClickDeviceListItem = function(json) {
+        console.log("onClickDeviceListItem with json:");
+        console.log(json);
+        Page1A.setScanning(false);
+        // TODO callback to application
+      };
+
+      // construct callback which calls onClickDeviceListItem with json object
+      return function() { return onClickDeviceListItem(json);} ;
     };
 
     // add from devices_list
     for(i=0;i<this.devices_list.length;i++) {
-      // TODO handle click listeners?
-      this.html_devices_ul.append(createDeviceListItemFromJson(this.devices_list[i]));
+      // grab json object
+      var json = this.devices_list[i];
+      // create html elements
+      var a = createDeviceListItemFromJson(json);
+      var li = $("<li></li>").append(a);
+      this.html_devices_ul.append(li);
+      // add click listener
+      a.on("click", constructCallbackWithJson(json));
     }
     this.html_devices_ul.listview("refresh");
   },
