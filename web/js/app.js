@@ -1,5 +1,12 @@
 var App = {
 
+  // application variables
+  honeybee_device: null,
+  esdr_account: null,
+
+
+  // init/callback functions
+
 
   initialize: function () {
     console.log("onInitialize");
@@ -10,6 +17,9 @@ var App = {
   initializePageId: function(pageId) {
     switch (pageId) {
       case "home":
+        break;
+      case "page1a":
+        Page1A.initialize();
         break;
       default:
         console.warn("unknown pageId="+pageId);

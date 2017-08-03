@@ -1,0 +1,2 @@
+// send list of devices to display
+Page1A.notifyDeviceListChanged([{name: "Placeholder Broadcast", mac_address:"de:ad:be:ef"},{name: "Placeholder Broadcast", mac_address:"de:ad:be:ef"}]);
