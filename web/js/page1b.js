@@ -30,9 +30,9 @@ var Page1B = {
   },
 
 
-  setDeviceInfo: function(name, hw, fw, serial) {
+  populateDeviceInfo: function(name, hw, fw, serial) {
     if (!App.honeybee_device) {
-      console.warn("called setDeviceInfo but does not have a honeybee device; returning to previous page.");
+      console.warn("called populateDeviceInfo but does not have a honeybee device; returning to previous page.");
       App.goToPage("page1a");
       return;
     }
