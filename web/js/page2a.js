@@ -1,25 +1,25 @@
-var Page1A = {
+var Page2A = {
 
-  devices_list: [],
+  networks_list: [],
   html_button_scan: null,
-  html_devices_ul: null,
+  html_networks_ul: null,
   isScanning: false,
 
 
   initialize: function() {
-    console.log("Page1A.initialize");
-    this.html_button_scan = $("#devices-scan");
-    this.html_devices_ul = $("#devices-list");
+    console.log("Page2A.initialize");
+    this.html_button_scan = $("#networks-scan");
+    this.html_networks_ul = $("#networks-list");
 
     this.html_button_scan.off("click");
-    this.html_button_scan.on("click", Page1A.onClickScan);
+    this.html_button_scan.on("click", Page2A.onClickScan);
     this.setScanning(false);
-    this.notifyDeviceListChanged([]);
+    this.notifyNetworkListChanged([]);
   },
 
 
-  notifyDeviceListChanged: function(new_list) {
-    this.devices_list = (new_list == null) ? [] : new_list;
+  notifyNetworkListChanged: function(new_list) {
+    this.networks_list = (new_list == null) ? [] : new_list;
     // TODO compare old/new and only add/remove what is necessary
     this.clearList();
     this.populateList();
@@ -28,17 +28,22 @@ var Page1A = {
 
   onClickScan: function() {
     console.log("onClickScan");
-    Page1A.setScanning(!Page1A.isScanning);
+    Page2A.setScanning(!Page2A.isScanning);
     // TODO callback to application
   },
 
 
-  // helper funtions (for ble)
+  // helper funtions (for wifi)
 
 
   onConnected: function(json) {
-    App.honeybee_device = json;
-    App.goToPage("page1b");
+    if (!App.honeybee_device) {
+      console.warn("Tried onConnected for Page2A but does not have a honeybee device; returning to connect device screen.");
+      App.goToPage("page1a");
+      return;
+    }
+    App.honeybee_device.network = json;
+    App.goToPage("page2b");
   },
 
 
@@ -46,7 +51,7 @@ var Page1A = {
     this.isScanning = isScanning;
     if (isScanning) {
       $.mobile.loading( "show", {
-        text: "Scanning BLE Devices",
+        text: "Scanning WiFi Networks",
         textVisible: true,
         theme: "b",
       });
@@ -63,22 +68,21 @@ var Page1A = {
 
 
   clearList: function() {
-    this.html_devices_ul.empty();
-    this.html_devices_ul.listview("refresh");
+    this.html_networks_ul.empty();
+    this.html_networks_ul.listview("refresh");
   },
 
 
   populateList: function() {
     var createDeviceListItemFromJson = function(json) {
-      var name = json["name"];
-      var mac = json["mac_address"];
-      return $("<a href=\"#\"><h4>"+name+"</h4><p>"+mac+"</p></a>");
+      var ssid = json["ssid"];
+      return $("<a href=\"#\"><h4>"+ssid+"</h4></a>");
     };
     var constructCallbackWithJson = function(json) {
       var onClickDeviceListItem = function(json) {
         console.log("onClickDeviceListItem with json:");
         console.log(json);
-        Page1A.setScanning(false);
+        Page2A.setScanning(false);
         // TODO callback to application
       };
 
@@ -86,18 +90,18 @@ var Page1A = {
       return function() { return onClickDeviceListItem(json);} ;
     };
 
-    // add from devices_list
-    for(i=0;i<this.devices_list.length;i++) {
+    // add from networks_list
+    for(i=0;i<this.networks_list.length;i++) {
       // grab json object
-      var json = this.devices_list[i];
+      var json = this.networks_list[i];
       // create html elements
       var a = createDeviceListItemFromJson(json);
       var li = $("<li></li>").append(a);
-      this.html_devices_ul.append(li);
+      this.html_networks_ul.append(li);
       // add click listener
       a.on("click", constructCallbackWithJson(json));
     }
-    this.html_devices_ul.listview("refresh");
+    this.html_networks_ul.listview("refresh");
   },
 
 }

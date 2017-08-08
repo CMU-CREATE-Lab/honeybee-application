@@ -15,6 +15,7 @@
     <script src="js/app.js"></script>
     <script src="js/page1a.js"></script>
     <script src="js/page1b.js"></script>
+    <script src="js/page2a.js"></script>
   </head>
   <body>
 
@@ -106,18 +107,10 @@
     </div>
     <!-- main -->
     <div role="main" class="ui-content no-top" data-iscroll>
-      <h3>Scan for Networks</h3>
-      <input type="button" value="Scan"/>
+      <h3>Available Networks</h3>
+      <input id="networks-scan" type="button" value="Scan"/>
       <br/>
-      <ul data-role="listview">
-        <li><a href="#">
-          <h4>Placeholder Broadcast</h4>
-          <p>DE:AD:BE:EF</p>
-        </a></li>
-        <li><a href="#">
-          <h4>Placeholder Broadcast</h4>
-          <p>DE:AD:BE:EF</p>
-        </a></li>
+      <ul data-role="listview" id="networks-list">
       </ul>
     </div>
     <!-- footer -->

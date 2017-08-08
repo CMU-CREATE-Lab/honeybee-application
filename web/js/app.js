@@ -24,6 +24,9 @@ var App = {
       case "page1b":
         Page1B.initialize();
         break;
+      case "page2a":
+        Page2A.initialize();
+        break;
       default:
         console.warn("unknown pageId="+pageId);
         break;
