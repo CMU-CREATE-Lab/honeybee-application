@@ -1,15 +1,30 @@
 package org.cmucreatelab.android.honeybee;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
     public static final String LOG_TAG = "Honeybee";
+    public final ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();
+    public BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
+            if (!bleDevices.contains(bluetoothDevice)) {
+                Log.v(LOG_TAG, "found new device: " + bluetoothDevice.getName());
+                bleDevices.add(bluetoothDevice);
+                JavaScriptInterface.notifyDeviceListChanged(webView, bleDevices);
+            }
+        }
+    };
 
 
     @Override
@@ -26,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.webView = (WebView) findViewById(R.id.webView);
-        webView.setWebViewClient(new CustomWebViewClient());
+        webView.setWebViewClient(new CustomWebViewClient(this));
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/web/index.html");
     }

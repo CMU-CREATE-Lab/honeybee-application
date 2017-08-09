@@ -11,6 +11,15 @@ import android.webkit.WebViewClient;
 
 public class CustomWebViewClient extends WebViewClient {
 
+    private MainActivity mainActivity;
+
+
+    public CustomWebViewClient(MainActivity mainActivity) {
+        super();
+        this.mainActivity = mainActivity;
+    }
+
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         Uri uri = Uri.parse(url);
@@ -20,12 +29,13 @@ public class CustomWebViewClient extends WebViewClient {
             String host = uri.getHost();
             String path = uri.getPath().substring(1);
             Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + host+"\nPath=/" + path);
-            JavaScriptInterface.parseSchema(host,path.split("/"));
+            JavaScriptInterface.parseSchema(GlobalHandler.getInstance(mainActivity), host, path.split("/"));
             return true;
         }
         // otherwise, do not override
         return false;
     }
+
 
     @Override
     public void onPageFinished(WebView view, String url) {
