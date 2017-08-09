@@ -17,7 +17,7 @@ public class CustomWebViewClient extends WebViewClient {
 
         // if request is "schema://" then we override
         if (uri.getScheme().equals("schema")) {
-            Log.i("CustomWebViewClient", "Caught message from browser: host=" + uri.getHost()+"\nPath=" + uri.getPath());
+            Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + uri.getHost()+"\nPath=" + uri.getPath());
             view.loadUrl("javascript:alert(\"android\")");
             return true;
         }
@@ -28,7 +28,7 @@ public class CustomWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        Log.i("CustomWebViewClient", "Finished loading page URL="+url);
+        Log.i(MainActivity.LOG_TAG, "Finished loading page URL="+url);
     }
 
 }
