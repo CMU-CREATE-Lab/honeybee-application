@@ -1,0 +1,4 @@
+[submodule "android/generic-ble-module-android"]
+	path = android/generic-ble-module-android
+	url = https://github.com/CMU-CREATE-Lab/generic-ble-module-android.git
+	ignore = dirty
