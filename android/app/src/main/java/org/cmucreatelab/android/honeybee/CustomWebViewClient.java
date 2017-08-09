@@ -17,8 +17,10 @@ public class CustomWebViewClient extends WebViewClient {
 
         // if request is "schema://" then we override
         if (uri.getScheme().equals("schema")) {
-            Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + uri.getHost()+"\nPath=" + uri.getPath());
-            view.loadUrl("javascript:alert(\"android\")");
+            String host = uri.getHost();
+            String path = uri.getPath().substring(1);
+            Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + host+"\nPath=/" + path);
+            JavaScriptInterface.parseSchema(host,path.split("/"));
             return true;
         }
         // otherwise, do not override

@@ -29,7 +29,7 @@ var Page1A = {
   onClickScan: function() {
     console.log("onClickScan");
     Page1A.setScanning(!Page1A.isScanning);
-    // TODO callback to application
+    ApplicationInterface.bleScan(Page1A.isScanning);
   },
 
 
