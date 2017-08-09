@@ -17,6 +17,7 @@
     <script src="js/page1b.js"></script>
     <script src="js/page2a.js"></script>
     <script src="js/page2b.js"></script>
+    <script src="js/page3a.js"></script>
   </head>
   <body>
 
@@ -162,13 +163,13 @@
       <h3>ESDR Login</h3>
       <div class="ui-field-contain">
         <label for="name">Username:</label>
-        <input data-clear-btn="true" name="username" id="username" value="" autocomplete="off"/>
+        <input data-clear-btn="true" name="username" id="esdr-username" value="" autocomplete="off"/>
       </div>
       <div class="ui-field-contain">
         <label for="name">Password:</label>
-        <input type="password" data-clear-btn="true" name="password" id="password" value="" autocomplete="off"/>
+        <input type="password" data-clear-btn="true" name="password" id="esdr-password" value="" autocomplete="off"/>
       </div>
-      <input type="button" value="Login"/>
+      <input type="button" id="esdr-login" value="Login"/>
     </div>
     <!-- footer -->
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
