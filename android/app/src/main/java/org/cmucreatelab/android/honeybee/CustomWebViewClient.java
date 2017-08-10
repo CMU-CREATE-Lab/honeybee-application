@@ -29,7 +29,7 @@ public class CustomWebViewClient extends WebViewClient {
             String host = uri.getHost();
             String path = uri.getPath().substring(1);
             Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + host+"\nPath=/" + path);
-            JavaScriptInterface.parseSchema(GlobalHandler.getInstance(mainActivity), host, path.split("/"));
+            ApplicationInterface.parseSchema(GlobalHandler.getInstance(mainActivity), host, path.split("/"));
             return true;
         }
         // otherwise, do not override
