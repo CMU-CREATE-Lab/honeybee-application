@@ -38,6 +38,7 @@ var Page1A = {
 
   onDeviceConnected: function(json) {
     App.honeybee_device = json;
+    App.displaySpinner(false);
     App.goToPage("page1b");
   },
 
@@ -45,14 +46,10 @@ var Page1A = {
   setScanning: function(isScanning) {
     this.isScanning = isScanning;
     if (isScanning) {
-      $.mobile.loading( "show", {
-        text: "Scanning BLE Devices",
-        textVisible: true,
-        theme: "b",
-      });
+      App.displaySpinner(true, "Scanning BLE Devices");
       this.html_button_scan.val("Stop Scanning");
     } else {
-      $.mobile.loading("hide");
+      App.displaySpinner(false);
       this.html_button_scan.val("Scan");
     }
     this.html_button_scan.button("refresh");
@@ -79,6 +76,7 @@ var Page1A = {
         console.log("onClickDeviceListItem with json:");
         console.log(json);
         Page1A.setScanning(false);
+        App.displaySpinner(true, "Connecting...");
         ApplicationInterface.connectDevice(json["device_id"]);
       };
 

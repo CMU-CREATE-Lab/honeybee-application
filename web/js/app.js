@@ -5,6 +5,22 @@ var App = {
   esdr_account: null,
 
 
+  // helper functions
+
+
+  displaySpinner: function(visible, message) {
+    if (visible) {
+      $.mobile.loading( "show", {
+        text: message,
+        textVisible: true,
+        theme: "b",
+      });
+    } else {
+      $.mobile.loading("hide");
+    }
+  },
+
+
   // init/callback functions
 
 
