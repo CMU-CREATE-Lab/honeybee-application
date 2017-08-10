@@ -27,7 +27,6 @@ public class GlobalHandler {
         this.mainActivity = mainActivity;
         this.serialBleHandler = new SerialBleHandler(mainActivity);
         this.genericBleScanner = serialBleHandler.getScanner();
-        this.genericBleScanner = new GenericBleScanner();
     }
 
     public static GlobalHandler getInstance(MainActivity mainActivity) {
