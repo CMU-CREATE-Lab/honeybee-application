@@ -36,6 +36,16 @@ public class JavaScriptInterface {
     }
 
 
+    public static void populateDeviceInfo(final MainActivity mainActivity, String name, String hw, String fw, String serial) {
+        String params = "";
+        params += "\"" + name + "\", ";
+        params += "\"" + hw + "\", ";
+        params += "\"" + fw + "\", ";
+        params += "\"" + serial + "\"";
+        sendJavaScript(mainActivity, "Page1B.populateDeviceInfo(" + Uri.encode(params) + ")");
+    }
+
+
     private static void sendJavaScript(final MainActivity mainActivity, String script) {
         final String url = "javascript:" + script;
         mainActivity.runOnUiThread(new Runnable() {

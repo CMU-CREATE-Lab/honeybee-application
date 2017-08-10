@@ -19,14 +19,10 @@ var Page1B = {
       return;
     }
     if (!App.honeybee_device.hasDeviceInfo) {
-      this.requestDeviceInfo();
+      App.displaySpinner(true, "Requesting Device Information...");
+      ApplicationInterface.requestDeviceInfo();
     }
     this.displayDeviceInfo();
-  },
-
-
-  requestDeviceInfo: function() {
-    // TODO callback to application
   },
 
 
@@ -40,6 +36,7 @@ var Page1B = {
     $.extend(App.honeybee_device, {hasDeviceInfo: true, device_name: name, hardware_version: hw, firmware_version: fw, serial_number: serial})
 
     Page1B.displayDeviceInfo();
+    App.displaySpinner(false);
   },
 
 
