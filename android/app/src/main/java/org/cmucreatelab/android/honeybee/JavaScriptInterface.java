@@ -71,6 +71,15 @@ public class JavaScriptInterface {
     }
 
 
+    public static void onNetworkConnected(final MainActivity mainActivity, String ssid, int securityType) {
+        String json = "{";
+        json += "ssid: \""+ssid+"\",";
+        json += "security_type: "+securityType;
+        json += "}";
+        sendJavaScript(mainActivity, "Page2A.onNetworkConnected("+ Uri.encode(json) +")");
+    }
+
+
     private static void sendJavaScript(final MainActivity mainActivity, String script) {
         final String url = "javascript:" + script;
         mainActivity.runOnUiThread(new Runnable() {

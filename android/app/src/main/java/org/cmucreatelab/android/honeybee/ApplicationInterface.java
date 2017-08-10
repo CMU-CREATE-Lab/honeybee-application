@@ -82,9 +82,9 @@ public class ApplicationInterface {
                 public void onReceive(Context context, Intent intent) {
                     Log.v(MainActivity.LOG_TAG, "SCAN_RESULTS_AVAILABLE_ACTION");
                     List<ScanResult> results = wifiManager.getScanResults();
-                    for (ScanResult result : results) {
-                        Log.v(MainActivity.LOG_TAG, "scan item: " + result.SSID + " " + result.level + " // " + result.capabilities + " (" + result.BSSID + ")");
-                    }
+//                    for (ScanResult result : results) {
+//                        Log.v(MainActivity.LOG_TAG, "scan item: " + result.SSID + " " + result.level + " // " + result.capabilities + " (" + result.BSSID + ")");
+//                    }
                     globalHandler.mainActivity.unregisterReceiver(this);
                     JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, results);
                 }
@@ -99,8 +99,15 @@ public class ApplicationInterface {
         final MainActivity.NetworkPasswordDialogListener listener = new MainActivity.NetworkPasswordDialogListener() {
             @Override
             public void onClick(String password) {
-                // TODO pass on ssid, securityType, password
                 Log.v(MainActivity.LOG_TAG, "joinNetwork: ssid="+ssid+", securityType="+securityType+", key="+password);
+                SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
+                    @Override
+                    public void onNotificationReceived(String messageSent, String response) {
+                        // TODO check response OK
+                        JavaScriptInterface.onNetworkConnected(globalHandler.mainActivity, ssid, securityType);
+                    }
+                };
+                HoneybeeDevice.requestJoinNetwork(globalHandler.serialBleHandler, notificationListener, securityType, ssid, password);
             }
         };
 
@@ -113,6 +120,19 @@ public class ApplicationInterface {
         } else {
             Log.e(MainActivity.LOG_TAG, "unknown securityType="+securityType);
         }
+    }
+
+
+    private static void requestNetworkInfo(final GlobalHandler globalHandler) {
+        SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
+            @Override
+            public void onNotificationReceived(String messageSent, String response) {
+                Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
+                String[] args = response.split(",");
+                // TODO populate views
+            }
+        };
+        HoneybeeDevice.requestNetworkInfo(globalHandler.serialBleHandler, notificationListener);
     }
 
 
@@ -153,6 +173,13 @@ public class ApplicationInterface {
                     String ssid = Uri.decode(params[0]);
                     int securityType = Integer.valueOf(params[1]);
                     joinNetwork(globalHandler, ssid, securityType);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "requestNetworkInfo":
+                if (params.length == 1 && params[0].equals("")) {
+                    requestNetworkInfo(globalHandler);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }

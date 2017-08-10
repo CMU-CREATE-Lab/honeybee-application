@@ -19,14 +19,9 @@ var Page2B = {
       return;
     }
     if (!App.honeybee_device.hasNetworkInfo) {
-      this.requestNetworkInfo();
+      ApplicationInterface.requestNetworkInfo();
     }
     this.displayNetworkInfo();
-  },
-
-
-  requestNetworkInfo: function() {
-    // TODO callback to application
   },
 
 
