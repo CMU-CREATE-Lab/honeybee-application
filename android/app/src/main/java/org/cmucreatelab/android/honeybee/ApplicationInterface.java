@@ -1,9 +1,18 @@
 package org.cmucreatelab.android.honeybee;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.cmucreatelab.android.genericblemodule.serial.SerialBleHandler;
+
+import java.util.List;
 
 /**
  * Created by mike on 8/10/17.
@@ -55,9 +64,33 @@ public class ApplicationInterface {
     }
 
 
-    private static void wifiScan(GlobalHandler globalHandler, boolean enabled) {
-        // TODO request wifi scans
+    // TODO scanning should be treated as a request instead of a switch (on/off)
+    private static void wifiScan(final GlobalHandler globalHandler, boolean enabled) {
         Log.v(MainActivity.LOG_TAG, "wifiScan enabled="+enabled);
+        if (enabled) {
+            final WifiManager wifiManager = (WifiManager) globalHandler.mainActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            // turn on wifi is not on
+            if (!wifiManager.isWifiEnabled()) {
+                wifiManager.setWifiEnabled(true);
+            }
+            // start scan and list the results
+            if (wifiManager.startScan()) {
+                globalHandler.mainActivity.registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        Log.v(MainActivity.LOG_TAG, "SCAN_RESULTS_AVAILABLE_ACTION");
+                        List<ScanResult> results = wifiManager.getScanResults();
+                        for (ScanResult result : results) {
+                            Log.v(MainActivity.LOG_TAG, "scan item: " + result.SSID + " " + result.level + " // " + result.capabilities + " (" + result.BSSID + ")");
+                        }
+                        globalHandler.mainActivity.unregisterReceiver(this);
+                        JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, results);
+                    }
+                }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+            } else {
+                Log.e(MainActivity.LOG_TAG, "WifiManager failed to start scan.");
+            }
+        }
     }
 
 

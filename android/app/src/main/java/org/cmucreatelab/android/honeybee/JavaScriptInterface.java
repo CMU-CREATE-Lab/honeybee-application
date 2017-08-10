@@ -2,16 +2,24 @@ package org.cmucreatelab.android.honeybee;
 
 import android.bluetooth.BluetoothDevice;
 import android.net.Uri;
+import android.net.wifi.ScanResult;
 import android.util.Log;
 import android.webkit.WebView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mike on 8/9/17.
  */
 
 public class JavaScriptInterface {
+
+
+    private static int findSecurityTypeFromString(String capabilities) {
+        // TODO check string for wep/wpa
+        return 0;
+    }
 
 
     public static void notifyDeviceListChanged(final MainActivity mainActivity, ArrayList<BluetoothDevice> newList) {
@@ -43,6 +51,17 @@ public class JavaScriptInterface {
         params += "\"" + fw + "\", ";
         params += "\"" + serial + "\"";
         sendJavaScript(mainActivity, "Page1B.populateDeviceInfo(" + Uri.encode(params) + ")");
+    }
+
+
+    public static void notifyNetworkListChanged(final MainActivity mainActivity, List<ScanResult> newList) {
+        // TODO need to consider escape characters \"
+        String jsArray = "[";
+        for (ScanResult result: newList) {
+            jsArray += "{ssid: \"" + result.SSID + "\", security_type: " + findSecurityTypeFromString(result.capabilities) + "},";
+        }
+        jsArray += "]";
+        sendJavaScript(mainActivity, "Page2A.notifyNetworkListChanged("+ Uri.encode(jsArray) +")");
     }
 
 
