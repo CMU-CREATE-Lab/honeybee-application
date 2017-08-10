@@ -37,7 +37,7 @@ public class GlobalHandler {
         return instance;
     }
 
-    public void connectDevice(BluetoothDevice device, final MainActivity activity) {
+    public void connectDevice(final BluetoothDevice device) {
         serialBleHandler.connectDevice(device, new SerialBleHandler.ConnectionListener() {
             @Override
             public void onConnected(BluetoothGatt gatt) {
@@ -57,7 +57,7 @@ public class GlobalHandler {
                     setCharacteristicNotification(characteristic, true);
                 }
 
-                // TODO onConnected callback
+                JavaScriptInterface.onDeviceConnected(mainActivity, device);
             }
         });
     }

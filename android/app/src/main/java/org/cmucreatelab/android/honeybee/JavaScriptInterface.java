@@ -14,21 +14,37 @@ import java.util.ArrayList;
 public class JavaScriptInterface {
 
 
-    public static void notifyDeviceListChanged(final WebView webView, ArrayList<BluetoothDevice> newList) {
+    public static void notifyDeviceListChanged(final MainActivity mainActivity, ArrayList<BluetoothDevice> newList) {
         // TODO need to consider escape characters \" in device name and address
         String jsArray = "[";
-        for (BluetoothDevice device: newList) {
-            jsArray += "{name: \"" + device.getName() + "\", mac_address: \"" + device.getAddress() + "\"},";
+        for (int i=0; i<newList.size(); i++) {
+            BluetoothDevice device = newList.get(i);
+            jsArray += "{name: \"" + device.getName() + "\", mac_address: \"" + device.getAddress() + "\", device_id: "+ i +"},";
         }
         jsArray += "]";
-        sendJavaScript(webView, "Page1A.notifyDeviceListChanged("+ Uri.encode(jsArray) +")");
+        sendJavaScript(mainActivity, "Page1A.notifyDeviceListChanged("+ Uri.encode(jsArray) +")");
     }
 
 
-    private static void sendJavaScript(final WebView webView, String script) {
-        String url = "javascript:" + script;
-        Log.v(MainActivity.LOG_TAG, "sendJavaScript: ``"+url+"``");
-        webView.loadUrl(url);
+    public static void onDeviceConnected(final MainActivity mainActivity, BluetoothDevice device) {
+        // TODO need to consider escape characters \" in device name and address
+        String json = "{";
+        json += "name: \"" + device.getName() + "\",";
+        json += "mac_address: \"" + device.getAddress() + "\",";
+        json += "}";
+        sendJavaScript(mainActivity, "Page1A.onDeviceConnected(" + Uri.encode(json) + ")");
+    }
+
+
+    private static void sendJavaScript(final MainActivity mainActivity, String script) {
+        final String url = "javascript:" + script;
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v(MainActivity.LOG_TAG, "sendJavaScript: ``"+url+"``");
+                mainActivity.webView.loadUrl(url);
+            }
+        });
     }
 
 }

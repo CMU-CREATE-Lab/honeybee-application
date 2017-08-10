@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WebView webView;
+    public WebView webView;
     public static final String LOG_TAG = "Honeybee";
     public final ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();
     public BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             if (!bleDevices.contains(bluetoothDevice)) {
                 Log.v(LOG_TAG, "found new device: " + bluetoothDevice.getName());
                 bleDevices.add(bluetoothDevice);
-                JavaScriptInterface.notifyDeviceListChanged(webView, bleDevices);
+                JavaScriptInterface.notifyDeviceListChanged(MainActivity.this, bleDevices);
             }
         }
     };

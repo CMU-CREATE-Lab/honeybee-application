@@ -36,7 +36,7 @@ var Page1A = {
   // helper funtions (for ble)
 
 
-  onConnected: function(json) {
+  onDeviceConnected: function(json) {
     App.honeybee_device = json;
     App.goToPage("page1b");
   },
@@ -79,7 +79,7 @@ var Page1A = {
         console.log("onClickDeviceListItem with json:");
         console.log(json);
         Page1A.setScanning(false);
-        // TODO callback to application
+        ApplicationInterface.connectDevice(json["device_id"]);
       };
 
       // construct callback which calls onClickDeviceListItem with json object
