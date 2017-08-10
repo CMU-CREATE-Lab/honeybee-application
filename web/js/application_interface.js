@@ -18,8 +18,13 @@ var ApplicationInterface = {
   },
 
 
-  wifiScan: function(flag) {
-    this.sendMessageToApplication("wifiScan", [String(flag)]);
+  wifiScan: function() {
+    this.sendMessageToApplication("wifiScan", []);
+  },
+
+
+  joinNetwork: function(ssid, securityType) {
+    this.sendMessageToApplication("joinNetwork", [String(ssid), String(securityType)]);
   },
 
 

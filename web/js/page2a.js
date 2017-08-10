@@ -36,7 +36,7 @@ var Page2A = {
   // helper funtions (for wifi)
 
 
-  onConnected: function(json) {
+  onNetworkConnected: function(json) {
     if (!App.honeybee_device) {
       console.warn("Tried onConnected for Page2A but does not have a honeybee device; returning to connect device screen.");
       App.goToPage("page1a");
@@ -81,7 +81,7 @@ var Page2A = {
         console.log("onClickDeviceListItem with json:");
         console.log(json);
         Page2A.setScanning(false);
-        // TODO callback to application
+        ApplicationInterface.joinNetwork(json["ssid"],json["security_type"]);
       };
 
       // construct callback which calls onClickDeviceListItem with json object

@@ -1,14 +1,19 @@
 package org.cmucreatelab.android.honeybee;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import org.cmucreatelab.android.genericblemodule.serial.SerialBleHandler;
 
@@ -64,32 +69,49 @@ public class ApplicationInterface {
     }
 
 
-    // TODO scanning should be treated as a request instead of a switch (on/off)
-    private static void wifiScan(final GlobalHandler globalHandler, boolean enabled) {
-        Log.v(MainActivity.LOG_TAG, "wifiScan enabled="+enabled);
-        if (enabled) {
-            final WifiManager wifiManager = (WifiManager) globalHandler.mainActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            // turn on wifi is not on
-            if (!wifiManager.isWifiEnabled()) {
-                wifiManager.setWifiEnabled(true);
-            }
-            // start scan and list the results
-            if (wifiManager.startScan()) {
-                globalHandler.mainActivity.registerReceiver(new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-                        Log.v(MainActivity.LOG_TAG, "SCAN_RESULTS_AVAILABLE_ACTION");
-                        List<ScanResult> results = wifiManager.getScanResults();
-                        for (ScanResult result : results) {
-                            Log.v(MainActivity.LOG_TAG, "scan item: " + result.SSID + " " + result.level + " // " + result.capabilities + " (" + result.BSSID + ")");
-                        }
-                        globalHandler.mainActivity.unregisterReceiver(this);
-                        JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, results);
+    private static void wifiScan(final GlobalHandler globalHandler) {
+        final WifiManager wifiManager = (WifiManager) globalHandler.mainActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        // turn on wifi if it is not on
+        if (!wifiManager.isWifiEnabled()) {
+            wifiManager.setWifiEnabled(true);
+        }
+        // start scan and list the results
+        if (wifiManager.startScan()) {
+            globalHandler.mainActivity.registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    Log.v(MainActivity.LOG_TAG, "SCAN_RESULTS_AVAILABLE_ACTION");
+                    List<ScanResult> results = wifiManager.getScanResults();
+                    for (ScanResult result : results) {
+                        Log.v(MainActivity.LOG_TAG, "scan item: " + result.SSID + " " + result.level + " // " + result.capabilities + " (" + result.BSSID + ")");
                     }
-                }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-            } else {
-                Log.e(MainActivity.LOG_TAG, "WifiManager failed to start scan.");
+                    globalHandler.mainActivity.unregisterReceiver(this);
+                    JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, results);
+                }
+            }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        } else {
+            Log.e(MainActivity.LOG_TAG, "WifiManager failed to start scan.");
+        }
+    }
+
+
+    private static void joinNetwork(final GlobalHandler globalHandler, final String ssid, final int securityType) {
+        final MainActivity.NetworkPasswordDialogListener listener = new MainActivity.NetworkPasswordDialogListener() {
+            @Override
+            public void onClick(String password) {
+                // TODO pass on ssid, securityType, password
+                Log.v(MainActivity.LOG_TAG, "joinNetwork: ssid="+ssid+", securityType="+securityType+", key="+password);
             }
+        };
+
+        if (securityType == 2 || securityType == 3) {
+            // prompt for password
+            globalHandler.mainActivity.displayNetworkPasswordDialog(ssid,listener);
+        } else if (securityType == 1) {
+            // no password
+            listener.onClick("");
+        } else {
+            Log.e(MainActivity.LOG_TAG, "unknown securityType="+securityType);
         }
     }
 
@@ -120,9 +142,17 @@ public class ApplicationInterface {
                 }
                 break;
             case "wifiScan":
-                if (params.length == 1) {
-                    boolean enabled = Boolean.valueOf(params[0]);
-                    wifiScan(globalHandler, enabled);
+                if (params.length == 1 && params[0].equals("")) {
+                    wifiScan(globalHandler);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "joinNetwork":
+                if (params.length == 2) {
+                    String ssid = Uri.decode(params[0]);
+                    int securityType = Integer.valueOf(params[1]);
+                    joinNetwork(globalHandler, ssid, securityType);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }

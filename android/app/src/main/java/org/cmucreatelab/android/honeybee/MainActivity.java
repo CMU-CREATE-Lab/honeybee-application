@@ -1,11 +1,17 @@
 package org.cmucreatelab.android.honeybee;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -24,6 +30,29 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+
+    public interface NetworkPasswordDialogListener {
+        void onClick(String password);
+    }
+
+
+    public void displayNetworkPasswordDialog(String ssid, final NetworkPasswordDialogListener listener) {
+        LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_password, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+        builder.setTitle("Enter Password for network "+ssid);
+        builder.setView(view);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String password = ((EditText)view.findViewById(R.id.textFieldPassword)).getText().toString();
+                listener.onClick(password);
+            }
+        });
+        builder.create();
+        builder.show();
+    }
 
 
     @Override
