@@ -28,7 +28,7 @@ var Page2A = {
 
   onClickScan: function() {
     console.log("onClickScan");
-    Page2A.setScanning(!Page2A.isScanning);
+    Page2A.setScanning(true);
     ApplicationInterface.wifiScan(Page2A.isScanning);
   },
 
@@ -55,10 +55,8 @@ var Page2A = {
         textVisible: true,
         theme: "b",
       });
-      this.html_button_scan.val("Stop Scanning");
     } else {
       $.mobile.loading("hide");
-      this.html_button_scan.val("Scan");
     }
     this.html_button_scan.button("refresh");
   },

@@ -17,8 +17,13 @@ public class JavaScriptInterface {
 
 
     private static int findSecurityTypeFromString(String capabilities) {
-        // TODO check string for wep/wpa
-        return 0;
+        if (capabilities.toLowerCase().contains("wep")) {
+            return 3;
+        }
+        if (capabilities.toLowerCase().contains("wpa")) {
+            return 2;
+        }
+        return 1;
     }
 
 
@@ -62,6 +67,7 @@ public class JavaScriptInterface {
         }
         jsArray += "]";
         sendJavaScript(mainActivity, "Page2A.notifyNetworkListChanged("+ Uri.encode(jsArray) +")");
+        sendJavaScript(mainActivity, "Page2A.setScanning(false)");
     }
 
 
