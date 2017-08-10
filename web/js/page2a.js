@@ -29,7 +29,7 @@ var Page2A = {
   onClickScan: function() {
     console.log("onClickScan");
     Page2A.setScanning(!Page2A.isScanning);
-    // TODO callback to application
+    ApplicationInterface.wifiScan(Page2A.isScanning);
   },
 
 

@@ -55,6 +55,12 @@ public class ApplicationInterface {
     }
 
 
+    private static void wifiScan(GlobalHandler globalHandler, boolean enabled) {
+        // TODO request wifi scans
+        Log.v(MainActivity.LOG_TAG, "wifiScan enabled="+enabled);
+    }
+
+
     public static void parseSchema(final GlobalHandler globalHandler, String functionName, String[] params) {
         switch(functionName) {
             case "bleScan":
@@ -76,6 +82,14 @@ public class ApplicationInterface {
             case "requestDeviceInfo":
                 if (params.length == 1 && params[0].equals("")) {
                     requestDeviceInfo(globalHandler);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "wifiScan":
+                if (params.length == 1) {
+                    boolean enabled = Boolean.valueOf(params[0]);
+                    wifiScan(globalHandler, enabled);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }

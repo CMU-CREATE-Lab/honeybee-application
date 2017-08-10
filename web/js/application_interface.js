@@ -18,6 +18,11 @@ var ApplicationInterface = {
   },
 
 
+  wifiScan: function(flag) {
+    this.sendMessageToApplication("wifiScan", [String(flag)]);
+  },
+
+
   // ASSERT: domain is a string, params is an array of strings
   sendMessageToApplication: function(domain, params) {
     // base URL uses default schema and the function name as domain
