@@ -70,7 +70,7 @@ public class NetworkStateMachine implements SerialBleHandler.NotificationListene
                 JavaScriptInterface.onNetworkDisconnected(globalHandler.mainActivity);
             }
         });
-        // TODO display alert dialog
+        globalHandler.mainActivity.displayNetworkErrorDialog(message);
     }
 
 

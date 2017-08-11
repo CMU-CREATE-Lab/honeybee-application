@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public void displayNetworkPasswordDialog(String ssid, final NetworkPasswordDialogListener listener) {
         LayoutInflater inflater = getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_password, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
         builder.setTitle("Enter Password for network "+ssid);
         builder.setView(view);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -50,8 +50,28 @@ public class MainActivity extends AppCompatActivity {
                 listener.onClick(password);
             }
         });
-        builder.create();
-        builder.show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.create();
+                builder.show();
+            }
+        });
+    }
+
+
+    public void displayNetworkErrorDialog(String message) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+        builder.setTitle("Failed to Join Network");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", null);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.create();
+                builder.show();
+            }
+        });
     }
 
 
