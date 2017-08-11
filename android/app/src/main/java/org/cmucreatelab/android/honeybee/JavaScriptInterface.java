@@ -85,6 +85,17 @@ public class JavaScriptInterface {
     }
 
 
+    public static void populateNetworkInfo(final MainActivity mainActivity, String name, String ip, String mac) {
+        // TODO need to consider escape characters \"
+        String params = "";
+        params += "\"" + name + "\", ";
+        params += "\"connected\", ";
+        params += "\"" + ip + "\", ";
+        params += "\"" + mac + "\"";
+        sendJavaScript(mainActivity, "Page2B.populateNetworkInfo(" + Uri.encode(params) + ")");
+    }
+
+
     private static void sendJavaScript(final MainActivity mainActivity, String script) {
         final String url = "javascript:" + script;
         mainActivity.runOnUiThread(new Runnable() {

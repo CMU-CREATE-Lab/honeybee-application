@@ -25,6 +25,8 @@ import java.util.List;
 
 public class ApplicationInterface {
 
+    private static NetworkStateMachine networkStateMachine;
+
 
     private static void bleScan(GlobalHandler globalHandler, boolean enabled) {
         // TODO add a callback when the timer expires and scanning stops?
@@ -124,15 +126,11 @@ public class ApplicationInterface {
 
 
     private static void requestNetworkInfo(final GlobalHandler globalHandler) {
-        SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
-            @Override
-            public void onNotificationReceived(String messageSent, String response) {
-                Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
-                String[] args = response.split(",");
-                // TODO populate views
-            }
-        };
-        HoneybeeDevice.requestNetworkInfo(globalHandler.serialBleHandler, notificationListener);
+        if (networkStateMachine != null) {
+            networkStateMachine.stop();
+        }
+        networkStateMachine = new NetworkStateMachine(globalHandler);
+        networkStateMachine.start();
     }
 
 

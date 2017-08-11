@@ -23,6 +23,7 @@ var Page2B = {
       return;
     }
     if (!App.honeybee_device.hasNetworkInfo) {
+      App.displaySpinner(true, "Please Wait...");
       ApplicationInterface.requestNetworkInfo();
     }
     this.displayNetworkInfo();
@@ -30,6 +31,7 @@ var Page2B = {
 
 
   populateNetworkInfo: function(name, status, ip, mac) {
+    App.displaySpinner(false);
     if (!App.honeybee_device) {
       console.warn("called populateDeviceInfo but does not have a honeybee device; returning to connect page.");
       App.goToPage("page1a");
@@ -65,6 +67,7 @@ var Page2B = {
 
 
   onClickRemoveNetwork: function() {
+    App.honeybee_device.hasNetworkInfo = false;
     ApplicationInterface.removeNetwork();
   },
 
