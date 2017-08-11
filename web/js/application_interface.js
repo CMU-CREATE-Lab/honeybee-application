@@ -33,6 +33,11 @@ var ApplicationInterface = {
   },
 
 
+  removeNetwork: function() {
+    this.sendMessageToApplication("removeNetwork", []);
+  },
+
+
   // ASSERT: domain is a string, params is an array of strings
   sendMessageToApplication: function(domain, params) {
     // base URL uses default schema and the function name as domain

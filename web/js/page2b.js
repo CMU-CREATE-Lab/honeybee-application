@@ -4,6 +4,7 @@ var Page2B = {
   html_network_status: null,
   html_network_ip: null,
   html_network_mac: null,
+  html_button_removenetwork: null,
 
 
   initialize: function() {
@@ -12,7 +13,10 @@ var Page2B = {
     this.html_network_status = $("#network-status");
     this.html_network_ip = $("#network-ip");
     this.html_network_mac = $("#network-mac");
+    this.html_button_removenetwork = $("#network-remove");
 
+    this.html_button_removenetwork.off("click");
+    this.html_button_removenetwork.on("click", Page2B.onClickRemoveNetwork);
     if (!App.honeybee_device) {
       console.warn("Went to Page2B but does not have a honeybee device; returning to connect page.");
       App.goToPage("page1a");
@@ -54,6 +58,14 @@ var Page2B = {
     this.html_network_status.text(status);
     this.html_network_ip.text(ip);
     this.html_network_mac.text(mac);
+  },
+
+
+  // ui callbacks
+
+
+  onClickRemoveNetwork: function() {
+    ApplicationInterface.removeNetwork();
   },
 
 }

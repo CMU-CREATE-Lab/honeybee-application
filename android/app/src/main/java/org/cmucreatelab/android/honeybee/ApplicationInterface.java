@@ -136,6 +136,18 @@ public class ApplicationInterface {
     }
 
 
+    private static void removeNetwork(final GlobalHandler globalHandler) {
+        SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
+            @Override
+            public void onNotificationReceived(String messageSent, String response) {
+                Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
+                JavaScriptInterface.onNetworkDisconnected(globalHandler.mainActivity);
+            }
+        };
+        HoneybeeDevice.requestRemoveNetwork(globalHandler.serialBleHandler, notificationListener);
+    }
+
+
     public static void parseSchema(final GlobalHandler globalHandler, String functionName, String[] params) {
         switch(functionName) {
             case "bleScan":
@@ -180,6 +192,13 @@ public class ApplicationInterface {
             case "requestNetworkInfo":
                 if (params.length == 1 && params[0].equals("")) {
                     requestNetworkInfo(globalHandler);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "removeNetwork":
+                if (params.length == 1 && params[0].equals("")) {
+                    removeNetwork(globalHandler);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }

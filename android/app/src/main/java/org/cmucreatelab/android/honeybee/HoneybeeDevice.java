@@ -27,6 +27,18 @@ public class HoneybeeDevice {
     }
 
 
+    public static void requestNetworkInfo(SerialBleHandler serialBleHandler, SerialBleHandler.NotificationListener notificationListener) {
+        UUID service = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+        UUID serviceChar = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
+
+        BluetoothGattService bleService = serialBleHandler.getDeviceConnection().getService(service);
+        BluetoothGattCharacteristic bleCharacteristic = bleService.getCharacteristic(serviceChar);
+        BluetoothGattCharacteristic bleNotifyCharacteristic = bleService.getCharacteristic(UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e"));
+
+        serialBleHandler.sendMessageForResult(bleCharacteristic, bleNotifyCharacteristic, "W", notificationListener);
+    }
+
+
     public static void requestJoinNetwork(SerialBleHandler serialBleHandler, SerialBleHandler.NotificationListener notificationListener, int securityType, String ssid, String key) {
         UUID service = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
         UUID serviceChar = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
@@ -41,7 +53,7 @@ public class HoneybeeDevice {
     }
 
 
-    public static void requestNetworkInfo(SerialBleHandler serialBleHandler, SerialBleHandler.NotificationListener notificationListener) {
+    public static void requestRemoveNetwork(SerialBleHandler serialBleHandler, SerialBleHandler.NotificationListener notificationListener) {
         UUID service = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
         UUID serviceChar = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
 
@@ -49,7 +61,21 @@ public class HoneybeeDevice {
         BluetoothGattCharacteristic bleCharacteristic = bleService.getCharacteristic(serviceChar);
         BluetoothGattCharacteristic bleNotifyCharacteristic = bleService.getCharacteristic(UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e"));
 
-        serialBleHandler.sendMessageForResult(bleCharacteristic, bleNotifyCharacteristic, "W", notificationListener);
+        serialBleHandler.sendMessageForResult(bleCharacteristic, bleNotifyCharacteristic, "R", notificationListener);
+    }
+
+
+    public static void setFeedKey(SerialBleHandler serialBleHandler, SerialBleHandler.NotificationListener notificationListener, boolean enabled, String key) {
+        UUID service = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+        UUID serviceChar = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
+
+        BluetoothGattService bleService = serialBleHandler.getDeviceConnection().getService(service);
+        BluetoothGattCharacteristic bleCharacteristic = bleService.getCharacteristic(serviceChar);
+        BluetoothGattCharacteristic bleNotifyCharacteristic = bleService.getCharacteristic(UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e"));
+
+        String message = "K,"+ (enabled ? "1" : "0") +","+key;
+
+        serialBleHandler.sendMessageForResult(bleCharacteristic, bleNotifyCharacteristic, message, notificationListener);
     }
 
 }
