@@ -15,6 +15,15 @@ var Page3A = {
 
   onClickLogin: function() {
     console.log("Page3A.onClickLogin");
+    var username = $("#esdr-username").val();
+    var password = $("#esdr-password").val();
+
+    EsdrInterface.requestLogin(username, password, function(data) {
+      // TODO go to next screen
+      console.log("got success");
+      console.log(data);
+      console.log("access token is " + data.access_token);
+    });
   },
 
 
