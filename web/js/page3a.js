@@ -19,10 +19,15 @@ var Page3A = {
     var password = $("#esdr-password").val();
 
     EsdrInterface.requestLogin(username, password, function(data) {
-      // TODO go to next screen
       console.log("got success");
       console.log(data);
       console.log("access token is " + data.access_token);
+      var result = {
+        username: username,
+        userId: data.userId,
+        access_token: data.access_token,
+      };
+      Page3A.onEsdrLogin(result);
     });
   },
 
