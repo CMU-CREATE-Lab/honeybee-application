@@ -1,2 +1,39 @@
 // send list of devices to display
-Page1A.notifyDeviceListChanged([{name: "Placeholder Broadcast", mac_address:"de:ad:be:ef"},{name: "Placeholder Broadcast", mac_address:"de:ad:be:ef"}]);
+Page1A.notifyDeviceListChanged([{name: "Placeholder Broadcast", mac_address:"aa:ad:be:ef", device_id:0},{name: "Placeholder Broadcast", mac_address:"ff:ad:be:ef", device_id:1}]);
+
+// trigger connection with device from javascript
+Page1A.onDeviceConnected({name: "Placeholder Broadcast", mac_address:"aa:ad:be:ef"})
+
+// set device info
+Page1B.populateDeviceInfo("My Device", "1.0.0", "2.0", "d74215239a6fe7d82a6b49fb6b639e7c");
+
+// display info
+Page1B.displayDeviceInfo();
+
+// display available networks
+// security types: 0 = nothing saved (not used), 1 = open, 2 = wpa, 3 = wep
+Page2A.notifyNetworkListChanged([{ssid: "My Open Network", security_type:1},{ssid: "Restricted Network", security_type:2}]);
+
+// trigger network connect
+Page2A.onNetworkConnected({ssid: "My Open Network", security_type:1})
+
+// set network info
+// status: 0 = idle, 1 = cannot see network, 2 = join failed, 3 = authentication failed, 4 = association failed, 5 = joining, 6 = connected
+Page2B.populateNetworkInfo("My Open Network", "connected", "127.0.0.2", "ab:cd:ef:ff");
+
+// (quick setup)
+Page1A.onConnected({name: "Placeholder Broadcast", mac_address:"aa:ad:be:ef"})
+Page1B.populateDeviceInfo("My Device", "1.0.0", "2.0", "d74215239a6fe7d82a6b49fb6b639e7c");
+Page2A.onConnected({ssid: "My Open Network", security_type:1})
+Page2B.populateNetworkInfo("My Open Network", "connected", "127.0.0.2", "ab:cd:ef:ff");
+
+// OR JUST DO THIS:
+App.honeybee_device = {
+  name: "Placeholder Broadcast", mac_address:"aa:ad:be:ef",
+  hasDeviceInfo: true, device_name: "My Device", hardware_version: "1.0.0", firmware_version: "2.0", serial_number: "d74215239a6fe7d82a6b49fb6b639e7c",
+  hasNetworkInfo: true,
+  network: {
+    ssid: "My Open Network", security_type: 1,
+    name: "My Open Network", status: "connected", ip: "127.0.0.2", mac: "ab:cd:ef:ff"
+  },
+};
