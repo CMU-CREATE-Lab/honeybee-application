@@ -23,12 +23,44 @@ var EsdrInterface = {
 
 
   requestCreateNewDevice: function(accessToken, deviceName, serialNumber, success) {
-    console.log("requestCreateNewDevice: accessToken="+accessToken+", deviceName="+deviceName+", serialNumber="+serialNumber);
+    var requestType = "POST";
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var data = {
+      name: deviceName,
+      serialNumber: serialNumber,
+    };
+    var url = "https://esdr.cmucreatelab.org/api/v1/products/"+EsdrInterface.productId+"/devices";
+    // TODO make ajax call
+    // EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
+    console.log("----");
+    console.log("requestCreateNewDevice");
+    console.log(headers);
+    console.log(data);
+    console.log(url);
+    console.log("====");
   },
 
 
   requestCreateNewFeed: function(accessToken, deviceId, feedName, exposure, success) {
-    console.log("requestCreateNewFeed: accessToken="+accessToken+", deviceId="+deviceId+", feedName="+feedName+", exposure="+exposure);
+    var requestType = "POST";
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var data = {
+      name: feedName,
+      exposure: exposure,
+    };
+    var url = "https://esdr.cmucreatelab.org/api/v1/devices/"+deviceId+"/feeds";
+    // TODO make ajax call
+    // EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
+    console.log("----");
+    console.log("requestCreateNewFeed");
+    console.log(headers);
+    console.log(data);
+    console.log(url);
+    console.log("====");
   },
 
 

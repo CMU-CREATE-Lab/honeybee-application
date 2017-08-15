@@ -9,6 +9,7 @@ var Page3A = {
 
     this.html_username = $("#esdr-username");
     this.html_password = $("#esdr-password");
+    $("#esdr-login").off("click");
     $("#esdr-login").on("click", Page3A.onClickLogin);
   },
 

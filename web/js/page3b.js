@@ -11,6 +11,7 @@ var Page3B = {
     this.html_select_exposure = $("#feed_exposure");
     this.html_feed_name = $("#feed_name");
     this.html_button_submit = $("#submit-feed");
+    $("#submit-feed").off("click");
     $("#submit-feed").on("click", Page3B.onClickSubmit);
   },
 
