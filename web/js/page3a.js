@@ -25,7 +25,7 @@ var Page3A = {
       var result = {
         username: username,
         userId: data.userId,
-        access_token: data.access_token,
+        accessToken: data.access_token,
       };
       Page3A.onEsdrLogin(result);
     });

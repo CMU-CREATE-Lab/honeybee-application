@@ -1,17 +1,17 @@
 var EsdrInterface = {
 
-  // constants
-  CLIENT_ID: "",
-  CLIENT_SECRET: "",
   // class variables
   request: null,
+  clientId: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  productId: PRODUCT_ID,
 
 
   requestLogin: function(username, password, success) {
     var data = {
       grant_type: "password",
-      client_id: EsdrInterface.CLIENT_ID,
-      client_secret: EsdrInterface.CLIENT_SECRET,
+      client_id: EsdrInterface.clientId,
+      client_secret: EsdrInterface.clientSecret,
       username: username,
       password: password
     };
@@ -22,8 +22,14 @@ var EsdrInterface = {
   },
 
 
-  requestCreateNewDevice: function() {},
-  requestCreateNewFeed: function() {},
+  requestCreateNewDevice: function(accessToken, deviceName, serialNumber, success) {
+    console.log("requestCreateNewDevice: accessToken="+accessToken+", deviceName="+deviceName+", serialNumber="+serialNumber);
+  },
+
+
+  requestCreateNewFeed: function(accessToken, deviceId, feedName, exposure, success) {
+    console.log("requestCreateNewFeed: accessToken="+accessToken+", deviceId="+deviceId+", feedName="+feedName+", exposure="+exposure);
+  },
 
 
   createAndSendAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
