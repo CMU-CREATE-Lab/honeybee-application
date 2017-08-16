@@ -29,6 +29,7 @@ public class CustomWebViewClient extends WebViewClient {
             String host = uri.getHost();
             String path = uri.getPath().substring(1);
             Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + host+"\nPath=/" + path);
+            // NOTE: this ignores trailing slashes
             ApplicationInterface.parseSchema(GlobalHandler.getInstance(mainActivity), host, path.split("/"));
             return true;
         }

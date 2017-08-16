@@ -81,12 +81,11 @@ public class NetworkStateMachine implements SerialBleHandler.NotificationListene
             return;
         }
         Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
-        String[] args = response.split(",");
+        String[] args = response.split(",", -1);
         if (args.length != 7) {
             Log.e(MainActivity.LOG_TAG, "Received bad number of args from W request; backing out.");
         }
 
-        // TODO you need to remove the terminating character from response
         String status = args[1], macAddress = args[2], ipAddress = args[3], networkSaved = args[4], securityType = args[5], ssid = args[6].substring(0,args[6].length()-1);
         this.currentState = findStateFromString(status);
         switch (currentState) {

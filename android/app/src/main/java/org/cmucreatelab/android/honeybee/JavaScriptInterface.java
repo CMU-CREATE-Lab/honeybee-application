@@ -27,6 +27,11 @@ public class JavaScriptInterface {
     }
 
 
+    public static void setScanning(final MainActivity mainActivity, boolean isScanning) {
+        sendJavaScript(mainActivity, "Page1A.setScanning("+isScanning+")");
+    }
+
+
     public static void notifyDeviceListChanged(final MainActivity mainActivity, ArrayList<BluetoothDevice> newList) {
         // TODO need to consider escape characters \" in device name and address
         String jsArray = "[";

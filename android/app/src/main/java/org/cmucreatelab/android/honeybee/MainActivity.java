@@ -13,6 +13,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
 
+import org.cmucreatelab.android.genericblemodule.generic_ble.GenericBleScanner;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +22,13 @@ public class MainActivity extends AppCompatActivity {
     public WebView webView;
     public static final String LOG_TAG = "Honeybee";
     public final ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();
-    public BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
+    public GenericBleScanner.ScannerCallback scannerCallback = new GenericBleScanner.ScannerCallback() {
+        @Override
+        public void onScanTimerExpired() {
+            Log.v(LOG_TAG, "onScanTimerExpired()");
+            JavaScriptInterface.setScanning(MainActivity.this, false);
+        }
+
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             if (!bleDevices.contains(bluetoothDevice)) {

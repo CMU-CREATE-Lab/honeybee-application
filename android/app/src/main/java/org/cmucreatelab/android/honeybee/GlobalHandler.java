@@ -38,9 +38,14 @@ public class GlobalHandler {
 
     public void connectDevice(final BluetoothDevice device) {
         serialBleHandler.connectDevice(device, new SerialBleHandler.ConnectionListener() {
+            private boolean timedOut = false;
             @Override
             public void onConnected(BluetoothGatt gatt) {
                 Log.i(MainActivity.LOG_TAG, "discovered services");
+                if (timedOut) {
+                    Log.e(MainActivity.LOG_TAG, "discovered services but timedOut");
+                    return;
+                }
 
                 // NOTE: readCharacteristic and setCharacteristicNotification are asynchronous; calling them one after another will not work.
                 // instead, you have to wait for each one to finish before going on to the next one.
@@ -57,6 +62,13 @@ public class GlobalHandler {
                 }
 
                 JavaScriptInterface.onDeviceConnected(mainActivity, device);
+            }
+
+            @Override
+            public void onTimeout() {
+                timedOut = true;
+                Log.w(MainActivity.LOG_TAG, "connectDevice onTimeout");
+                // TODO callback to HTML and stop connection spinner
             }
         });
     }

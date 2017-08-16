@@ -1,19 +1,14 @@
 package org.cmucreatelab.android.honeybee;
 
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import org.cmucreatelab.android.genericblemodule.serial.SerialBleHandler;
 
@@ -29,15 +24,18 @@ public class ApplicationInterface {
 
 
     private static void bleScan(GlobalHandler globalHandler, boolean enabled) {
-        // TODO add a callback when the timer expires and scanning stops?
         if (enabled) {
             Log.v(MainActivity.LOG_TAG, "ble scan turn on");
             globalHandler.mainActivity.bleDevices.clear();
-            globalHandler.genericBleScanner.enableBluetooth(globalHandler.mainActivity);
+            if (globalHandler.genericBleScanner.needsToRequestBluetoothEnabled(globalHandler.mainActivity)) {
+                Log.w(MainActivity.LOG_TAG, "Had to request bluetooth; scan will not be started.");
+                JavaScriptInterface.setScanning(globalHandler.mainActivity, false);
+                return;
+            }
         } else {
             Log.v(MainActivity.LOG_TAG, "ble scan OFF");
         }
-        globalHandler.genericBleScanner.scanLeDevice(enabled, globalHandler.mainActivity.leScanCallback);
+        globalHandler.genericBleScanner.scanLeDevice(enabled, globalHandler.mainActivity.scannerCallback);
     }
 
 
@@ -57,7 +55,7 @@ public class ApplicationInterface {
             @Override
             public void onNotificationReceived(String messageSent, String response) {
                 Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
-                String[] args = response.split(",");
+                String[] args = response.split(",", -1);
                 if (!args[0].equals("I") || args.length != 8) {
                     Log.e(MainActivity.LOG_TAG, "Got a bad response from command I: response="+response);
                 } else {
