@@ -46,6 +46,8 @@ public class GlobalHandler {
                     Log.e(MainActivity.LOG_TAG, "discovered services but timedOut");
                     return;
                 }
+                // stop scan if still scanning
+                genericBleScanner.scanLeDevice(false, mainActivity.scannerCallback);
 
                 // NOTE: readCharacteristic and setCharacteristicNotification are asynchronous; calling them one after another will not work.
                 // instead, you have to wait for each one to finish before going on to the next one.
@@ -68,7 +70,8 @@ public class GlobalHandler {
             public void onTimeout() {
                 timedOut = true;
                 Log.w(MainActivity.LOG_TAG, "connectDevice onTimeout");
-                // TODO callback to HTML and stop connection spinner
+                JavaScriptInterface.setScanning(mainActivity, false);
+                mainActivity.displayBleErrorDialog("timed out while trying to connect to device.");
             }
         });
     }

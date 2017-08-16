@@ -83,6 +83,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void displayBleErrorDialog(String message) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+        builder.setTitle("Bluetooth Error");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", null);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.create();
+                builder.show();
+            }
+        });
+    }
+
+
     @Override
     public void onBackPressed() {
         // TODO this needs to be overridden to avoid users accidentally closing the app
