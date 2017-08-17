@@ -26,7 +26,7 @@ var Page2B = {
       App.displaySpinner(true, "Please Wait...");
       ApplicationInterface.requestNetworkInfo();
     }
-    this.displayNetworkInfo();
+    if (App.honeybee_device.network != null) this.displayNetworkInfo();
   },
 
 
@@ -38,9 +38,8 @@ var Page2B = {
       return;
     }
     if (!App.honeybee_device.network) {
-      console.warn("called populateDeviceInfo but does not have a network; returning to previous page.");
-      App.goToPage("page2a");
-      return;
+      console.warn("called populateDeviceInfo but does not have a network");
+      App.honeybee_device.network = {};
     }
     // Merge the contents of two or more objects together into the first object. (http://api.jquery.com/jQuery.extend/)
     $.extend(App.honeybee_device, {hasNetworkInfo: true});

@@ -86,7 +86,12 @@ public class JavaScriptInterface {
 
 
     public static void onNetworkDisconnected(final MainActivity mainActivity) {
-        sendJavaScript(mainActivity, "App.goToPage(\"page2a\")");
+        goToPage(mainActivity, "page2a");
+    }
+
+
+    public static void disconnectHoneybeeDevice(final MainActivity mainActivity) {
+        sendJavaScript(mainActivity, "App.disconnectHoneybeeDevice()");
     }
 
 
@@ -98,6 +103,11 @@ public class JavaScriptInterface {
         params += "\"" + ip + "\", ";
         params += "\"" + mac + "\"";
         sendJavaScript(mainActivity, "Page2B.populateNetworkInfo(" + Uri.encode(params) + ")");
+    }
+
+
+    public static void goToPage(final MainActivity mainActivity, String pageId) {
+        sendJavaScript(mainActivity, "App.goToPage(\"" + pageId + "\")");
     }
 
 

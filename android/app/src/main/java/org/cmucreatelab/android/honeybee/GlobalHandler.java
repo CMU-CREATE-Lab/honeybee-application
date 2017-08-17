@@ -39,6 +39,7 @@ public class GlobalHandler {
     public void connectDevice(final BluetoothDevice device) {
         serialBleHandler.connectDevice(device, new SerialBleHandler.ConnectionListener() {
             private boolean timedOut = false;
+
             @Override
             public void onConnected(BluetoothGatt gatt) {
                 Log.i(MainActivity.LOG_TAG, "discovered services");
@@ -64,6 +65,12 @@ public class GlobalHandler {
                 }
 
                 JavaScriptInterface.onDeviceConnected(mainActivity, device);
+            }
+
+            @Override
+            public void onDisconnected() {
+                Log.w(MainActivity.LOG_TAG, "onDisconnected for BLE device; going back to scan.");
+                JavaScriptInterface.disconnectHoneybeeDevice(mainActivity);
             }
 
             @Override

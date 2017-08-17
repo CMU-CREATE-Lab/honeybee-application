@@ -86,7 +86,7 @@ public class NetworkStateMachine implements SerialBleHandler.NotificationListene
             Log.e(MainActivity.LOG_TAG, "Received bad number of args from W request; backing out.");
         }
 
-        String status = args[1], macAddress = args[2], ipAddress = args[3], networkSaved = args[4], securityType = args[5], ssid = args[6].substring(0,args[6].length()-1);
+        String status = args[1], macAddress = args[2], ipAddress = args[3], networkSaved = args[4], securityType = args[5], ssid = args[6];
         this.currentState = findStateFromString(status);
         switch (currentState) {
             case CANNOT_SEE_NETWORK:
