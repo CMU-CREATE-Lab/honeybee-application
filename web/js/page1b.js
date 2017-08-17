@@ -6,6 +6,9 @@ var Page1B = {
   html_device_serial_number: null,
 
 
+  // TODO handle disconnect device by user navigation (otherwise we are connected to multiple devices with no control)
+
+
   initialize: function() {
     console.log("Page1B.initialize");
     this.html_device_name = $("#device-name");

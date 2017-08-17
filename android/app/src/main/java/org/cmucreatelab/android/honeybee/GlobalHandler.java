@@ -70,6 +70,7 @@ public class GlobalHandler {
             @Override
             public void onDisconnected() {
                 Log.w(MainActivity.LOG_TAG, "onDisconnected for BLE device; going back to scan.");
+                mainActivity.displayBleErrorDialog("Device disconnected.");
                 JavaScriptInterface.disconnectHoneybeeDevice(mainActivity);
             }
 

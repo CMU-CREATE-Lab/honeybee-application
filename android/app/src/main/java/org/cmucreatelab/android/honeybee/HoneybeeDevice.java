@@ -15,6 +15,9 @@ import java.util.UUID;
 public class HoneybeeDevice {
 
 
+    // TODO handle state when the device was already disconnected
+
+
     public static void requestDeviceInfo(SerialBleHandler serialBleHandler, SerialBleHandler.NotificationListener notificationListener) {
         UUID service = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
         UUID serviceChar = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
