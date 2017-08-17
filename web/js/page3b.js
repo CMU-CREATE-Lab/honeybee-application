@@ -25,15 +25,24 @@ var Page3B = {
     var exposure = Page3B.html_select_exposure.val();
 
     // TODO wait for success before create new feed
-    EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, null);
-    var deviceId = 0;
-    EsdrInterface.requestCreateNewFeed(accessToken, deviceId, feedName, exposure, null);
-    Page3B.onFeedCreated({});
+    EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, function(deviceData) {
+      console.log("requestCreateNewDevice success");
+      console.log(deviceData);
+      var deviceId = deviceData.data.id;
+      EsdrInterface.requestCreateNewFeed(accessToken, deviceId, feedName, exposure, function(feedData) {
+        console.log(feedData);
+        console.log("requestCreateNewFeed success");
+        Page3B.onFeedCreated(feedData.data);
+      });
+    });
   },
 
 
   onFeedCreated: function(json) {
     console.log("Page3B.onFeedCreated");
+    App.honeybee_device.esdr_feed = json;
+    console.log("apiKeyReadOnly="+json.apiKeyReadOnly);
+    // TODO send apiKey to honeybee device via ble
     App.goToPage("page4");
   }
 

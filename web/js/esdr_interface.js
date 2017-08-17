@@ -32,14 +32,7 @@ var EsdrInterface = {
       serialNumber: serialNumber,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/products/"+EsdrInterface.productId+"/devices";
-    // TODO make ajax call
-    // EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
-    console.log("----");
-    console.log("requestCreateNewDevice");
-    console.log(headers);
-    console.log(data);
-    console.log(url);
-    console.log("====");
+    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
   },
 
 
@@ -53,14 +46,7 @@ var EsdrInterface = {
       exposure: exposure,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/devices/"+deviceId+"/feeds";
-    // TODO make ajax call
-    // EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
-    console.log("----");
-    console.log("requestCreateNewFeed");
-    console.log(headers);
-    console.log(data);
-    console.log(url);
-    console.log("====");
+    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
   },
 
 
@@ -85,14 +71,10 @@ var EsdrInterface = {
   },
 
 
-  // onAjaxSuccess: function(data) {
-  //
-  // },
-  //
-  //
   onAjaxError: function(message) {
     console.log("got error");
     console.log(message);
+    // TODO send error to application so we can display message
   },
 
 }
