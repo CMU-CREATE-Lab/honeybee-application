@@ -111,6 +111,11 @@ public class JavaScriptInterface {
     }
 
 
+    public static void onFeedKeySent(final MainActivity mainActivity) {
+        sendJavaScript(mainActivity, "Page3B.onFeedKeySent()");
+    }
+
+
     private static void sendJavaScript(final MainActivity mainActivity, String script) {
         final String url = "javascript:" + script;
         mainActivity.runOnUiThread(new Runnable() {

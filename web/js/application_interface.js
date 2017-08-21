@@ -38,6 +38,11 @@ var ApplicationInterface = {
   },
 
 
+  setFeedKey: function(isEnabled, feedKey) {
+    this.sendMessageToApplication("setFeedKey", [String(isEnabled), String(feedKey)]);
+  },
+
+
   // ASSERT: domain is a string, params is an array of strings
   sendMessageToApplication: function(domain, params) {
     // base URL uses default schema and the function name as domain

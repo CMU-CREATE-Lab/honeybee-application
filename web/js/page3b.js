@@ -24,7 +24,6 @@ var Page3B = {
     var feedName = Page3B.html_feed_name.val();
     var exposure = Page3B.html_select_exposure.val();
 
-    // TODO wait for success before create new feed
     EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, function(deviceData) {
       console.log("requestCreateNewDevice success");
       console.log(deviceData);
@@ -42,7 +41,12 @@ var Page3B = {
     console.log("Page3B.onFeedCreated");
     App.honeybee_device.esdr_feed = json;
     console.log("apiKeyReadOnly="+json.apiKeyReadOnly);
-    // TODO send apiKey to honeybee device via ble
+    ApplicationInterface.setFeedKey(true, json.apiKeyReadOnly);
+  },
+
+
+  onFeedKeySent: function() {
+    console.log("Page3B.onFeedKeySent");
     App.goToPage("page4");
   }
 

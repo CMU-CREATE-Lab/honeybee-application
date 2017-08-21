@@ -144,6 +144,18 @@ public class ApplicationInterface {
     }
 
 
+    private static void setFeedKey(final GlobalHandler globalHandler, boolean isEnabled, String feedKey) {
+        SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
+            @Override
+            public void onNotificationReceived(String messageSent, String response) {
+                Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
+                JavaScriptInterface.onFeedKeySent(globalHandler.mainActivity);
+            }
+        };
+        HoneybeeDevice.setFeedKey(globalHandler.serialBleHandler, notificationListener, isEnabled, feedKey);
+    }
+
+
     public static void parseSchema(final GlobalHandler globalHandler, String functionName, String[] params) {
         switch(functionName) {
             case "bleScan":
@@ -195,6 +207,15 @@ public class ApplicationInterface {
             case "removeNetwork":
                 if (params.length == 1 && params[0].equals("")) {
                     removeNetwork(globalHandler);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "setFeedKey":
+                if (params.length == 2) {
+                    boolean isEnabled = Boolean.valueOf(params[0]);
+                    String feedKey = Uri.decode(params[1]);
+                    setFeedKey(globalHandler, isEnabled, feedKey);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }
