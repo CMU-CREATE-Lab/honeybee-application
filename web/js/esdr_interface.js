@@ -18,7 +18,9 @@ var EsdrInterface = {
     var headers = {};
     var url = "https://esdr.cmucreatelab.org/oauth/token";
 
-    EsdrInterface.createAndSendAjaxRequest("POST", headers, data, url, success, EsdrInterface.onAjaxError);
+    EsdrInterface.createAndSendAjaxRequest("POST", headers, data, url, success, function(error){
+      ApplicationInterface.displayDialog("Invalid Username/Password");
+    });
   },
 
 

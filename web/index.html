@@ -22,36 +22,23 @@
     <script src="js/page2b.js"></script>
     <script src="js/page3a.js"></script>
     <script src="js/page3b.js"></script>
+    <script src="js/page4.js"></script>
   </head>
   <body>
 
 
   <div data-role="page" id="home">
-    <!-- panel -->
-    <div data-role="panel" id="home-panel" data-display="overlay">
-      <a href="#" data-rel="close" data-role="button" data-icon="carat-l" data-inline="true">Close</a>
-      <ul data-role="listview" data-inset="true" data-icon="false">
-        <li><a href="#page1a" data-transition="none">1. Connect Honeybee</a></li>
-        <li><a href="#page2a" data-transition="none">2. Network Setup</a></li>
-        <li><a href="#page3a" data-transition="none">3. ESDR Setup</a></li>
-      </ul>
-    </div>
     <!-- header -->
     <div data-role="header" data-position="fixed" data-tap-toggle="false">
       <h1>Honeybee</h1>
-      <a href="#home-panel" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext"></a>
     </div>
     <!-- main -->
     <div role="main" class="ui-content no-top" data-iscroll>
       <div class="homepage-section-top">
-        <h3>Main Screen</h3>
+        <h3>Welcome To Honeybee</h3>
+        <p>Please power on your Honeybee device and click the button below to get started.</p>
+        <a href="#page1a" class="ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r">Get Started</a>
       </div>
-    </div>
-    <!-- footer -->
-    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
-      <h1></h1>
-      <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
-      <a href="#page1a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
     </div>
   </div>
 
@@ -179,7 +166,7 @@
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
       <h1></h1>
       <a href="#page2b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
-      <a href="#page3b" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+      <a href="#page4" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r"><i>Skip</i></a>
     </div>
   </div>
 
@@ -211,7 +198,7 @@
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
       <h1></h1>
       <a href="#page3a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
-      <a href="#page4" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+      <a href="#page4" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r"><i>Skip</i></a>
     </div>
   </div>
 
