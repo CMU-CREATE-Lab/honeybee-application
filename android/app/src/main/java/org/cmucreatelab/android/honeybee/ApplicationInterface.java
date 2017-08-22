@@ -156,6 +156,11 @@ public class ApplicationInterface {
     }
 
 
+    private static void displayDialog(final GlobalHandler globalHandler, String message) {
+        globalHandler.mainActivity.displayGeneralErrorDialog(message);
+    }
+
+
     public static void parseSchema(final GlobalHandler globalHandler, String functionName, String[] params) {
         switch(functionName) {
             case "bleScan":
@@ -216,6 +221,14 @@ public class ApplicationInterface {
                     boolean isEnabled = Boolean.valueOf(params[0]);
                     String feedKey = Uri.decode(params[1]);
                     setFeedKey(globalHandler, isEnabled, feedKey);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "displayDialog":
+                if (params.length == 1) {
+                    String message = Uri.decode(params[0]);
+                    displayDialog(globalHandler, message);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }

@@ -72,9 +72,8 @@ var EsdrInterface = {
 
 
   onAjaxError: function(message) {
-    console.log("got error");
-    console.log(message);
-    // TODO send error to application so we can display message
+    var errorString = (message.responseJSON.message) ? message.responseJSON.message : "unknown error";
+    ApplicationInterface.displayDialog(errorString);
   },
 
 }
