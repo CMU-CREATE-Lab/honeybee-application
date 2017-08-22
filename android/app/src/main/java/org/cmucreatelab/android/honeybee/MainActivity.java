@@ -45,71 +45,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // NOTE: dialogView, listener, and message can be null
+    private void displayAndCreateDialog(View dialogView, String positiveButtonText, DialogInterface.OnClickListener listener, String title, String message) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+
+        // check if null before setting
+        builder.setTitle(title);
+        if (dialogView != null) builder.setView(dialogView);
+        if (message != null) builder.setMessage(message);
+
+        // set button and listener (can be null)
+        builder.setPositiveButton(positiveButtonText, listener);
+
+        // create and show dialog
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.create();
+                builder.show();
+            }
+        });
+    }
+
+
     public void displayNetworkPasswordDialog(String ssid, final NetworkPasswordDialogListener listener) {
         LayoutInflater inflater = getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_password, null);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
-        builder.setTitle("Enter Password for network "+ssid);
-        builder.setView(view);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String password = ((EditText)view.findViewById(R.id.textFieldPassword)).getText().toString();
                 listener.onClick(password);
             }
-        });
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                builder.create();
-                builder.show();
-            }
-        });
+        };
+
+        displayAndCreateDialog(view, "OK", dialogListener, "Enter Password for network "+ssid, null);
     }
 
 
     public void displayNetworkErrorDialog(String message) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
-        builder.setTitle("Failed to Join Network");
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", null);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                builder.create();
-                builder.show();
-            }
-        });
+        displayAndCreateDialog(null, "OK", null, "Failed to Join Network", message);
     }
 
 
     public void displayBleErrorDialog(String message) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
-        builder.setTitle("Bluetooth Error");
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", null);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                builder.create();
-                builder.show();
-            }
-        });
+        displayAndCreateDialog(null, "OK", null, "Bluetooth Error", message);
     }
 
 
     public void displayGeneralErrorDialog(String message) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
-        builder.setTitle("Application Error");
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", null);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                builder.create();
-                builder.show();
-            }
-        });
+        displayAndCreateDialog(null, "OK", null, "Application Error", message);
     }
 
 
