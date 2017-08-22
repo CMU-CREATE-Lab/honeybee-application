@@ -37,6 +37,10 @@ public class GlobalHandler {
     }
 
     public void connectDevice(final BluetoothDevice device) {
+        // check if a connection already exists before starting a new one
+        if (serialBleHandler.getDeviceConnection() != null) {
+            serialBleHandler.getDeviceConnection().disconnect();
+        }
         serialBleHandler.connectDevice(device, new SerialBleHandler.ConnectionListener() {
             private boolean timedOut = false;
 
