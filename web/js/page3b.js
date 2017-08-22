@@ -31,15 +31,17 @@ var Page3B = {
       EsdrInterface.requestCreateNewFeed(accessToken, deviceId, feedName, exposure, function(feedData) {
         console.log(feedData);
         console.log("requestCreateNewFeed success");
-        Page3B.onFeedCreated(feedData.data);
+        Page3B.onFeedCreated(feedData.data, feedName, exposure);
       });
     });
   },
 
 
-  onFeedCreated: function(json) {
+  onFeedCreated: function(json, feedName, exposure) {
     console.log("Page3B.onFeedCreated");
     App.honeybee_device.esdr_feed = json;
+    App.honeybee_device.esdr_feed_name = feedName;
+    App.honeybee_device.esdr_feed_exposure = exposure;
     console.log("apiKeyReadOnly="+json.apiKeyReadOnly);
     ApplicationInterface.setFeedKey(true, json.apiKeyReadOnly);
   },
