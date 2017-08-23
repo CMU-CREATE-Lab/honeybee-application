@@ -100,8 +100,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // TODO this needs to be overridden to avoid users accidentally closing the app
-        super.onBackPressed();
+        // NOTE: this method isn't triggered a dialog is displayed
+        Log.v(LOG_TAG, "MainActivity.onBackPressed()");
+
+        String title = "Honeybee";
+        String message = "Close Application?";
+        DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // TODO cleanup on app closing
+                finish();
+            }
+        };
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", clickListener);
+        builder.setNegativeButton("Cancel", null);
+        builder.setCancelable(false);
+
+        // create and show dialog
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.create();
+                builder.show();
+            }
+        });
     }
 
 
