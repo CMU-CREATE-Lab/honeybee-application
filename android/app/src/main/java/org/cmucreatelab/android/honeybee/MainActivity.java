@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // NOTE: dialogView, listener, and message can be null
-    private void displayAndCreateDialog(View dialogView, String positiveButtonText, DialogInterface.OnClickListener listener, String title, String message) {
+    private void createAndDisplayDialog(View dialogView, String positiveButtonText, DialogInterface.OnClickListener listener, String title, String message) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
 
         // check if null before setting
@@ -61,6 +61,31 @@ public class MainActivity extends AppCompatActivity {
 
         // set button and listener (can be null)
         builder.setPositiveButton(positiveButtonText, listener);
+
+        // create and show dialog
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.create();
+                builder.show();
+            }
+        });
+    }
+
+
+    // NOTE: listeners can be null
+    private void createAndDisplayDialogWithChoice(String positiveButtonText, DialogInterface.OnClickListener positiveListener, String negativeButtonText, DialogInterface.OnClickListener negativeListener, String title, String message) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
+
+        // check if null before setting
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(positiveButtonText, positiveListener);
+        builder.setNegativeButton(negativeButtonText, negativeListener);
+        builder.setCancelable(false);
 
         // create and show dialog
         runOnUiThread(new Runnable() {
@@ -91,22 +116,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        displayAndCreateDialog(view, "OK", dialogListener, "Enter Password for network "+ssid, null);
+        createAndDisplayDialog(view, "OK", dialogListener, "Enter Password for network "+ssid, null);
     }
 
 
     public void displayNetworkErrorDialog(String message) {
-        displayAndCreateDialog(null, "OK", null, "Failed to Join Network", message);
+        createAndDisplayDialog(null, "OK", null, "Failed to Join Network", message);
     }
 
 
     public void displayBleErrorDialog(String message) {
-        displayAndCreateDialog(null, "OK", null, "Bluetooth Error", message);
+        createAndDisplayDialog(null, "OK", null, "Bluetooth Error", message);
     }
 
 
     public void displayGeneralErrorDialog(String message) {
-        displayAndCreateDialog(null, "OK", null, "Application Error", message);
+        createAndDisplayDialog(null, "OK", null, "Application Error", message);
     }
 
 
@@ -124,22 +149,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         };
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
 
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", clickListener);
-        builder.setNegativeButton("Cancel", null);
-        builder.setCancelable(false);
-
-        // create and show dialog
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                builder.create();
-                builder.show();
-            }
-        });
+        createAndDisplayDialogWithChoice("OK", clickListener, "Cancel", null, title, message);
     }
 
 
@@ -179,7 +190,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(LOG_TAG, "onRequestPermissionsResult: PERMISSION GRANTED");
             } else {
                 Log.v(LOG_TAG, "onRequestPermissionsResult: PERMISSION DENIED");
-                // TODO dialog explaining why we need fine location permission
+                String title = "NEED LOCATION PERMISSION";
+                String message = "In newer versions of Android, applications that perform Bluetooth scanning require location permissions. Please allow location access for this application to continue.";
+                String button1 = "Retry", button2 = "Close Application";
+                DialogInterface.OnClickListener listener1 = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        checkAndRequestLocationPermission();
+                    }
+                }, listener2 = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                };
+
+                createAndDisplayDialogWithChoice(button1, listener1, button2, listener2, title, message);
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
