@@ -1,9 +1,13 @@
 package org.cmucreatelab.android.honeybee;
 
+import android.Manifest;
 import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +24,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public WebView webView;
+    private static final int REQUEST_CODE_ACCESS_FINE_LOCATION = 1;
     public static final String LOG_TAG = "Honeybee";
     public final ArrayList<BluetoothDevice> bleDevices = new ArrayList<>();
     public GenericBleScanner.ScannerCallback scannerCallback = new GenericBleScanner.ScannerCallback() {
@@ -65,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+    }
+
+
+    private void checkAndRequestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, "android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ACCESS_FINE_LOCATION);
+        }
     }
 
 
@@ -137,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // ACCESS_FINE_LOCATION: only ask if permission not granted (android api level 23 or higher)
+        checkAndRequestLocationPermission();
+
         this.webView = (WebView) findViewById(R.id.webView);
         webView.setWebViewClient(new CustomWebViewClient(this));
         webView.getSettings().setJavaScriptEnabled(true);
@@ -155,6 +170,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.v(LOG_TAG, "onResume");
         super.onResume();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_ACCESS_FINE_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.v(LOG_TAG, "onRequestPermissionsResult: PERMISSION GRANTED");
+            } else {
+                Log.v(LOG_TAG, "onRequestPermissionsResult: PERMISSION DENIED");
+                // TODO dialog explaining why we need fine location permission
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
 }
