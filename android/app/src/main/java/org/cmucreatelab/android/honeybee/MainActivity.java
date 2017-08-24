@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             if (!bleDevices.contains(bluetoothDevice)) {
-                Log.v(LOG_TAG, "found new device: " + bluetoothDevice.getName());
                 bleDevices.add(bluetoothDevice);
                 JavaScriptInterface.notifyDeviceListChanged(MainActivity.this, bleDevices);
             }

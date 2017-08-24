@@ -25,15 +25,12 @@ public class ApplicationInterface {
 
     private static void bleScan(GlobalHandler globalHandler, boolean enabled) {
         if (enabled) {
-            Log.v(MainActivity.LOG_TAG, "ble scan turn on");
             globalHandler.mainActivity.bleDevices.clear();
             if (globalHandler.genericBleScanner.needsToRequestBluetoothEnabled(globalHandler.mainActivity)) {
                 Log.w(MainActivity.LOG_TAG, "Had to request bluetooth; scan will not be started.");
                 JavaScriptInterface.setScanning(globalHandler.mainActivity, false);
                 return;
             }
-        } else {
-            Log.v(MainActivity.LOG_TAG, "ble scan OFF");
         }
         globalHandler.genericBleScanner.scanLeDevice(enabled, globalHandler.mainActivity.scannerCallback);
     }
@@ -80,11 +77,8 @@ public class ApplicationInterface {
             globalHandler.mainActivity.registerReceiver(new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    Log.v(MainActivity.LOG_TAG, "SCAN_RESULTS_AVAILABLE_ACTION");
                     List<ScanResult> results = wifiManager.getScanResults();
-//                    for (ScanResult result : results) {
-//                        Log.v(MainActivity.LOG_TAG, "scan item: " + result.SSID + " " + result.level + " // " + result.capabilities + " (" + result.BSSID + ")");
-//                    }
+                    // TODO for (ScanResult result : results) remove results with result.SSID blank
                     globalHandler.mainActivity.unregisterReceiver(this);
                     JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, results);
                 }
@@ -99,7 +93,7 @@ public class ApplicationInterface {
         final MainActivity.NetworkPasswordDialogListener listener = new MainActivity.NetworkPasswordDialogListener() {
             @Override
             public void onClick(String password) {
-                Log.v(MainActivity.LOG_TAG, "joinNetwork: ssid="+ssid+", securityType="+securityType+", key="+password);
+                Log.v(MainActivity.LOG_TAG, "joinNetwork: ssid="+ssid+", securityType="+securityType);
                 SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
                     @Override
                     public void onNotificationReceived(String messageSent, String response) {
