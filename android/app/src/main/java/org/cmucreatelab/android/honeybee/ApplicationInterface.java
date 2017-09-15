@@ -12,6 +12,7 @@ import android.util.Log;
 
 import org.cmucreatelab.android.genericblemodule.serial.SerialBleHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,9 +79,15 @@ public class ApplicationInterface {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     List<ScanResult> results = wifiManager.getScanResults();
-                    // TODO for (ScanResult result : results) remove results with result.SSID blank
+                    List<ScanResult> list = new ArrayList<>();
+                    // only add SSIDs that are not blank
+                    for (ScanResult result: results) {
+                        if (result.SSID != null && !result.SSID.equals("")) {
+                            list.add(result);
+                        }
+                    }
                     globalHandler.mainActivity.unregisterReceiver(this);
-                    JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, results);
+                    JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, list);
                 }
             }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         } else {
