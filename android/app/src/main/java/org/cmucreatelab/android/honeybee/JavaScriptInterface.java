@@ -116,6 +116,11 @@ public class JavaScriptInterface {
     }
 
 
+    public static void onFeedKeyRemoved(final MainActivity mainActivity) {
+        sendJavaScript(mainActivity, "Page4.onFeedKeyRemoved()");
+    }
+
+
     private static void sendJavaScript(final MainActivity mainActivity, String script) {
         final String url = "javascript:" + script;
         mainActivity.runOnUiThread(new Runnable() {

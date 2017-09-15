@@ -155,6 +155,18 @@ public class ApplicationInterface {
     }
 
 
+    private static void removeFeedKey(final GlobalHandler globalHandler) {
+        SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
+            @Override
+            public void onNotificationReceived(String messageSent, String response) {
+                Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
+                JavaScriptInterface.onFeedKeyRemoved(globalHandler.mainActivity);
+            }
+        };
+        HoneybeeDevice.setFeedKey(globalHandler.serialBleHandler, notificationListener, false, "");
+    }
+
+
     public static void parseSchema(final GlobalHandler globalHandler, String functionName, String[] params) {
         switch(functionName) {
             case "bleScan":
@@ -227,6 +239,12 @@ public class ApplicationInterface {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }
                 break;
+            case "removeFeedKey":
+                if (params.length == 1) {
+                    removeFeedKey(globalHandler);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
             default:
                 Log.e(MainActivity.LOG_TAG, "failed to parse function name="+functionName);
         }

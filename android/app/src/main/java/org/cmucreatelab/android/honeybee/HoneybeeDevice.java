@@ -76,7 +76,7 @@ public class HoneybeeDevice {
         BluetoothGattCharacteristic bleCharacteristic = bleService.getCharacteristic(serviceChar);
         BluetoothGattCharacteristic bleNotifyCharacteristic = bleService.getCharacteristic(UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e"));
 
-        String message = "K,"+ (enabled ? "1" : "0") +","+key;
+        String message = "K,"+ (enabled ? "1,"+key : "0");
 
         serialBleHandler.sendMessageForResult(bleCharacteristic, bleNotifyCharacteristic, message, notificationListener);
     }

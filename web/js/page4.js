@@ -13,6 +13,8 @@ var Page4 = {
   // esdr
   html_feed_name: null,
   html_feed_exposure: null,
+  // feed key
+  html_button_feedkey: null,
 
 
   initialize: function() {
@@ -33,6 +35,24 @@ var Page4 = {
     this.html_feed_name = $("#page4-feed-name");
     this.html_feed_exposure = $("#page4-feed-exposure");
     this.displayFeedInfo();
+
+    this.html_button_feedkey = $("#button-feed-key-remove");
+    this.html_button_feedkey.off("click");
+    this.html_button_feedkey.on("click", Page4.onClickRemoveFeedKey);
+  },
+
+
+  onClickRemoveFeedKey: function() {
+    console.log("onClickRemoveFeedKey");
+    ApplicationInterface.removeFeedKey();
+  },
+
+
+  onFeedKeyRemoved: function() {
+    App.honeybee_device.esdr_feed = {};
+    delete App.honeybee_device.esdr_feed_name;
+    delete App.honeybee_device.esdr_feed_exposure;
+    Page4.displayFeedInfo();
   },
 
 
