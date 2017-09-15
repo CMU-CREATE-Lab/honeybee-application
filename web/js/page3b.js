@@ -42,8 +42,8 @@ var Page3B = {
     App.honeybee_device.esdr_feed = json;
     App.honeybee_device.esdr_feed_name = feedName;
     App.honeybee_device.esdr_feed_exposure = exposure;
-    console.log("apiKeyReadOnly="+json.apiKeyReadOnly);
-    ApplicationInterface.setFeedKey(true, json.apiKeyReadOnly);
+    console.log("apiKey="+json.apiKey);
+    ApplicationInterface.setFeedKey(true, json.apiKey);
   },
 
 
