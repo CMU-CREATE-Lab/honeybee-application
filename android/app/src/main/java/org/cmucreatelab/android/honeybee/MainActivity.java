@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
+            if (!bluetoothDeviceHasValidHoneybeeName(bluetoothDevice)) {
+                Log.w(LOG_TAG, "Not adding bluetooth device with name="+bluetoothDevice.getName());
+                return;
+            }
             if (!bleDevices.contains(bluetoothDevice)) {
                 bleDevices.add(bluetoothDevice);
                 JavaScriptInterface.notifyDeviceListChanged(MainActivity.this, bleDevices);
@@ -46,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
     public interface NetworkPasswordDialogListener {
         void onClick(String password);
+    }
+
+
+    private boolean bluetoothDeviceHasValidHoneybeeName(BluetoothDevice bluetoothDevice) {
+        String name = bluetoothDevice.getName();
+        if (name != null && name.length() > 2) {
+            if (bluetoothDevice.getName().substring(0,2).equals("HB"))
+                return true;
+        }
+        return false;
     }
 
 
