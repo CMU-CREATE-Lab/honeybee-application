@@ -148,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void displayRemoveFeedKeyDialog() {
+        String title = "ESDR Feed";
+        String message = "Feed Key removed from Honeybee.";
+        createAndDisplayDialog(null, "OK", null, title, message);
+    }
+
+
     @Override
     public void onBackPressed() {
         // NOTE: this method isn't triggered a dialog is displayed

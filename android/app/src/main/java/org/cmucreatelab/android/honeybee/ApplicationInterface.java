@@ -167,6 +167,7 @@ public class ApplicationInterface {
             @Override
             public void onNotificationReceived(String messageSent, String response) {
                 Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
+                globalHandler.mainActivity.displayRemoveFeedKeyDialog();
                 JavaScriptInterface.onFeedKeyRemoved(globalHandler.mainActivity);
             }
         };
