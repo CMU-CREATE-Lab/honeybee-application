@@ -24,14 +24,14 @@ var Page3B = {
     var feedName = Page3B.html_feed_name.val();
     var exposure = Page3B.html_select_exposure.val();
 
-    EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, function(deviceData) {
+    EsdrInterface.findOrCreateDeviceFromSerialNumber(accessToken, deviceName, serialNumber, function(deviceData) {
       console.log("requestCreateNewDevice success");
       console.log(deviceData);
-      var deviceId = deviceData.data.id;
+      var deviceId = deviceData.id;
       EsdrInterface.requestCreateNewFeed(accessToken, deviceId, feedName, exposure, function(feedData) {
         console.log(feedData);
         console.log("requestCreateNewFeed success");
-        Page3B.onFeedCreated(feedData.data, feedName, exposure);
+        Page3B.onFeedCreated(feedData, feedName, exposure);
       });
     });
   },

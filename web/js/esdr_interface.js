@@ -7,6 +7,27 @@ var EsdrInterface = {
   productId: PRODUCT_ID,
 
 
+  findOrCreateDeviceFromSerialNumber: function(accessToken, deviceName, serialNumber, callback) {
+    var findDeviceResponse = function(responseData) {
+      if (responseData.data.rows.length > 0) {
+        console.log("findOrCreateDeviceFromSerialNumber: found device id="+responseData.data.rows[0].id);
+        callback(responseData.data.rows[0]);
+      } else {
+        var createDeviceResponse = function(response2data) {
+          console.log("findOrCreateDeviceFromSerialNumber: created new device with id="+response2data.data.id);
+          callback(response2data.data);
+        };
+        EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, createDeviceResponse);
+      }
+    };;
+    var ajaxData = {
+      "whereAnd": "serialNumber="+serialNumber,
+    };
+
+    EsdrInterface.requestDevices(accessToken, ajaxData, findDeviceResponse);
+  },
+
+
   requestLogin: function(username, password, success) {
     var data = {
       grant_type: "password",
@@ -24,6 +45,18 @@ var EsdrInterface = {
   },
 
 
+  requestDevices: function(accessToken, ajaxData, success) {
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var requestType = "GET";
+    var url = "http://esdr.cmucreatelab.org/api/v1/devices";
+
+    EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
+  },
+
+
+  // TODO this needs to first check for if the device already exists
   requestCreateNewDevice: function(accessToken, deviceName, serialNumber, success) {
     var requestType = "POST";
     var headers = {
@@ -34,7 +67,7 @@ var EsdrInterface = {
       serialNumber: serialNumber,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/products/"+EsdrInterface.productId+"/devices";
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
+    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError);
   },
 
 
@@ -48,7 +81,7 @@ var EsdrInterface = {
       exposure: exposure,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/devices/"+deviceId+"/feeds";
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError)
+    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, function(response){ success(response.data); }, EsdrInterface.onAjaxError);
   },
 
 
