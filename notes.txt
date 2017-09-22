@@ -36,4 +36,8 @@ App.honeybee_device = {
     ssid: "My Open Network", security_type: 1,
     name: "My Open Network", status: "connected", ip: "127.0.0.2", mac: "ab:cd:ef:ff"
   },
+  esdr_feed: {},
+  esdr_feed_name: "My ESDR Feed",
+  esdr_feed_exposure: "Virtual",
+  esdr_feed_key: "ffffffffffffff",
 };
