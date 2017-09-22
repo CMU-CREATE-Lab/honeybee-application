@@ -99,7 +99,7 @@ public class ApplicationInterface {
     private static void joinNetwork(final GlobalHandler globalHandler, final String ssid, final int securityType) {
         final MainActivity.NetworkPasswordDialogListener listener = new MainActivity.NetworkPasswordDialogListener() {
             @Override
-            public void onClick(String password) {
+            public void onClick(int mSecurityType, String mSsid, String key) {
                 Log.v(MainActivity.LOG_TAG, "joinNetwork: ssid="+ssid+", securityType="+securityType);
                 SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
                     @Override
@@ -108,16 +108,16 @@ public class ApplicationInterface {
                         JavaScriptInterface.onNetworkConnected(globalHandler.mainActivity, ssid, securityType);
                     }
                 };
-                HoneybeeDevice.requestJoinNetwork(globalHandler.serialBleHandler, notificationListener, securityType, ssid, password);
+                HoneybeeDevice.requestJoinNetwork(globalHandler.serialBleHandler, notificationListener, securityType, ssid, key);
             }
         };
 
         if (securityType == 2 || securityType == 3) {
             // prompt for password
-            globalHandler.mainActivity.displayNetworkPasswordDialog(ssid,listener);
+            globalHandler.mainActivity.displayNetworkPasswordDialog(securityType, ssid,listener);
         } else if (securityType == 1) {
             // no password
-            listener.onClick("");
+            listener.onClick(securityType, ssid, "");
         } else {
             Log.e(MainActivity.LOG_TAG, "unknown securityType="+securityType);
         }

@@ -10,12 +10,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import org.cmucreatelab.android.genericblemodule.generic_ble.GenericBleScanner;
 
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public interface NetworkPasswordDialogListener {
-        void onClick(String password);
+        void onClick(int securityType, String ssid, String key);
     }
 
 
@@ -118,18 +120,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void displayNetworkPasswordDialog(String ssid, final NetworkPasswordDialogListener listener) {
-        LayoutInflater inflater = getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_password, null);
+    public void displayNetworkPasswordDialog(final int securityType, final String ssid, final NetworkPasswordDialogListener listener) {
+        final View view = NetworkDialogHelper.createInstanceWithNetworkTypeAndSSID(this, securityType, ssid);
+
         DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String password = ((EditText)view.findViewById(R.id.textFieldPassword)).getText().toString();
-                listener.onClick(password);
+                listener.onClick(securityType, ssid, password);
             }
         };
 
         createAndDisplayDialog(view, "OK", dialogListener, "Enter Password for network "+ssid, null);
+    }
+
+
+    // TODO make call for dialog to specify a network manually (i.e. a network that is not broadcasted)
+    public void displayNetworkManualDialog(final NetworkPasswordDialogListener listener) {
+        final View view = NetworkDialogHelper.createInstance(this);
+
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String ssid = ((EditText)view.findViewById(R.id.textFieldSSID)).getText().toString();
+                String password = ((EditText)view.findViewById(R.id.textFieldPassword)).getText().toString();
+                int securityType=0;
+                int checkedItem = ((RadioGroup)view.findViewById(R.id.radioGroupNetworkType)).getCheckedRadioButtonId();
+                if (checkedItem == R.id.radioButton1) {
+                    securityType = 1;
+                } else if (checkedItem == R.id.radioButton2) {
+                    securityType = 2;
+                } else if (checkedItem == R.id.radioButton3) {
+                    securityType = 3;
+                }
+                listener.onClick(securityType, ssid, password);
+            }
+        };
+
+        createAndDisplayDialog(view, "OK", dialogListener, "Enter Your Network Information", null);
     }
 
 
