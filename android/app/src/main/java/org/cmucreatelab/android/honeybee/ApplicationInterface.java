@@ -96,6 +96,25 @@ public class ApplicationInterface {
     }
 
 
+    private static void addNetwork(final GlobalHandler globalHandler) {
+        final MainActivity.NetworkPasswordDialogListener listener = new MainActivity.NetworkPasswordDialogListener() {
+            @Override
+            public void onClick(final int securityType, final String ssid, String key) {
+                SerialBleHandler.NotificationListener notificationListener = new SerialBleHandler.NotificationListener() {
+                    @Override
+                    public void onNotificationReceived(String messageSent, String response) {
+                        // TODO check response OK
+                        JavaScriptInterface.onNetworkConnected(globalHandler.mainActivity, ssid, securityType);
+                    }
+                };
+                HoneybeeDevice.requestJoinNetwork(globalHandler.serialBleHandler, notificationListener, securityType, ssid, key);
+            }
+        };
+
+        globalHandler.mainActivity.displayNetworkManualDialog(listener);
+    }
+
+
     private static void joinNetwork(final GlobalHandler globalHandler, final String ssid, final int securityType) {
         final MainActivity.NetworkPasswordDialogListener listener = new MainActivity.NetworkPasswordDialogListener() {
             @Override
@@ -203,6 +222,13 @@ public class ApplicationInterface {
             case "wifiScan":
                 if (params.length == 1 && params[0].equals("")) {
                     wifiScan(globalHandler);
+                } else {
+                    Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
+                }
+                break;
+            case "addNetwork":
+                if (params.length == 1 && params[0].equals("")) {
+                    addNetwork(globalHandler);
                 } else {
                     Log.e(MainActivity.LOG_TAG, "bad number of parameters for function "+functionName+"; params size="+params.length);
                 }

@@ -29,6 +29,8 @@ public class NetworkDialogHelper {
                 textFieldPassword.setTransformationMethod(b ? null : new PasswordTransformationMethod());
             }
         });
+        // select open network by default
+        ((RadioGroup)view.findViewById(R.id.radioGroupNetworkType)).check(R.id.radioButton1);
 
         return view;
     }

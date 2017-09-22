@@ -23,6 +23,11 @@ var ApplicationInterface = {
   },
 
 
+  addNetwork: function() {
+    this.sendMessageToApplication("addNetwork", []);
+  },
+
+
   joinNetwork: function(ssid, securityType) {
     this.sendMessageToApplication("joinNetwork", [String(ssid), String(securityType)]);
   },

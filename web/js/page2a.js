@@ -33,6 +33,12 @@ var Page2A = {
   },
 
 
+  onClickAddNetwork: function() {
+    console.log("onClickAddNetwork");
+    ApplicationInterface.addNetwork();
+  },
+
+
   // helper funtions (for wifi)
 
 
