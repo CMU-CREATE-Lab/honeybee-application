@@ -1,3 +1,8 @@
+/**
+ * Namespace for all app-related calls.
+ * @namespace App
+ */
+
 var App = {
 
   // application variables
@@ -8,6 +13,11 @@ var App = {
   // helper functions
 
 
+  /**
+   * Shows or hides a spinner in HTML (jquerymobile CSS).
+   * @param {boolean} visible - True indicates that we want to show the spinner; False hides the spinner.
+   * @param {string} message - The message to be displayed on the spinner when {@link visible} is true.
+   */
   displaySpinner: function(visible, message) {
     if (visible) {
       $.mobile.loading( "show", {
@@ -21,14 +31,33 @@ var App = {
   },
 
 
+  /**
+   * Clears the honeybee device object and redirects to the connect honeybee page.
+   */
   disconnectHoneybeeDevice: function() {
     App.honeybee_device = {};
     App.goToPage("page1a");
   },
 
 
+  /**
+   * Load a new page in the jquerymobile HTML.
+   * @param {string} pageId - HTML id for the jquerymobile page to be loaded.
+   */
   goToPage: function(pageId) {
-    // TODO check that we are using a real pageId (switch)
+    switch (pageId) {
+      case "home":
+      case "page1a":
+      case "page1b":
+      case "page2a":
+      case "page2b":
+      case "page3a":
+      case "page3b":
+      case "page4":
+        break;
+      default:
+        console.log("WARNING - could not find page with pageId="+pageId);
+    }
     window.location = "#"+pageId;
   },
 
@@ -36,12 +65,19 @@ var App = {
   // init/callback functions
 
 
+  /**
+   * Called after the HTML body loads.
+   */
   initialize: function () {
     console.log("onInitialize");
     $(document).on("pagecontainershow", App.onPageContainerShow);
   },
 
 
+  /**
+   * Perform necessary initialization after page loads.
+   * @param {string} pageId - HTML id for the jquerymobile page.
+   */
   initializePageId: function(pageId) {
     switch (pageId) {
       case "home":
@@ -74,6 +110,9 @@ var App = {
   },
 
 
+  /**
+   * Callback for pagecontainershow.
+   */
   onPageContainerShow: function (event, ui) {
     var pageId = $.mobile.pageContainer.pagecontainer("getActivePage")[0].id;
     console.log("onPageContainerShow: " + pageId);
