@@ -1,3 +1,8 @@
+/**
+ * Namespace for all calls to ESDR's API.
+ * @namespace EsdrInterface
+ */
+
 var EsdrInterface = {
 
   // class variables
@@ -7,6 +12,13 @@ var EsdrInterface = {
   productId: PRODUCT_ID,
 
 
+  /**
+   * Given a serial number, determine if the authorized user has a Device already registered on ESDR. If so, return the ESDR Device information. Otherwise, request to create a new EDSR Device and return its information.
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {string} deviceName - The name of the requested ESDR Device.
+   * @param {string} serialNumber - The serial number of the requested ESDR Device.
+   * @param {function} callback - A callback that includes a device JSON object as its parameter.
+   */
   findOrCreateDeviceFromSerialNumber: function(accessToken, deviceName, serialNumber, callback) {
     var findDeviceResponse = function(responseData) {
       if (responseData.data.rows.length > 0) {
@@ -28,6 +40,12 @@ var EsdrInterface = {
   },
 
 
+  /**
+   * Request to log in with ESDR account credentials.
+   * @param {string} username - EDSR username
+   * @param {string} password - EDSR password
+   * @param {function} success - Ajax response.
+   */
   requestLogin: function(username, password, success) {
     var data = {
       grant_type: "password",
@@ -45,6 +63,12 @@ var EsdrInterface = {
   },
 
 
+  /**
+   * Request a list of ESDR Devices for the user.
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {json} ajaxData - The data passed in to the Ajax request.
+   * @param {function} success - Ajax response.
+   */
   requestDevices: function(accessToken, ajaxData, success) {
     var headers = {
       Authorization: "Bearer " + accessToken,
@@ -56,7 +80,13 @@ var EsdrInterface = {
   },
 
 
-  // TODO this needs to first check for if the device already exists
+  /**
+   * Request to create a new ESDR device.
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {string} deviceName - The name of the requested ESDR Device.
+   * @param {string} serialNumber - The serial number of the requested ESDR Device.
+   * @param {function} success - Ajax response.
+   */
   requestCreateNewDevice: function(accessToken, deviceName, serialNumber, success) {
     var requestType = "POST";
     var headers = {
@@ -71,6 +101,14 @@ var EsdrInterface = {
   },
 
 
+  /**
+   * Request to create a new ESDR Feed.
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {int} deviceId - A Device ID associated with an EDSR Device.
+   * @param {string} feedName - The name of the requested ESDR Feed.
+   * @param {string} exposure - The exposure of the requested ESDR Feed; should be one of "outdoor", "indoor", "virtual".
+   * @param {function} success - Ajax response.
+   */
   requestCreateNewFeed: function(accessToken, deviceId, feedName, exposure, success) {
     var requestType = "POST";
     var headers = {
@@ -85,6 +123,15 @@ var EsdrInterface = {
   },
 
 
+  /**
+   * Helper to create and send an Ajax request.
+   * @param {string} requestType - Should be one of the standard HTML request methods (see: {@link https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods}).
+   * @param {json} headers - Headers to include in the HTTP request (see: {@link https://en.wikipedia.org/wiki/List_of_HTTP_header_fields}).
+   * @param {josn} data - The data to include in the HTTP requst.
+   * @param {string} url - The URL of the requested resource.
+   * @param {function} onAjaxSuccess - Callback function when the Ajax request receives a successful response.
+   * @param {function} onAjaxError - Callback function when the Ajax request throws an error.
+   */
   createAndSendAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
     if (this.request != null) {
       console.log("createAndSendAjaxRequest with non-null request; aborting old request.");
@@ -106,6 +153,10 @@ var EsdrInterface = {
   },
 
 
+  /**
+   * Generic callback for Ajax.error in Ajax requests.
+   * @param {json} message - The error returned from Ajax.
+   */
   onAjaxError: function(message) {
     var errorString = (message.responseJSON.message) ? message.responseJSON.message : "unknown error";
     ApplicationInterface.displayDialog(errorString);

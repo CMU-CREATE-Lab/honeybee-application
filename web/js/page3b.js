@@ -1,3 +1,8 @@
+/**
+ * Helper functions and callbacks for page3b.
+ * @namespace Page3B
+ */
+
 var Page3B = {
 
   html_select_exposure: null,
@@ -5,6 +10,9 @@ var Page3B = {
   html_button_submit: null,
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page3A.initialize");
 
@@ -16,6 +24,9 @@ var Page3B = {
   },
 
 
+  /**
+   * Onclick listener for the Submit button.
+   */
   onClickSubmit: function() {
     console.log("Page3B.onClickSubmit");
     var accessToken = App.esdr_account.accessToken;
@@ -37,6 +48,10 @@ var Page3B = {
   },
 
 
+  /**
+   * Called after successful response from ESDR to create a new feed.
+   * @param {json} json - JSON Response from ESDR API with feed info. JSON keys include: "apiKey"
+   */
   onFeedCreated: function(json, feedName, exposure) {
     console.log("Page3B.onFeedCreated");
     App.honeybee_device.esdr_feed = json;
@@ -48,6 +63,9 @@ var Page3B = {
   },
 
 
+  /**
+   * Callback for when the honeybee device successfully responds to our request to set the feed key.
+   */
   onFeedKeySent: function() {
     console.log("Page3B.onFeedKeySent");
     App.goToPage("page4");

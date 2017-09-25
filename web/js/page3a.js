@@ -1,9 +1,17 @@
+/**
+ * Helper functions and callbacks for page3a.
+ * @namespace Page3A
+ */
+
 var Page3A = {
 
   html_username: null,
   html_password: null,
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page3A.initialize");
 
@@ -14,6 +22,9 @@ var Page3A = {
   },
 
 
+  /**
+   * Onclick listener for the Login button.
+   */
   onClickLogin: function() {
     console.log("Page3A.onClickLogin");
     var username = $("#esdr-username").val();
@@ -33,6 +44,10 @@ var Page3A = {
   },
 
 
+  /**
+   * Called after successful response from ESDR to login with user credentials.
+   * @param {json} json - JSON Response from ESDR API with account/token info.
+   */
   onEsdrLogin: function(json) {
     console.log("Page3A.onEsdrLogin");
     App.esdr_account = json;
