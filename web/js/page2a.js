@@ -1,3 +1,8 @@
+/**
+ * Helper functions and callbacks for page2a.
+ * @namespace Page2A
+ */
+
 var Page2A = {
 
   networks_list: [],
@@ -6,6 +11,9 @@ var Page2A = {
   isScanning: false,
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page2A.initialize");
     this.html_button_scan = $("#networks-scan");
@@ -18,6 +26,10 @@ var Page2A = {
   },
 
 
+  /**
+   * Called when the list of WiFi networks changes.
+   * @param {json[]} new_list - the list of scanned WiFi networks. JSON keys to include: "ssid", "security_type"
+   */
   notifyNetworkListChanged: function(new_list) {
     this.networks_list = (new_list == null) ? [] : new_list;
     // TODO compare old/new and only add/remove what is necessary
@@ -26,22 +38,10 @@ var Page2A = {
   },
 
 
-  onClickScan: function() {
-    console.log("onClickScan");
-    Page2A.setScanning(true);
-    ApplicationInterface.wifiScan();
-  },
-
-
-  onClickAddNetwork: function() {
-    console.log("onClickAddNetwork");
-    ApplicationInterface.addNetwork();
-  },
-
-
-  // helper funtions (for wifi)
-
-
+  /**
+   * Callback for when the honeybee device successfully responds to our request to join a WiFi network.
+   * @param {json} json - An object with keys "ssid", "security_type" defined.
+   */
   onNetworkConnected: function(json) {
     if (!App.honeybee_device) {
       console.warn("Tried onConnected for Page2A but does not have a honeybee device; returning to connect device screen.");
@@ -53,6 +53,32 @@ var Page2A = {
   },
 
 
+  /**
+   * Onclick listener for the Scan button.
+   */
+  onClickScan: function() {
+    console.log("onClickScan");
+    Page2A.setScanning(true);
+    ApplicationInterface.wifiScan();
+  },
+
+
+  /**
+   * Onclick listener for the Add Network button.
+   */
+  onClickAddNetwork: function() {
+    console.log("onClickAddNetwork");
+    ApplicationInterface.addNetwork();
+  },
+
+
+  // helper funtions (for wifi)
+
+
+  /**
+   * Display/hide dialog that indiciates if we are currently scanning for WiFi networks; also update scan button text.
+   * @param {boolean} isScanning - True displays the dialog, False hides it.
+   */
   setScanning: function(isScanning) {
     this.isScanning = isScanning;
     if (isScanning) {
@@ -71,12 +97,18 @@ var Page2A = {
   // helper functions (for listview)
 
 
+  /**
+   * Clears the displayed HTML list of all WiFi Network items.
+   */
   clearList: function() {
     this.html_networks_ul.empty();
     this.html_networks_ul.listview("refresh");
   },
 
 
+  /**
+   * Populates the displayed HTML list with all WiFi networks contained in networks_list.
+   */
   populateList: function() {
     var createDeviceListItemFromJson = function(json) {
       var ssid = json["ssid"];

@@ -1,3 +1,8 @@
+/**
+ * Helper functions and callbacks for page2b.
+ * @namespace Page2B
+ */
+
 var Page2B = {
 
   html_network_name: null,
@@ -7,6 +12,9 @@ var Page2B = {
   html_button_removenetwork: null,
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page2B.initialize");
     this.html_network_name = $("#network-name");
@@ -30,6 +38,25 @@ var Page2B = {
   },
 
 
+  /**
+   * Onclick listener for Remove Network button
+   */
+  onClickRemoveNetwork: function() {
+    App.honeybee_device.hasNetworkInfo = false;
+    ApplicationInterface.removeNetwork();
+  },
+
+
+  // helper functions
+
+
+  /**
+   * Populate App.honeybee_device with WiFi Network information; this is called after receiving a response from requesting Network info.
+   * @param {string} name - SSID of the network
+   * @param {string} status - Current status of the network connection (string messages as defined in the protocol)
+   * @param {string} ip - The IP address assigned to the honeybee device
+   * @param {string} mac - The MAC address of the honeybee device
+   */
   populateNetworkInfo: function(name, status, ip, mac) {
     App.displaySpinner(false);
     if (!App.honeybee_device) {
@@ -49,6 +76,9 @@ var Page2B = {
   },
 
 
+  /**
+   * Populate HTML with WiFi Network information.
+   */
   displayNetworkInfo: function() {
     var name = !(App.honeybee_device.network.name) ? "--" : App.honeybee_device.network.name;
     var status = !(App.honeybee_device.network.status) ? "--" : App.honeybee_device.network.status;
@@ -59,15 +89,6 @@ var Page2B = {
     this.html_network_status.text(status);
     this.html_network_ip.text(ip);
     this.html_network_mac.text(mac);
-  },
-
-
-  // ui callbacks
-
-
-  onClickRemoveNetwork: function() {
-    App.honeybee_device.hasNetworkInfo = false;
-    ApplicationInterface.removeNetwork();
   },
 
 }

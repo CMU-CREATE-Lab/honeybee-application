@@ -1,3 +1,8 @@
+/**
+ * Helper functions and callbacks for page4.
+ * @namespace Page4
+ */
+
 var Page4 = {
 
   // device (1b)
@@ -18,6 +23,9 @@ var Page4 = {
   html_button_feedkey: null,
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page4.initialize");
 
@@ -44,12 +52,18 @@ var Page4 = {
   },
 
 
+  /**
+   * Onclick listeneer for the Remove Feed Key button.
+   */
   onClickRemoveFeedKey: function() {
     console.log("onClickRemoveFeedKey");
     ApplicationInterface.removeFeedKey();
   },
 
 
+  /**
+   * Callback for when the honeybee device has successfully cleared its stored Feed key.
+   */
   onFeedKeyRemoved: function() {
     App.honeybee_device.esdr_feed = {};
     delete App.honeybee_device.esdr_feed_name;
@@ -59,6 +73,12 @@ var Page4 = {
   },
 
 
+  // helper functions
+
+
+  /**
+   * Populate HTML with Honeybee Device information.
+   */
   displayDeviceInfo: function() {
     if (!App.honeybee_device) {
       console.warn("called displayDeviceInfo on page4 but does not have a honeybee device");
@@ -77,6 +97,9 @@ var Page4 = {
   },
 
 
+  /**
+   * Populate HTML with WiFi Network information.
+   */
   displayNetworkInfo: function() {
     var name = !(App.honeybee_device.network.name) ? "--" : App.honeybee_device.network.name;
     var status = !(App.honeybee_device.network.status) ? "--" : App.honeybee_device.network.status;
@@ -90,6 +113,9 @@ var Page4 = {
   },
 
 
+  /**
+   * Populate HTML with ESDR Feed information.
+   */
   displayFeedInfo: function() {
     var feedName = !(App.honeybee_device.esdr_feed_name) ? "--" : App.honeybee_device.esdr_feed_name;
     var feedExposure = !(App.honeybee_device.esdr_feed_exposure) ? "--" : App.honeybee_device.esdr_feed_exposure;

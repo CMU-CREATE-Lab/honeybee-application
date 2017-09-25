@@ -1,3 +1,8 @@
+/**
+ * Helper functions and callbacks for page1a.
+ * @namespace Page1A
+ */
+
 var Page1A = {
 
   devices_list: [],
@@ -6,6 +11,9 @@ var Page1A = {
   isScanning: false,
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page1A.initialize");
     this.html_button_scan = $("#devices-scan");
@@ -18,6 +26,20 @@ var Page1A = {
   },
 
 
+  /**
+   * Onclick listener for the Scan button.
+   */
+  onClickScan: function() {
+    console.log("onClickScan");
+    Page1A.setScanning(!Page1A.isScanning);
+    ApplicationInterface.bleScan(Page1A.isScanning);
+  },
+
+
+  /**
+   * Called when the list of honeybee devices changes.
+   * @param {json[]} new_list - The list of scanned honeybee devices. JSON keys to include: "name", "mac_address"
+   */
   notifyDeviceListChanged: function(new_list) {
     this.devices_list = (new_list == null) ? [] : new_list;
     // TODO compare old/new and only add/remove what is necessary
@@ -26,16 +48,9 @@ var Page1A = {
   },
 
 
-  onClickScan: function() {
-    console.log("onClickScan");
-    Page1A.setScanning(!Page1A.isScanning);
-    ApplicationInterface.bleScan(Page1A.isScanning);
-  },
-
-
-  // helper funtions (for ble)
-
-
+  /**
+   * Callback for when a honeybee device is connected.
+   */
   onDeviceConnected: function(json) {
     App.honeybee_device = json;
     App.displaySpinner(false);
@@ -43,6 +58,13 @@ var Page1A = {
   },
 
 
+  // helper funtions (for ble)
+
+
+  /**
+   * Turn on/off BLE scanning.
+   * @param {boolean} isScanning - True to start scanning for bluetooth devices; False to stop scanning.
+   */
   setScanning: function(isScanning) {
     this.isScanning = isScanning;
     if (isScanning) {
@@ -59,12 +81,18 @@ var Page1A = {
   // helper functions (for listview)
 
 
+  /**
+   * Clears the displayed HTML list of all honeybee device items.
+   */
   clearList: function() {
     this.html_devices_ul.empty();
     this.html_devices_ul.listview("refresh");
   },
 
 
+  /**
+   * Populates the displayed HTML list with all honeybee devices contained in devices_list.
+   */
   populateList: function() {
     var createDeviceListItemFromJson = function(json) {
       var name = json["name"];

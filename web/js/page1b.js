@@ -1,3 +1,8 @@
+/**
+ * Helper functions and callbacks for page1b.
+ * @namespace Page1B
+ */
+
 var Page1B = {
 
   html_device_name: null,
@@ -9,6 +14,9 @@ var Page1B = {
   // TODO handle disconnect device by user navigation (otherwise we are connected to multiple devices with no control)
 
 
+  /**
+   * Called after the page container shows the page.
+   */
   initialize: function() {
     console.log("Page1B.initialize");
     this.html_device_name = $("#device-name");
@@ -29,6 +37,13 @@ var Page1B = {
   },
 
 
+  /**
+   * Populate App.honeybee_device with honeybee device information; this is called after receiving a response from requesting device info.
+   * @param {string} name - The honeybee device name
+   * @param {string} hw - The hardware version of the honeybee device
+   * @param {string} fw - The firmware version of the honeybee device
+   * @param {string} serial - The serial number of the honeybee device
+   */
   populateDeviceInfo: function(name, hw, fw, serial) {
     if (!App.honeybee_device) {
       console.warn("called populateDeviceInfo but does not have a honeybee device; returning to previous page.");
@@ -43,6 +58,12 @@ var Page1B = {
   },
 
 
+  // helper funtions
+
+
+  /**
+   * Populate HTML with honeybee device information.
+   */
   displayDeviceInfo: function() {
     if (!App.honeybee_device) {
       console.warn("called displayDeviceInfo but does not have a honeybee device; returning to previous page.");
