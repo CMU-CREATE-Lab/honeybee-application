@@ -7,8 +7,10 @@ import android.webkit.WebViewClient;
 
 /**
  * Created by mike on 8/2/17.
+ *
+ * A subclass of WebViewClient designed to override loading URLs with the custom schema "schema://".
+ *
  */
-
 public class CustomWebViewClient extends WebViewClient {
 
     private MainActivity mainActivity;

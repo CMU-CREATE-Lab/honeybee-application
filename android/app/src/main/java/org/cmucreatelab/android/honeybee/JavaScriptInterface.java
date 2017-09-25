@@ -4,15 +4,15 @@ import android.bluetooth.BluetoothDevice;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.util.Log;
-import android.webkit.WebView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mike on 8/9/17.
+ *
+ * Helper for making calls back to the javascript console in CustomWebViewClient.
  */
-
 public class JavaScriptInterface {
 
 

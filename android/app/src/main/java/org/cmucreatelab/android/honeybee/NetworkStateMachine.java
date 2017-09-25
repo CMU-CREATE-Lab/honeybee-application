@@ -6,8 +6,9 @@ import org.cmucreatelab.android.genericblemodule.serial.SerialBleHandler;
 
 /**
  * Created by mike on 8/11/17.
+ *
+ * Tracks the current state of the Honeybee Device's network connection.
  */
-
 public class NetworkStateMachine implements SerialBleHandler.NotificationListener {
 
     public enum State {

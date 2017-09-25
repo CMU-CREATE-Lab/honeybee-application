@@ -10,10 +10,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
@@ -23,6 +21,11 @@ import org.cmucreatelab.android.genericblemodule.generic_ble.GenericBleScanner;
 
 import java.util.ArrayList;
 
+/**
+ * Created by mike.
+ *
+ * The only Activity in the entire application; just consists of WebView.
+ */
 public class MainActivity extends AppCompatActivity {
 
     public WebView webView;
@@ -230,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v(LOG_TAG, "onResume");
         super.onResume();
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

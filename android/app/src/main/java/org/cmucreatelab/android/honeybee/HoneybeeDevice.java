@@ -10,8 +10,9 @@ import java.util.UUID;
 
 /**
  * Created by mike on 8/10/17.
+ *
+ * Helper for making requests to a previously-connected BluetoothDevice; see protocol document for details.
  */
-
 public class HoneybeeDevice {
 
 

@@ -14,28 +14,20 @@ import java.util.UUID;
 
 /**
  * Created by mike on 7/5/17.
+ *
+ * A Singleton that provides access to application-wide data structures.
  */
-
 public class GlobalHandler {
 
-    private static GlobalHandler instance;
     public MainActivity mainActivity;
     public final SerialBleHandler serialBleHandler;
     public GenericBleScanner genericBleScanner;
 
-    private GlobalHandler(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-        this.serialBleHandler = new SerialBleHandler(mainActivity);
-        this.genericBleScanner = serialBleHandler.getScanner();
-    }
 
-    public static GlobalHandler getInstance(MainActivity mainActivity) {
-        if (instance == null) {
-            instance = new GlobalHandler(mainActivity);
-        }
-        return instance;
-    }
-
+    /**
+     * Connect a given BluetoothDevice to the Android device.
+     * @param device
+     */
     public void connectDevice(final BluetoothDevice device) {
         // check if a connection already exists before starting a new one
         if (serialBleHandler.getDeviceConnection() != null) {
@@ -88,12 +80,39 @@ public class GlobalHandler {
         });
     }
 
+
+    /**
+     * Enables/disables notifications for a given BluetoothGattCharacteristic.
+     * @param characteristic
+     * @param enabled True if enabled, False otherwise.
+     */
     public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic,
                                               boolean enabled) {
         // This is specific to our BLE device.
         BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
                 UUID.fromString("00002902-0000-1000-8000-00805f9b34fb"));
         serialBleHandler.getDeviceConnection().send(new ActionCharacteristicSetNotification(characteristic, descriptor, enabled));
+    }
+
+
+    // singleton implementation
+
+
+    private static GlobalHandler instance;
+
+
+    private GlobalHandler(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+        this.serialBleHandler = new SerialBleHandler(mainActivity);
+        this.genericBleScanner = serialBleHandler.getScanner();
+    }
+
+
+    public static GlobalHandler getInstance(MainActivity mainActivity) {
+        if (instance == null) {
+            instance = new GlobalHandler(mainActivity);
+        }
+        return instance;
     }
 
 }

@@ -12,8 +12,9 @@ import android.widget.RadioGroup;
 
 /**
  * Created by mike on 9/22/17.
+ *
+ * Helper for creating dialogs for configuring network.
  */
-
 public class NetworkDialogHelper {
 
 

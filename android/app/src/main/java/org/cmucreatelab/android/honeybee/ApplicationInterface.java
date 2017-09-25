@@ -17,8 +17,10 @@ import java.util.List;
 
 /**
  * Created by mike on 8/10/17.
+ *
+ * Implementation of functions defined in web/js/application_interface.js
+ *
  */
-
 public class ApplicationInterface {
 
     private static NetworkStateMachine networkStateMachine;
@@ -194,6 +196,12 @@ public class ApplicationInterface {
     }
 
 
+    /**
+     * Handles parsing URL requests that were meant to be overridden and treated as external API calls.
+     * @param globalHandler instance of {@link GlobalHandler}.
+     * @param functionName the name of the function that is trying to be called.
+     * @param params the stringified list of parameters that were passed in with the function.
+     */
     public static void parseSchema(final GlobalHandler globalHandler, String functionName, String[] params) {
         switch(functionName) {
             case "bleScan":
