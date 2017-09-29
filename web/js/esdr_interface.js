@@ -13,11 +13,15 @@ var EsdrInterface = {
 
 
   /**
+   * @callback deviceCallback
+   * @param {json} device - The ESDR Device that was found or created.
+   */
+  /**
    * Given a serial number, determine if the authorized user has a Device already registered on ESDR. If so, return the ESDR Device information. Otherwise, request to create a new EDSR Device and return its information.
    * @param {string} accessToken - EDSR access token for an authorized user.
    * @param {string} deviceName - The name of the requested ESDR Device.
    * @param {string} serialNumber - The serial number of the requested ESDR Device.
-   * @param {function} callback - A callback that includes a device JSON object as its parameter.
+   * @param {deviceCallback} callback - A callback that includes a device JSON object as its parameter.
    */
   findOrCreateDeviceFromSerialNumber: function(accessToken, deviceName, serialNumber, callback) {
     var findDeviceResponse = function(responseData) {
@@ -41,10 +45,14 @@ var EsdrInterface = {
 
 
   /**
+   * @callback ajaxSuccess
+   * @param {json} data - The information received from a successful Ajax request.
+   */
+  /**
    * Request to log in with ESDR account credentials.
    * @param {string} username - EDSR username
    * @param {string} password - EDSR password
-   * @param {function} success - Ajax response.
+   * @param {ajaxSuccess} success - Ajax response.
    */
   requestLogin: function(username, password, success) {
     var data = {
@@ -67,7 +75,7 @@ var EsdrInterface = {
    * Request a list of ESDR Devices for the user.
    * @param {string} accessToken - EDSR access token for an authorized user.
    * @param {json} ajaxData - The data passed in to the Ajax request.
-   * @param {function} success - Ajax response.
+   * @param {ajaxSuccess} success - Ajax response.
    */
   requestDevices: function(accessToken, ajaxData, success) {
     var headers = {
@@ -85,7 +93,7 @@ var EsdrInterface = {
    * @param {string} accessToken - EDSR access token for an authorized user.
    * @param {string} deviceName - The name of the requested ESDR Device.
    * @param {string} serialNumber - The serial number of the requested ESDR Device.
-   * @param {function} success - Ajax response.
+   * @param {ajaxSuccess} success - Ajax response.
    */
   requestCreateNewDevice: function(accessToken, deviceName, serialNumber, success) {
     var requestType = "POST";
@@ -107,7 +115,7 @@ var EsdrInterface = {
    * @param {int} deviceId - A Device ID associated with an EDSR Device.
    * @param {string} feedName - The name of the requested ESDR Feed.
    * @param {string} exposure - The exposure of the requested ESDR Feed; should be one of "outdoor", "indoor", "virtual".
-   * @param {function} success - Ajax response.
+   * @param {ajaxSuccess} success - Ajax response.
    */
   requestCreateNewFeed: function(accessToken, deviceId, feedName, exposure, success) {
     var requestType = "POST";
@@ -129,7 +137,7 @@ var EsdrInterface = {
    * @param {json} headers - Headers to include in the HTTP request (see: {@link https://en.wikipedia.org/wiki/List_of_HTTP_header_fields}).
    * @param {josn} data - The data to include in the HTTP requst.
    * @param {string} url - The URL of the requested resource.
-   * @param {function} onAjaxSuccess - Callback function when the Ajax request receives a successful response.
+   * @param {ajaxSuccess} onAjaxSuccess - Callback function when the Ajax request receives a successful response.
    * @param {function} onAjaxError - Callback function when the Ajax request throws an error.
    */
   createAndSendAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
