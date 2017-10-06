@@ -14,5 +14,11 @@
 @property(weak) IBOutlet UIWebView* webView;
 @property(weak) IBOutlet UILabel* statusLabel;
 
+@property NSString* networkName;
+@property NSValue* securityType;
+@property NSString* password;
+
+- (IBAction) connect:(id)sender;
+
 @end
 

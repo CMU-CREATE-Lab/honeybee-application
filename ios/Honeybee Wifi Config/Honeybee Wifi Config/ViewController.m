@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NetworkDialogViewController.h"
 @import CoreBluetooth;
 
 #include <SystemConfiguration/CaptiveNetwork.h>
@@ -73,6 +74,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	NSMutableData* 		partialResponseData;
 	
 	NSDictionary* deviceInfo;
+	
 
 }
 
@@ -244,6 +246,45 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 			
 			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page1B.populateDeviceInfo(\"%@\",\"%@\",\"%@\",\"%@\")", infoDict[@"deviceName"], infoDict[@"hwVersion"], infoDict[@"fwVersion"], infoDict[@"serialNumber"]]];
 		}
+		else if ([items[0] isEqualToString: @"W"])
+		{
+			NSMutableDictionary* infoDict = [NSMutableDictionary dictionary];
+			// W,status,macAddress,ipAddress,networkSaved,securityType,ssid
+			for (size_t i = 0; i < items.count; ++i)
+			{
+				switch (i)
+				{
+					case 1:
+						infoDict[@"status"] = items[i];
+						break;
+					case 2:
+						infoDict[@"macAddress"] = items[i];
+						break;
+					case 3:
+						infoDict[@"ipAddress"] = items[i];
+						break;
+					case 4:
+						infoDict[@"networkSaved"] = items[i];
+						break;
+					case 5:
+						infoDict[@"securityType"] = items[i];
+						break;
+					case 6:
+						infoDict[@"ssid"] = items[i];
+						break;
+				}
+			}
+			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"populateNetworkInfo(\"%@\",\"%@\",\"%@\",\"%@\")", self.networkName, @"connected", infoDict[@"ipAddress"], infoDict[@"macAddress"]]];
+
+			if ([infoDict[@"status"] integerValue] != 6)
+			{
+				// if not connected, ask info again
+				NSString* cmd = [NSString stringWithFormat: @"J,%@,\"%@\",\"%@\"", self.securityType, self.networkName, self.password];
+				
+				
+				[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
+			}
+		}
 	}
 	
 }
@@ -286,6 +327,8 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 {
 	CBUUID *uuid_service = [CBUUID UUIDWithString:@BLE_DEVICE_SERVICE_UUID];
 	CBUUID *uuid_char = [CBUUID UUIDWithString:@BLE_DEVICE_TX_UUID];
+	
+	assert(self.bleUart);
 	
 	[self writeValue:uuid_service characteristicUUID:uuid_char p: self.bleUart data:d];
 }
@@ -353,26 +396,38 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	[p writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 }
 
-//- (NSString *) getCurrentWifiHotSpotName
-//{
-//	NSString *wifiName = nil;
-//	NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-//	for (NSString *ifnam in ifs) {
-//		NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-//		if (info[ (__bridge id)kCNNetworkInfoKeySSID]) {
-//			wifiName = info[ (__bridge id)kCNNetworkInfoKeySSID];
-//		}
-//	}
+- (NSString *) getCurrentWifiHotSpotName
+{
+	NSString *wifiName = nil;
+	NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+	for (NSString *ifnam in ifs) {
+		NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+		if (info[ (__bridge id)kCNNetworkInfoKeySSID]) {
+			wifiName = info[ (__bridge id)kCNNetworkInfoKeySSID];
+		}
+	}
 //	kCNNetworkInfoKeySSID;
-//	return wifiName;
-//}
+	return wifiName;
+}
+
+- (IBAction) connect:(id)sender
+{
+	NSString* cmd = [NSString stringWithFormat: @"J,%@,\"%@\",\"%@\"", self.securityType, self.networkName, self.password];
+	
+	
+	[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
+	
+	[self.webView stringByEvaluatingJavaScriptFromString: @"App.goToPage(\"Page2B\")"];
+	
+	
+	
+}
 
 - (BOOL) handleLocalRequest: (NSURLRequest *)request
 {
 	NSLog(@"handleLocalRequest: %@", request.URL);
 	NSURL *url = request.URL;
 	
-//	NSString* wifiName = [self getCurrentWifiHotSpotName];
 	
 	if ([url.scheme isEqualToString: @"schema"])
 	{
@@ -409,18 +464,37 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		{
 			NSLog(@"handleLocalRequest: wifiScan");
 			
-			[self.webView stringByEvaluatingJavaScriptFromString: @""];
+			NSString* wifiName = [self getCurrentWifiHotSpotName];
+
+			NSString* json = [NSString stringWithFormat: @"[{ssid: \"%@\", security_type: \"?\"}]", wifiName];
+			
+			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page2A.notifyNetworkListChanged(%@)", json]];
+
+			[self.webView stringByEvaluatingJavaScriptFromString: @"Page2A.setScanning(false)"];
 
 		}
 		else if ([url.host isEqualToString: @"addNetwork"])
 		{
 			NSLog(@"handleLocalRequest: addNetwork");
 			
+			self.networkName = @"";
+			self.password = @"";
+			self.securityType = @(1);
+			
+			[self performSegueWithIdentifier: @"ShowNetworkLoginSegue" sender: self];
+
+			
 			// display dialog adding custom wifi network
 
 		}
 		else if ([url.host isEqualToString: @"joinNetwork"])
 		{
+			self.networkName = [url.pathComponents[1] stringByRemovingPercentEncoding];
+			
+			// ShowNetworkLoginSegue
+			
+			[self performSegueWithIdentifier: @"ShowNetworkLoginSegue" sender: self];
+
 			NSLog(@"handleLocalRequest: joinNetwork");
 
 		}
@@ -452,7 +526,15 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	return NO;
 }
 
-
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString: @"ShowNetworkLoginSegue"])
+	{
+		NetworkDialogViewController* vc = (id)[(UINavigationController*)segue.destinationViewController topViewController];
+		assert(vc);
+		vc.networkName = self.networkName;
+	}
+}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	

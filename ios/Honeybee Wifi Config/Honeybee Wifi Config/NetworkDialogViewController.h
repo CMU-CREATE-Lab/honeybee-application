@@ -10,4 +10,13 @@
 
 @interface NetworkDialogViewController : UIViewController
 
+@property IBOutlet UITextField* ssidField;
+@property IBOutlet UISegmentedControl* securitySegments;
+@property IBOutlet UITextField* passwordField;
+
+@property NSString* networkName;
+
+- (IBAction) dismiss:(id)sender;
+- (IBAction) connectHoneybee:(id)sender;
+
 @end

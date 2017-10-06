@@ -193,13 +193,13 @@
 				DAFFE1651F86B2CE00CFD25C /* AppDelegate.m */,
 				DAFFE1671F86B2CE00CFD25C /* ViewController.h */,
 				DAFFE1681F86B2CE00CFD25C /* ViewController.m */,
+				DAFFE2201F86C19E00CFD25C /* NetworkDialogViewController.h */,
+				DAFFE2211F86C19E00CFD25C /* NetworkDialogViewController.m */,
 				DAFFE16A1F86B2CE00CFD25C /* Main.storyboard */,
 				DAFFE16D1F86B2CE00CFD25C /* Assets.xcassets */,
 				DAFFE16F1F86B2CE00CFD25C /* LaunchScreen.storyboard */,
 				DAFFE1721F86B2CE00CFD25C /* Info.plist */,
 				DAFFE1611F86B2CE00CFD25C /* Supporting Files */,
-				DAFFE2201F86C19E00CFD25C /* NetworkDialogViewController.h */,
-				DAFFE2211F86C19E00CFD25C /* NetworkDialogViewController.m */,
 			);
 			path = "Honeybee Wifi Config";
 			sourceTree = "<group>";
