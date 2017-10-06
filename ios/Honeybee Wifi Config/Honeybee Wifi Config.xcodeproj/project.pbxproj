@@ -1,0 +1,1202 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAFFE1631F86B2CE00CFD25C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFFE1621F86B2CE00CFD25C /* main.m */; };
+		DAFFE1661F86B2CE00CFD25C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFFE1651F86B2CE00CFD25C /* AppDelegate.m */; };
+		DAFFE1691F86B2CE00CFD25C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFFE1681F86B2CE00CFD25C /* ViewController.m */; };
+		DAFFE16C1F86B2CE00CFD25C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAFFE16A1F86B2CE00CFD25C /* Main.storyboard */; };
+		DAFFE16E1F86B2CE00CFD25C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAFFE16D1F86B2CE00CFD25C /* Assets.xcassets */; };
+		DAFFE1711F86B2CE00CFD25C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAFFE16F1F86B2CE00CFD25C /* LaunchScreen.storyboard */; };
+		DAFFE17C1F86B2CE00CFD25C /* Honeybee_Wifi_ConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFFE17B1F86B2CE00CFD25C /* Honeybee_Wifi_ConfigTests.m */; };
+		DAFFE1871F86B2CE00CFD25C /* Honeybee_Wifi_ConfigUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFFE1861F86B2CE00CFD25C /* Honeybee_Wifi_ConfigUITests.m */; };
+		DAFFE21F1F86B87B00CFD25C /* web in Resources */ = {isa = PBXBuildFile; fileRef = DAFFE21E1F86B87800CFD25C /* web */; };
+		DAFFE2221F86C19E00CFD25C /* NetworkDialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFFE2211F86C19E00CFD25C /* NetworkDialogViewController.m */; };
+		DAFFE2241F86C2D300CFD25C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFFE2231F86C2D300CFD25C /* SystemConfiguration.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAFFE1781F86B2CE00CFD25C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAFFE1561F86B2CE00CFD25C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAFFE15D1F86B2CE00CFD25C;
+			remoteInfo = "Honeybee Wifi Config";
+		};
+		DAFFE1831F86B2CE00CFD25C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAFFE1561F86B2CE00CFD25C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAFFE15D1F86B2CE00CFD25C;
+			remoteInfo = "Honeybee Wifi Config";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DAFFE15E1F86B2CE00CFD25C /* Honeybee Wifi Config.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Honeybee Wifi Config.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFFE1621F86B2CE00CFD25C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DAFFE1641F86B2CE00CFD25C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DAFFE1651F86B2CE00CFD25C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DAFFE1671F86B2CE00CFD25C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DAFFE1681F86B2CE00CFD25C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DAFFE16B1F86B2CE00CFD25C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DAFFE16D1F86B2CE00CFD25C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAFFE1701F86B2CE00CFD25C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DAFFE1721F86B2CE00CFD25C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAFFE1771F86B2CE00CFD25C /* Honeybee Wifi ConfigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Honeybee Wifi ConfigTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFFE17B1F86B2CE00CFD25C /* Honeybee_Wifi_ConfigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Honeybee_Wifi_ConfigTests.m; sourceTree = "<group>"; };
+		DAFFE17D1F86B2CE00CFD25C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAFFE1821F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Honeybee Wifi ConfigUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFFE1861F86B2CE00CFD25C /* Honeybee_Wifi_ConfigUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Honeybee_Wifi_ConfigUITests.m; sourceTree = "<group>"; };
+		DAFFE1881F86B2CE00CFD25C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAFFE1951F86B2FB00CFD25C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DAFFE1971F86B2FB00CFD25C /* compiler.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = compiler.xml; sourceTree = "<group>"; };
+		DAFFE1991F86B2FB00CFD25C /* profiles_settings.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = profiles_settings.xml; sourceTree = "<group>"; };
+		DAFFE19A1F86B2FB00CFD25C /* encodings.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = encodings.xml; sourceTree = "<group>"; };
+		DAFFE19B1F86B2FB00CFD25C /* gradle.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gradle.xml; sourceTree = "<group>"; };
+		DAFFE19C1F86B2FB00CFD25C /* misc.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = misc.xml; sourceTree = "<group>"; };
+		DAFFE19D1F86B2FB00CFD25C /* modules.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = modules.xml; sourceTree = "<group>"; };
+		DAFFE19E1F86B2FB00CFD25C /* runConfigurations.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = runConfigurations.xml; sourceTree = "<group>"; };
+		DAFFE19F1F86B2FB00CFD25C /* vcs.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = vcs.xml; sourceTree = "<group>"; };
+		DAFFE1A11F86B2FB00CFD25C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DAFFE1A21F86B2FB00CFD25C /* build.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = build.gradle; sourceTree = "<group>"; };
+		DAFFE1A31F86B2FB00CFD25C /* proguard-rules.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = "proguard-rules.pro"; sourceTree = "<group>"; };
+		DAFFE1AB1F86B2FB00CFD25C /* ExampleInstrumentedTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ExampleInstrumentedTest.java; sourceTree = "<group>"; };
+		DAFFE1AD1F86B2FB00CFD25C /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AndroidManifest.xml; sourceTree = "<group>"; };
+		DAFFE1B11F86B2FB00CFD25C /* application.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = application.css; sourceTree = "<group>"; };
+		DAFFE1B31F86B2FB00CFD25C /* ajax-loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ajax-loader.gif"; sourceTree = "<group>"; };
+		DAFFE1B41F86B2FB00CFD25C /* jquery.mobile-1.4.5.min.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "jquery.mobile-1.4.5.min.css"; sourceTree = "<group>"; };
+		DAFFE1B51F86B2FB00CFD25C /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		DAFFE1B71F86B2FB00CFD25C /* app.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = app.js; sourceTree = "<group>"; };
+		DAFFE1B81F86B2FB00CFD25C /* application_interface.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = application_interface.js; sourceTree = "<group>"; };
+		DAFFE1B91F86B2FB00CFD25C /* esdr_interface.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = esdr_interface.js; sourceTree = "<group>"; };
+		DAFFE1BA1F86B2FB00CFD25C /* page1a.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page1a.js; sourceTree = "<group>"; };
+		DAFFE1BB1F86B2FB00CFD25C /* page1b.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page1b.js; sourceTree = "<group>"; };
+		DAFFE1BC1F86B2FB00CFD25C /* page2a.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page2a.js; sourceTree = "<group>"; };
+		DAFFE1BD1F86B2FB00CFD25C /* page2b.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page2b.js; sourceTree = "<group>"; };
+		DAFFE1BE1F86B2FB00CFD25C /* page3a.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page3a.js; sourceTree = "<group>"; };
+		DAFFE1BF1F86B2FB00CFD25C /* page3b.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page3b.js; sourceTree = "<group>"; };
+		DAFFE1C01F86B2FB00CFD25C /* page4.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = page4.js; sourceTree = "<group>"; };
+		DAFFE1C21F86B2FB00CFD25C /* fastclick.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = fastclick.min.js; sourceTree = "<group>"; };
+		DAFFE1C31F86B2FB00CFD25C /* jquery-1.12.4.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "jquery-1.12.4.min.js"; sourceTree = "<group>"; };
+		DAFFE1C41F86B2FB00CFD25C /* jquery.mobile-1.4.5.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "jquery.mobile-1.4.5.min.js"; sourceTree = "<group>"; };
+		DAFFE1CA1F86B2FB00CFD25C /* ApplicationInterface.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ApplicationInterface.java; sourceTree = "<group>"; };
+		DAFFE1CB1F86B2FB00CFD25C /* CustomWebViewClient.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = CustomWebViewClient.java; sourceTree = "<group>"; };
+		DAFFE1CC1F86B2FB00CFD25C /* GlobalHandler.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GlobalHandler.java; sourceTree = "<group>"; };
+		DAFFE1CD1F86B2FB00CFD25C /* HoneybeeDevice.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = HoneybeeDevice.java; sourceTree = "<group>"; };
+		DAFFE1CE1F86B2FB00CFD25C /* JavaScriptInterface.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = JavaScriptInterface.java; sourceTree = "<group>"; };
+		DAFFE1CF1F86B2FB00CFD25C /* MainActivity.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = MainActivity.java; sourceTree = "<group>"; };
+		DAFFE1D01F86B2FB00CFD25C /* NetworkDialogHelper.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = NetworkDialogHelper.java; sourceTree = "<group>"; };
+		DAFFE1D11F86B2FB00CFD25C /* NetworkStateMachine.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = NetworkStateMachine.java; sourceTree = "<group>"; };
+		DAFFE1D41F86B2FB00CFD25C /* activity_main.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = activity_main.xml; sourceTree = "<group>"; };
+		DAFFE1D51F86B2FB00CFD25C /* dialog_network.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = dialog_network.xml; sourceTree = "<group>"; };
+		DAFFE1D71F86B2FB00CFD25C /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon.png; sourceTree = "<group>"; };
+		DAFFE1D91F86B2FB00CFD25C /* colors.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = colors.xml; sourceTree = "<group>"; };
+		DAFFE1DA1F86B2FB00CFD25C /* strings.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = strings.xml; sourceTree = "<group>"; };
+		DAFFE1DB1F86B2FB00CFD25C /* styles.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = styles.xml; sourceTree = "<group>"; };
+		DAFFE1E21F86B2FB00CFD25C /* ExampleUnitTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ExampleUnitTest.java; sourceTree = "<group>"; };
+		DAFFE1E31F86B2FB00CFD25C /* build.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = build.gradle; sourceTree = "<group>"; };
+		DAFFE1E51F86B2FB00CFD25C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DAFFE1E61F86B2FB00CFD25C /* build.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = build.gradle; sourceTree = "<group>"; };
+		DAFFE1E71F86B2FB00CFD25C /* proguard-rules.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = "proguard-rules.pro"; sourceTree = "<group>"; };
+		DAFFE1EF1F86B2FB00CFD25C /* ExampleInstrumentedTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ExampleInstrumentedTest.java; sourceTree = "<group>"; };
+		DAFFE1F11F86B2FB00CFD25C /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AndroidManifest.xml; sourceTree = "<group>"; };
+		DAFFE1F81F86B2FB00CFD25C /* ActionCharacteristicRead.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionCharacteristicRead.java; sourceTree = "<group>"; };
+		DAFFE1F91F86B2FB00CFD25C /* ActionCharacteristicSetNotification.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionCharacteristicSetNotification.java; sourceTree = "<group>"; };
+		DAFFE1FA1F86B2FB00CFD25C /* ActionCharacteristicWrite.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionCharacteristicWrite.java; sourceTree = "<group>"; };
+		DAFFE1FB1F86B2FB00CFD25C /* ActionDescriptorRead.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionDescriptorRead.java; sourceTree = "<group>"; };
+		DAFFE1FC1F86B2FB00CFD25C /* ActionDescriptorWrite.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionDescriptorWrite.java; sourceTree = "<group>"; };
+		DAFFE1FD1F86B2FB00CFD25C /* ActionWaitForNotify.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionWaitForNotify.java; sourceTree = "<group>"; };
+		DAFFE1FF1F86B2FB00CFD25C /* GenericBleAction.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleAction.java; sourceTree = "<group>"; };
+		DAFFE2001F86B2FB00CFD25C /* GenericBleCallback.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleCallback.java; sourceTree = "<group>"; };
+		DAFFE2011F86B2FB00CFD25C /* GenericBleDeviceConnection.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleDeviceConnection.java; sourceTree = "<group>"; };
+		DAFFE2021F86B2FB00CFD25C /* GenericBleScanner.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleScanner.java; sourceTree = "<group>"; };
+		DAFFE2041F86B2FB00CFD25C /* GenericBleCharacteristicListener.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleCharacteristicListener.java; sourceTree = "<group>"; };
+		DAFFE2051F86B2FB00CFD25C /* GenericBleConnectionListener.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleConnectionListener.java; sourceTree = "<group>"; };
+		DAFFE2061F86B2FB00CFD25C /* GenericBleDescriptorListener.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleDescriptorListener.java; sourceTree = "<group>"; };
+		DAFFE2071F86B2FB00CFD25C /* GenericBleServiceDiscoveryListener.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = GenericBleServiceDiscoveryListener.java; sourceTree = "<group>"; };
+		DAFFE2091F86B2FB00CFD25C /* ActionQueue.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ActionQueue.java; sourceTree = "<group>"; };
+		DAFFE20A1F86B2FB00CFD25C /* SerialBleHandler.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = SerialBleHandler.java; sourceTree = "<group>"; };
+		DAFFE20B1F86B2FB00CFD25C /* Timer.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = Timer.java; sourceTree = "<group>"; };
+		DAFFE20E1F86B2FB00CFD25C /* strings.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = strings.xml; sourceTree = "<group>"; };
+		DAFFE2151F86B2FB00CFD25C /* ExampleUnitTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ExampleUnitTest.java; sourceTree = "<group>"; };
+		DAFFE2181F86B2FB00CFD25C /* gradle-wrapper.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = "gradle-wrapper.jar"; sourceTree = "<group>"; };
+		DAFFE2191F86B2FB00CFD25C /* gradle-wrapper.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = "gradle-wrapper.properties"; sourceTree = "<group>"; };
+		DAFFE21A1F86B2FB00CFD25C /* gradle.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = gradle.properties; sourceTree = "<group>"; };
+		DAFFE21B1F86B2FB00CFD25C /* gradlew */ = {isa = PBXFileReference; lastKnownFileType = text; path = gradlew; sourceTree = "<group>"; };
+		DAFFE21C1F86B2FB00CFD25C /* gradlew.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = gradlew.bat; sourceTree = "<group>"; };
+		DAFFE21D1F86B2FB00CFD25C /* settings.gradle */ = {isa = PBXFileReference; lastKnownFileType = text; path = settings.gradle; sourceTree = "<group>"; };
+		DAFFE21E1F86B87800CFD25C /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = web; path = ../../../web; sourceTree = "<group>"; };
+		DAFFE2201F86C19E00CFD25C /* NetworkDialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDialogViewController.h; sourceTree = "<group>"; };
+		DAFFE2211F86C19E00CFD25C /* NetworkDialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDialogViewController.m; sourceTree = "<group>"; };
+		DAFFE2231F86C2D300CFD25C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAFFE15B1F86B2CE00CFD25C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFFE2241F86C2D300CFD25C /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFFE1741F86B2CE00CFD25C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFFE17F1F86B2CE00CFD25C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAFFE1551F86B2CE00CFD25C = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2231F86C2D300CFD25C /* SystemConfiguration.framework */,
+				DAFFE1941F86B2FB00CFD25C /* android */,
+				DAFFE1601F86B2CE00CFD25C /* Honeybee Wifi Config */,
+				DAFFE17A1F86B2CE00CFD25C /* Honeybee Wifi ConfigTests */,
+				DAFFE1851F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests */,
+				DAFFE15F1F86B2CE00CFD25C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAFFE15F1F86B2CE00CFD25C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE15E1F86B2CE00CFD25C /* Honeybee Wifi Config.app */,
+				DAFFE1771F86B2CE00CFD25C /* Honeybee Wifi ConfigTests.xctest */,
+				DAFFE1821F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAFFE1601F86B2CE00CFD25C /* Honeybee Wifi Config */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE21E1F86B87800CFD25C /* web */,
+				DAFFE1641F86B2CE00CFD25C /* AppDelegate.h */,
+				DAFFE1651F86B2CE00CFD25C /* AppDelegate.m */,
+				DAFFE1671F86B2CE00CFD25C /* ViewController.h */,
+				DAFFE1681F86B2CE00CFD25C /* ViewController.m */,
+				DAFFE16A1F86B2CE00CFD25C /* Main.storyboard */,
+				DAFFE16D1F86B2CE00CFD25C /* Assets.xcassets */,
+				DAFFE16F1F86B2CE00CFD25C /* LaunchScreen.storyboard */,
+				DAFFE1721F86B2CE00CFD25C /* Info.plist */,
+				DAFFE1611F86B2CE00CFD25C /* Supporting Files */,
+				DAFFE2201F86C19E00CFD25C /* NetworkDialogViewController.h */,
+				DAFFE2211F86C19E00CFD25C /* NetworkDialogViewController.m */,
+			);
+			path = "Honeybee Wifi Config";
+			sourceTree = "<group>";
+		};
+		DAFFE1611F86B2CE00CFD25C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1621F86B2CE00CFD25C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAFFE17A1F86B2CE00CFD25C /* Honeybee Wifi ConfigTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE17B1F86B2CE00CFD25C /* Honeybee_Wifi_ConfigTests.m */,
+				DAFFE17D1F86B2CE00CFD25C /* Info.plist */,
+			);
+			path = "Honeybee Wifi ConfigTests";
+			sourceTree = "<group>";
+		};
+		DAFFE1851F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1861F86B2CE00CFD25C /* Honeybee_Wifi_ConfigUITests.m */,
+				DAFFE1881F86B2CE00CFD25C /* Info.plist */,
+			);
+			path = "Honeybee Wifi ConfigUITests";
+			sourceTree = "<group>";
+		};
+		DAFFE1941F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1951F86B2FB00CFD25C /* .gitignore */,
+				DAFFE1961F86B2FB00CFD25C /* .idea */,
+				DAFFE1A01F86B2FB00CFD25C /* app */,
+				DAFFE1E31F86B2FB00CFD25C /* build.gradle */,
+				DAFFE1E41F86B2FB00CFD25C /* generic-ble-module-android */,
+				DAFFE2161F86B2FB00CFD25C /* gradle */,
+				DAFFE21A1F86B2FB00CFD25C /* gradle.properties */,
+				DAFFE21B1F86B2FB00CFD25C /* gradlew */,
+				DAFFE21C1F86B2FB00CFD25C /* gradlew.bat */,
+				DAFFE21D1F86B2FB00CFD25C /* settings.gradle */,
+			);
+			name = android;
+			path = ../../android;
+			sourceTree = "<group>";
+		};
+		DAFFE1961F86B2FB00CFD25C /* .idea */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1971F86B2FB00CFD25C /* compiler.xml */,
+				DAFFE1981F86B2FB00CFD25C /* copyright */,
+				DAFFE19A1F86B2FB00CFD25C /* encodings.xml */,
+				DAFFE19B1F86B2FB00CFD25C /* gradle.xml */,
+				DAFFE19C1F86B2FB00CFD25C /* misc.xml */,
+				DAFFE19D1F86B2FB00CFD25C /* modules.xml */,
+				DAFFE19E1F86B2FB00CFD25C /* runConfigurations.xml */,
+				DAFFE19F1F86B2FB00CFD25C /* vcs.xml */,
+			);
+			path = .idea;
+			sourceTree = "<group>";
+		};
+		DAFFE1981F86B2FB00CFD25C /* copyright */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1991F86B2FB00CFD25C /* profiles_settings.xml */,
+			);
+			path = copyright;
+			sourceTree = "<group>";
+		};
+		DAFFE1A01F86B2FB00CFD25C /* app */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1A11F86B2FB00CFD25C /* .gitignore */,
+				DAFFE1A21F86B2FB00CFD25C /* build.gradle */,
+				DAFFE1A31F86B2FB00CFD25C /* proguard-rules.pro */,
+				DAFFE1A41F86B2FB00CFD25C /* src */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		DAFFE1A41F86B2FB00CFD25C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1A51F86B2FB00CFD25C /* androidTest */,
+				DAFFE1AC1F86B2FB00CFD25C /* main */,
+				DAFFE1DC1F86B2FB00CFD25C /* test */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		DAFFE1A51F86B2FB00CFD25C /* androidTest */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1A61F86B2FB00CFD25C /* java */,
+			);
+			path = androidTest;
+			sourceTree = "<group>";
+		};
+		DAFFE1A61F86B2FB00CFD25C /* java */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1A71F86B2FB00CFD25C /* org */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		DAFFE1A71F86B2FB00CFD25C /* org */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1A81F86B2FB00CFD25C /* cmucreatelab */,
+			);
+			path = org;
+			sourceTree = "<group>";
+		};
+		DAFFE1A81F86B2FB00CFD25C /* cmucreatelab */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1A91F86B2FB00CFD25C /* android */,
+			);
+			path = cmucreatelab;
+			sourceTree = "<group>";
+		};
+		DAFFE1A91F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1AA1F86B2FB00CFD25C /* honeybee */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		DAFFE1AA1F86B2FB00CFD25C /* honeybee */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1AB1F86B2FB00CFD25C /* ExampleInstrumentedTest.java */,
+			);
+			path = honeybee;
+			sourceTree = "<group>";
+		};
+		DAFFE1AC1F86B2FB00CFD25C /* main */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1AD1F86B2FB00CFD25C /* AndroidManifest.xml */,
+				DAFFE1AE1F86B2FB00CFD25C /* assets */,
+				DAFFE1C51F86B2FB00CFD25C /* java */,
+				DAFFE1D21F86B2FB00CFD25C /* res */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		DAFFE1AE1F86B2FB00CFD25C /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1AF1F86B2FB00CFD25C /* web */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		DAFFE1AF1F86B2FB00CFD25C /* web */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1B01F86B2FB00CFD25C /* css */,
+				DAFFE1B51F86B2FB00CFD25C /* index.html */,
+				DAFFE1B61F86B2FB00CFD25C /* js */,
+				DAFFE1C11F86B2FB00CFD25C /* lib */,
+			);
+			path = web;
+			sourceTree = "<group>";
+		};
+		DAFFE1B01F86B2FB00CFD25C /* css */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1B11F86B2FB00CFD25C /* application.css */,
+				DAFFE1B21F86B2FB00CFD25C /* images */,
+				DAFFE1B41F86B2FB00CFD25C /* jquery.mobile-1.4.5.min.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		DAFFE1B21F86B2FB00CFD25C /* images */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1B31F86B2FB00CFD25C /* ajax-loader.gif */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		DAFFE1B61F86B2FB00CFD25C /* js */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1B71F86B2FB00CFD25C /* app.js */,
+				DAFFE1B81F86B2FB00CFD25C /* application_interface.js */,
+				DAFFE1B91F86B2FB00CFD25C /* esdr_interface.js */,
+				DAFFE1BA1F86B2FB00CFD25C /* page1a.js */,
+				DAFFE1BB1F86B2FB00CFD25C /* page1b.js */,
+				DAFFE1BC1F86B2FB00CFD25C /* page2a.js */,
+				DAFFE1BD1F86B2FB00CFD25C /* page2b.js */,
+				DAFFE1BE1F86B2FB00CFD25C /* page3a.js */,
+				DAFFE1BF1F86B2FB00CFD25C /* page3b.js */,
+				DAFFE1C01F86B2FB00CFD25C /* page4.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		DAFFE1C11F86B2FB00CFD25C /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1C21F86B2FB00CFD25C /* fastclick.min.js */,
+				DAFFE1C31F86B2FB00CFD25C /* jquery-1.12.4.min.js */,
+				DAFFE1C41F86B2FB00CFD25C /* jquery.mobile-1.4.5.min.js */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		DAFFE1C51F86B2FB00CFD25C /* java */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1C61F86B2FB00CFD25C /* org */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		DAFFE1C61F86B2FB00CFD25C /* org */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1C71F86B2FB00CFD25C /* cmucreatelab */,
+			);
+			path = org;
+			sourceTree = "<group>";
+		};
+		DAFFE1C71F86B2FB00CFD25C /* cmucreatelab */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1C81F86B2FB00CFD25C /* android */,
+			);
+			path = cmucreatelab;
+			sourceTree = "<group>";
+		};
+		DAFFE1C81F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1C91F86B2FB00CFD25C /* honeybee */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		DAFFE1C91F86B2FB00CFD25C /* honeybee */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1CA1F86B2FB00CFD25C /* ApplicationInterface.java */,
+				DAFFE1CB1F86B2FB00CFD25C /* CustomWebViewClient.java */,
+				DAFFE1CC1F86B2FB00CFD25C /* GlobalHandler.java */,
+				DAFFE1CD1F86B2FB00CFD25C /* HoneybeeDevice.java */,
+				DAFFE1CE1F86B2FB00CFD25C /* JavaScriptInterface.java */,
+				DAFFE1CF1F86B2FB00CFD25C /* MainActivity.java */,
+				DAFFE1D01F86B2FB00CFD25C /* NetworkDialogHelper.java */,
+				DAFFE1D11F86B2FB00CFD25C /* NetworkStateMachine.java */,
+			);
+			path = honeybee;
+			sourceTree = "<group>";
+		};
+		DAFFE1D21F86B2FB00CFD25C /* res */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1D31F86B2FB00CFD25C /* layout */,
+				DAFFE1D61F86B2FB00CFD25C /* mipmap-xxxhdpi */,
+				DAFFE1D81F86B2FB00CFD25C /* values */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		DAFFE1D31F86B2FB00CFD25C /* layout */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1D41F86B2FB00CFD25C /* activity_main.xml */,
+				DAFFE1D51F86B2FB00CFD25C /* dialog_network.xml */,
+			);
+			path = layout;
+			sourceTree = "<group>";
+		};
+		DAFFE1D61F86B2FB00CFD25C /* mipmap-xxxhdpi */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1D71F86B2FB00CFD25C /* app_icon.png */,
+			);
+			path = "mipmap-xxxhdpi";
+			sourceTree = "<group>";
+		};
+		DAFFE1D81F86B2FB00CFD25C /* values */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1D91F86B2FB00CFD25C /* colors.xml */,
+				DAFFE1DA1F86B2FB00CFD25C /* strings.xml */,
+				DAFFE1DB1F86B2FB00CFD25C /* styles.xml */,
+			);
+			path = values;
+			sourceTree = "<group>";
+		};
+		DAFFE1DC1F86B2FB00CFD25C /* test */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1DD1F86B2FB00CFD25C /* java */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		DAFFE1DD1F86B2FB00CFD25C /* java */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1DE1F86B2FB00CFD25C /* org */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		DAFFE1DE1F86B2FB00CFD25C /* org */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1DF1F86B2FB00CFD25C /* cmucreatelab */,
+			);
+			path = org;
+			sourceTree = "<group>";
+		};
+		DAFFE1DF1F86B2FB00CFD25C /* cmucreatelab */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1E01F86B2FB00CFD25C /* android */,
+			);
+			path = cmucreatelab;
+			sourceTree = "<group>";
+		};
+		DAFFE1E01F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1E11F86B2FB00CFD25C /* honeybee */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		DAFFE1E11F86B2FB00CFD25C /* honeybee */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1E21F86B2FB00CFD25C /* ExampleUnitTest.java */,
+			);
+			path = honeybee;
+			sourceTree = "<group>";
+		};
+		DAFFE1E41F86B2FB00CFD25C /* generic-ble-module-android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1E51F86B2FB00CFD25C /* .gitignore */,
+				DAFFE1E61F86B2FB00CFD25C /* build.gradle */,
+				DAFFE1E71F86B2FB00CFD25C /* proguard-rules.pro */,
+				DAFFE1E81F86B2FB00CFD25C /* src */,
+			);
+			path = "generic-ble-module-android";
+			sourceTree = "<group>";
+		};
+		DAFFE1E81F86B2FB00CFD25C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1E91F86B2FB00CFD25C /* androidTest */,
+				DAFFE1F01F86B2FB00CFD25C /* main */,
+				DAFFE20F1F86B2FB00CFD25C /* test */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		DAFFE1E91F86B2FB00CFD25C /* androidTest */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1EA1F86B2FB00CFD25C /* java */,
+			);
+			path = androidTest;
+			sourceTree = "<group>";
+		};
+		DAFFE1EA1F86B2FB00CFD25C /* java */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1EB1F86B2FB00CFD25C /* org */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		DAFFE1EB1F86B2FB00CFD25C /* org */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1EC1F86B2FB00CFD25C /* cmucreatelab */,
+			);
+			path = org;
+			sourceTree = "<group>";
+		};
+		DAFFE1EC1F86B2FB00CFD25C /* cmucreatelab */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1ED1F86B2FB00CFD25C /* android */,
+			);
+			path = cmucreatelab;
+			sourceTree = "<group>";
+		};
+		DAFFE1ED1F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1EE1F86B2FB00CFD25C /* genericblemodule */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		DAFFE1EE1F86B2FB00CFD25C /* genericblemodule */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1EF1F86B2FB00CFD25C /* ExampleInstrumentedTest.java */,
+			);
+			path = genericblemodule;
+			sourceTree = "<group>";
+		};
+		DAFFE1F01F86B2FB00CFD25C /* main */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F11F86B2FB00CFD25C /* AndroidManifest.xml */,
+				DAFFE1F21F86B2FB00CFD25C /* java */,
+				DAFFE20C1F86B2FB00CFD25C /* res */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		DAFFE1F21F86B2FB00CFD25C /* java */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F31F86B2FB00CFD25C /* org */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		DAFFE1F31F86B2FB00CFD25C /* org */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F41F86B2FB00CFD25C /* cmucreatelab */,
+			);
+			path = org;
+			sourceTree = "<group>";
+		};
+		DAFFE1F41F86B2FB00CFD25C /* cmucreatelab */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F51F86B2FB00CFD25C /* android */,
+			);
+			path = cmucreatelab;
+			sourceTree = "<group>";
+		};
+		DAFFE1F51F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F61F86B2FB00CFD25C /* genericblemodule */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		DAFFE1F61F86B2FB00CFD25C /* genericblemodule */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F71F86B2FB00CFD25C /* ble_actions */,
+				DAFFE1FE1F86B2FB00CFD25C /* generic_ble */,
+				DAFFE2081F86B2FB00CFD25C /* serial */,
+			);
+			path = genericblemodule;
+			sourceTree = "<group>";
+		};
+		DAFFE1F71F86B2FB00CFD25C /* ble_actions */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1F81F86B2FB00CFD25C /* ActionCharacteristicRead.java */,
+				DAFFE1F91F86B2FB00CFD25C /* ActionCharacteristicSetNotification.java */,
+				DAFFE1FA1F86B2FB00CFD25C /* ActionCharacteristicWrite.java */,
+				DAFFE1FB1F86B2FB00CFD25C /* ActionDescriptorRead.java */,
+				DAFFE1FC1F86B2FB00CFD25C /* ActionDescriptorWrite.java */,
+				DAFFE1FD1F86B2FB00CFD25C /* ActionWaitForNotify.java */,
+			);
+			path = ble_actions;
+			sourceTree = "<group>";
+		};
+		DAFFE1FE1F86B2FB00CFD25C /* generic_ble */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE1FF1F86B2FB00CFD25C /* GenericBleAction.java */,
+				DAFFE2001F86B2FB00CFD25C /* GenericBleCallback.java */,
+				DAFFE2011F86B2FB00CFD25C /* GenericBleDeviceConnection.java */,
+				DAFFE2021F86B2FB00CFD25C /* GenericBleScanner.java */,
+				DAFFE2031F86B2FB00CFD25C /* listeners */,
+			);
+			path = generic_ble;
+			sourceTree = "<group>";
+		};
+		DAFFE2031F86B2FB00CFD25C /* listeners */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2041F86B2FB00CFD25C /* GenericBleCharacteristicListener.java */,
+				DAFFE2051F86B2FB00CFD25C /* GenericBleConnectionListener.java */,
+				DAFFE2061F86B2FB00CFD25C /* GenericBleDescriptorListener.java */,
+				DAFFE2071F86B2FB00CFD25C /* GenericBleServiceDiscoveryListener.java */,
+			);
+			path = listeners;
+			sourceTree = "<group>";
+		};
+		DAFFE2081F86B2FB00CFD25C /* serial */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2091F86B2FB00CFD25C /* ActionQueue.java */,
+				DAFFE20A1F86B2FB00CFD25C /* SerialBleHandler.java */,
+				DAFFE20B1F86B2FB00CFD25C /* Timer.java */,
+			);
+			path = serial;
+			sourceTree = "<group>";
+		};
+		DAFFE20C1F86B2FB00CFD25C /* res */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE20D1F86B2FB00CFD25C /* values */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		DAFFE20D1F86B2FB00CFD25C /* values */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE20E1F86B2FB00CFD25C /* strings.xml */,
+			);
+			path = values;
+			sourceTree = "<group>";
+		};
+		DAFFE20F1F86B2FB00CFD25C /* test */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2101F86B2FB00CFD25C /* java */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		DAFFE2101F86B2FB00CFD25C /* java */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2111F86B2FB00CFD25C /* org */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		DAFFE2111F86B2FB00CFD25C /* org */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2121F86B2FB00CFD25C /* cmucreatelab */,
+			);
+			path = org;
+			sourceTree = "<group>";
+		};
+		DAFFE2121F86B2FB00CFD25C /* cmucreatelab */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2131F86B2FB00CFD25C /* android */,
+			);
+			path = cmucreatelab;
+			sourceTree = "<group>";
+		};
+		DAFFE2131F86B2FB00CFD25C /* android */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2141F86B2FB00CFD25C /* genericblemodule */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		DAFFE2141F86B2FB00CFD25C /* genericblemodule */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2151F86B2FB00CFD25C /* ExampleUnitTest.java */,
+			);
+			path = genericblemodule;
+			sourceTree = "<group>";
+		};
+		DAFFE2161F86B2FB00CFD25C /* gradle */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2171F86B2FB00CFD25C /* wrapper */,
+			);
+			path = gradle;
+			sourceTree = "<group>";
+		};
+		DAFFE2171F86B2FB00CFD25C /* wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				DAFFE2181F86B2FB00CFD25C /* gradle-wrapper.jar */,
+				DAFFE2191F86B2FB00CFD25C /* gradle-wrapper.properties */,
+			);
+			path = wrapper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAFFE15D1F86B2CE00CFD25C /* Honeybee Wifi Config */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAFFE18B1F86B2CE00CFD25C /* Build configuration list for PBXNativeTarget "Honeybee Wifi Config" */;
+			buildPhases = (
+				DAFFE15A1F86B2CE00CFD25C /* Sources */,
+				DAFFE15B1F86B2CE00CFD25C /* Frameworks */,
+				DAFFE15C1F86B2CE00CFD25C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Honeybee Wifi Config";
+			productName = "Honeybee Wifi Config";
+			productReference = DAFFE15E1F86B2CE00CFD25C /* Honeybee Wifi Config.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAFFE1761F86B2CE00CFD25C /* Honeybee Wifi ConfigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAFFE18E1F86B2CE00CFD25C /* Build configuration list for PBXNativeTarget "Honeybee Wifi ConfigTests" */;
+			buildPhases = (
+				DAFFE1731F86B2CE00CFD25C /* Sources */,
+				DAFFE1741F86B2CE00CFD25C /* Frameworks */,
+				DAFFE1751F86B2CE00CFD25C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAFFE1791F86B2CE00CFD25C /* PBXTargetDependency */,
+			);
+			name = "Honeybee Wifi ConfigTests";
+			productName = "Honeybee Wifi ConfigTests";
+			productReference = DAFFE1771F86B2CE00CFD25C /* Honeybee Wifi ConfigTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DAFFE1811F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAFFE1911F86B2CE00CFD25C /* Build configuration list for PBXNativeTarget "Honeybee Wifi ConfigUITests" */;
+			buildPhases = (
+				DAFFE17E1F86B2CE00CFD25C /* Sources */,
+				DAFFE17F1F86B2CE00CFD25C /* Frameworks */,
+				DAFFE1801F86B2CE00CFD25C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAFFE1841F86B2CE00CFD25C /* PBXTargetDependency */,
+			);
+			name = "Honeybee Wifi ConfigUITests";
+			productName = "Honeybee Wifi ConfigUITests";
+			productReference = DAFFE1821F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAFFE1561F86B2CE00CFD25C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "CMU Create Lab";
+				TargetAttributes = {
+					DAFFE15D1F86B2CE00CFD25C = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZYF8X9Z6M2;
+					};
+					DAFFE1761F86B2CE00CFD25C = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZYF8X9Z6M2;
+						TestTargetID = DAFFE15D1F86B2CE00CFD25C;
+					};
+					DAFFE1811F86B2CE00CFD25C = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZYF8X9Z6M2;
+						TestTargetID = DAFFE15D1F86B2CE00CFD25C;
+					};
+				};
+			};
+			buildConfigurationList = DAFFE1591F86B2CE00CFD25C /* Build configuration list for PBXProject "Honeybee Wifi Config" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAFFE1551F86B2CE00CFD25C;
+			productRefGroup = DAFFE15F1F86B2CE00CFD25C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAFFE15D1F86B2CE00CFD25C /* Honeybee Wifi Config */,
+				DAFFE1761F86B2CE00CFD25C /* Honeybee Wifi ConfigTests */,
+				DAFFE1811F86B2CE00CFD25C /* Honeybee Wifi ConfigUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAFFE15C1F86B2CE00CFD25C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFFE1711F86B2CE00CFD25C /* LaunchScreen.storyboard in Resources */,
+				DAFFE21F1F86B87B00CFD25C /* web in Resources */,
+				DAFFE16E1F86B2CE00CFD25C /* Assets.xcassets in Resources */,
+				DAFFE16C1F86B2CE00CFD25C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFFE1751F86B2CE00CFD25C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFFE1801F86B2CE00CFD25C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAFFE15A1F86B2CE00CFD25C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFFE1691F86B2CE00CFD25C /* ViewController.m in Sources */,
+				DAFFE2221F86C19E00CFD25C /* NetworkDialogViewController.m in Sources */,
+				DAFFE1661F86B2CE00CFD25C /* AppDelegate.m in Sources */,
+				DAFFE1631F86B2CE00CFD25C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFFE1731F86B2CE00CFD25C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFFE17C1F86B2CE00CFD25C /* Honeybee_Wifi_ConfigTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFFE17E1F86B2CE00CFD25C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFFE1871F86B2CE00CFD25C /* Honeybee_Wifi_ConfigUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAFFE1791F86B2CE00CFD25C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAFFE15D1F86B2CE00CFD25C /* Honeybee Wifi Config */;
+			targetProxy = DAFFE1781F86B2CE00CFD25C /* PBXContainerItemProxy */;
+		};
+		DAFFE1841F86B2CE00CFD25C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAFFE15D1F86B2CE00CFD25C /* Honeybee Wifi Config */;
+			targetProxy = DAFFE1831F86B2CE00CFD25C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DAFFE16A1F86B2CE00CFD25C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAFFE16B1F86B2CE00CFD25C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DAFFE16F1F86B2CE00CFD25C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAFFE1701F86B2CE00CFD25C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAFFE1891F86B2CE00CFD25C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAFFE18A1F86B2CE00CFD25C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAFFE18C1F86B2CE00CFD25C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Honeybee Wifi Config/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cmucreatelab.honeybeewifi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DAFFE18D1F86B2CE00CFD25C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Honeybee Wifi Config/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cmucreatelab.honeybeewifi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DAFFE18F1F86B2CE00CFD25C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Honeybee Wifi ConfigTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cmucreatelab.ios.honeybee.Honeybee-Wifi-ConfigTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Honeybee Wifi Config.app/Honeybee Wifi Config";
+			};
+			name = Debug;
+		};
+		DAFFE1901F86B2CE00CFD25C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Honeybee Wifi ConfigTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cmucreatelab.ios.honeybee.Honeybee-Wifi-ConfigTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Honeybee Wifi Config.app/Honeybee Wifi Config";
+			};
+			name = Release;
+		};
+		DAFFE1921F86B2CE00CFD25C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Honeybee Wifi ConfigUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cmucreatelab.ios.honeybee.Honeybee-Wifi-ConfigUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Honeybee Wifi Config";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DAFFE1931F86B2CE00CFD25C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Honeybee Wifi ConfigUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cmucreatelab.ios.honeybee.Honeybee-Wifi-ConfigUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Honeybee Wifi Config";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAFFE1591F86B2CE00CFD25C /* Build configuration list for PBXProject "Honeybee Wifi Config" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFFE1891F86B2CE00CFD25C /* Debug */,
+				DAFFE18A1F86B2CE00CFD25C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAFFE18B1F86B2CE00CFD25C /* Build configuration list for PBXNativeTarget "Honeybee Wifi Config" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFFE18C1F86B2CE00CFD25C /* Debug */,
+				DAFFE18D1F86B2CE00CFD25C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAFFE18E1F86B2CE00CFD25C /* Build configuration list for PBXNativeTarget "Honeybee Wifi ConfigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFFE18F1F86B2CE00CFD25C /* Debug */,
+				DAFFE1901F86B2CE00CFD25C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAFFE1911F86B2CE00CFD25C /* Build configuration list for PBXNativeTarget "Honeybee Wifi ConfigUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFFE1921F86B2CE00CFD25C /* Debug */,
+				DAFFE1931F86B2CE00CFD25C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAFFE1561F86B2CE00CFD25C /* Project object */;
+}
