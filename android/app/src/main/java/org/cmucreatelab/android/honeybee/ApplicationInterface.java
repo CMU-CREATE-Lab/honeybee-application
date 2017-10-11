@@ -82,6 +82,15 @@ public class ApplicationInterface {
                 public void onReceive(Context context, Intent intent) {
                     List<ScanResult> results = wifiManager.getScanResults();
                     List<ScanResult> list = new ArrayList<>();
+
+                    // log scan results
+                    String scanResultList = "";
+                    for (ScanResult item: results) {
+                        scanResultList += item.SSID + ",";
+                    }
+                    scanResultList = scanResultList.substring(0, scanResultList.length()-1);
+                    Log.d(MainActivity.LOG_TAG, "onReceive WifiManager got back with "+results.size()+" results: " + scanResultList );
+
                     // only add SSIDs that are not blank
                     for (ScanResult result: results) {
                         if (result.SSID != null && !result.SSID.equals("")) {

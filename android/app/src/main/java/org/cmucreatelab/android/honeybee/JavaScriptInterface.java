@@ -71,6 +71,7 @@ public class JavaScriptInterface {
             jsArray += "{ssid: \"" + result.SSID + "\", security_type: " + findSecurityTypeFromString(result.capabilities) + "},";
         }
         jsArray += "]";
+        Log.d(MainActivity.LOG_TAG, "notifyNetworkListChanged with jsArray="+jsArray);
         sendJavaScript(mainActivity, "Page2A.notifyNetworkListChanged("+ Uri.encode(jsArray) +")");
         sendJavaScript(mainActivity, "Page2A.setScanning(false)");
     }
