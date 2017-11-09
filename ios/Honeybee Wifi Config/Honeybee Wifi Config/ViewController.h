@@ -18,6 +18,10 @@
 @property NSValue* securityType;
 @property NSString* password;
 
+@property NSTimer* wifiTimer;
+
+@property NSMutableDictionary* networks;
+
 - (IBAction) connect:(id)sender;
 
 @end

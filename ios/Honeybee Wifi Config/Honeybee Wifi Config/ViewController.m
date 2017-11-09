@@ -200,14 +200,21 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	NSLog(@"RX=%@", [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
 	
 	[partialResponseData appendData: data];
-	
-	if ((partialResponseData.length) && (((const uint8_t*)partialResponseData.bytes)[partialResponseData.length-1] == '\n'))
-	{
-		// last char was a newline, interpret
-		NSString* dataString = [[NSString alloc] initWithData: partialResponseData encoding: NSUTF8StringEncoding];
-		dataString = [dataString stringByTrimmingCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-		NSLog(@"full RX=%@", dataString);
+	NSString* responseString = [[NSString alloc] initWithData: partialResponseData encoding: NSUTF8StringEncoding];
 
+	const char* str = [responseString cStringUsingEncoding: NSUTF8StringEncoding];
+	
+	// remove newlines from beginning
+	size_t newlines = strspn(str, "\r\n");
+
+	size_t nonNewlines = strcspn(str + newlines, "\r\n");
+	if (nonNewlines > 0)
+	{
+		NSString* dataString = [[NSString alloc] initWithBytes: str + newlines length: nonNewlines encoding: NSUTF8StringEncoding];
+		partialResponseData = [partialResponseData subdataWithRange: NSMakeRange( newlines + nonNewlines, partialResponseData.length - newlines - nonNewlines)].mutableCopy;
+		
+		NSLog(@"full RX=%@", dataString);
+		
 		// I,protocol,hwVersion,fwVersion,deviceName,serialNumber,feedKeyEN,feedKey
 		NSArray* items = [dataString componentsSeparatedByString: @","];
 		
@@ -219,26 +226,26 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 				switch (i)
 				{
 					case 1:
-						infoDict[@"protocol"] = items[i];
-						break;
+					infoDict[@"protocol"] = items[i];
+					break;
 					case 2:
-						infoDict[@"hwVersion"] = items[i];
-						break;
+					infoDict[@"hwVersion"] = items[i];
+					break;
 					case 3:
-						infoDict[@"fwVersion"] = items[i];
-						break;
+					infoDict[@"fwVersion"] = items[i];
+					break;
 					case 4:
-						infoDict[@"deviceName"] = items[i];
-						break;
+					infoDict[@"deviceName"] = items[i];
+					break;
 					case 5:
-						infoDict[@"serialNumber"] = items[i];
-						break;
+					infoDict[@"serialNumber"] = items[i];
+					break;
 					case 6:
-						infoDict[@"feedKeyEN"] = items[i];
-						break;
+					infoDict[@"feedKeyEN"] = items[i];
+					break;
 					case 7:
-						infoDict[@"feedKey"] = items[i];
-						break;
+					infoDict[@"feedKey"] = items[i];
+					break;
 				}
 			}
 			
@@ -255,27 +262,27 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 				switch (i)
 				{
 					case 1:
-						infoDict[@"status"] = items[i];
-						break;
+					infoDict[@"status"] = items[i];
+					break;
 					case 2:
-						infoDict[@"macAddress"] = items[i];
-						break;
+					infoDict[@"macAddress"] = items[i];
+					break;
 					case 3:
-						infoDict[@"ipAddress"] = items[i];
-						break;
+					infoDict[@"ipAddress"] = items[i];
+					break;
 					case 4:
-						infoDict[@"networkSaved"] = items[i];
-						break;
+					infoDict[@"networkSaved"] = items[i];
+					break;
 					case 5:
-						infoDict[@"securityType"] = items[i];
-						break;
+					infoDict[@"securityType"] = items[i];
+					break;
 					case 6:
-						infoDict[@"ssid"] = items[i];
-						break;
+					infoDict[@"ssid"] = items[i];
+					break;
 				}
 			}
 			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"populateNetworkInfo(\"%@\",\"%@\",\"%@\",\"%@\")", self.networkName, @"connected", infoDict[@"ipAddress"], infoDict[@"macAddress"]]];
-
+			
 			if ([infoDict[@"status"] integerValue] != 6)
 			{
 				// if not connected, ask info again
@@ -285,8 +292,57 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 				[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
 			}
 		}
+		else
+		{
+			if ([items[0] isEqualToString: @"S"])
+			{
+				if (self.wifiTimer && (items.count > 2) && ([items[1] integerValue] > 0))
+				{
+					// got some networks
+					[self.wifiTimer invalidate];
+					self.wifiTimer = nil;
+					
+					NSInteger numNets = [items[1] integerValue];
+					
+					self.networks = [NSMutableDictionary dictionary];
+					
+					for (NSInteger i = 0; i < numNets; ++i)
+					{
+						NSString* cmd = [NSString stringWithFormat: @"S,%ld", i];
+						
+						[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
+					}
+					
+				}
+				else if (items.count >= 5)
+				{
+					self.networks[items[1]] = @{@"security_type" : items[2], @"ssid" : items[3]};
+
+					// update networks
+					
+					NSMutableString* json = [NSMutableString stringWithFormat: @"["];
+					for(id key in [self.networks.allKeys sortedArrayUsingComparator: ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+						return [obj1 compare: obj2];
+					}])
+					{
+//						NSInteger idx = [key intValue];
+						NSDictionary* net = self.networks[key];
+						[json appendFormat: @"{ssid: \"%@\", security_type: %@},", net[@"ssid"], net[@"security_type"]];
+						
+					}
+					[json appendFormat: @"]"];
+					
+					[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page2A.notifyNetworkListChanged(%@)", json]];
+					[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page2A.setScanning(false)"]];
+
+				}
+				
+
+
+			}
+		}
+
 	}
-	
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
@@ -328,9 +384,9 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	CBUUID *uuid_service = [CBUUID UUIDWithString:@BLE_DEVICE_SERVICE_UUID];
 	CBUUID *uuid_char = [CBUUID UUIDWithString:@BLE_DEVICE_TX_UUID];
 	
-	assert(self.bleUart);
-	
-	[self writeValue:uuid_service characteristicUUID:uuid_char p: self.bleUart data:d];
+	//assert(self.bleUart);
+	if (self.bleUart)
+		[self writeValue:uuid_service characteristicUUID:uuid_char p: self.bleUart data:d];
 }
 
 //
@@ -438,6 +494,11 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 				NSLog(@"handleLocalRequest: scanning for BLE");
 				bleDevices = [NSMutableArray array];
 				[bleManager scanForPeripheralsWithServices: @[[CBUUID UUIDWithString: bleUartServiceUUID]] options:nil];
+				[self.wifiTimer invalidate];
+				self.wifiTimer = nil;
+				if (self.bleUart)
+					[bleManager cancelPeripheralConnection: self.bleUart];
+				self.bleUart = nil;
 			}
 			else
 			{
@@ -457,20 +518,28 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		{
 			NSLog(@"handleLocalRequest: requestDeviceInfo");
 			partialResponseData = [NSMutableData data];
-			[self writeBleUart: [@"I\n" dataUsingEncoding: NSUTF8StringEncoding]];
+			[self writeBleUart: [@"I\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
 
 		}
 		else if ([url.host isEqualToString: @"wifiScan"])
 		{
 			NSLog(@"handleLocalRequest: wifiScan");
 			
-			NSString* wifiName = [self getCurrentWifiHotSpotName];
-
-			NSString* json = [NSString stringWithFormat: @"[{ssid: \"%@\", security_type: \"?\"}]", wifiName];
+			[self writeBleUart: [@"S,start\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
 			
-			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page2A.notifyNetworkListChanged(%@)", json]];
+			// setup periodic polling for scan results
+			self.wifiTimer = [NSTimer scheduledTimerWithTimeInterval: 3.0 repeats: YES block:^(NSTimer * _Nonnull timer) {
+				[self writeBleUart: [@"S,count\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
+			}];
 
-			[self.webView stringByEvaluatingJavaScriptFromString: @"Page2A.setScanning(false)"];
+			
+//			NSString* wifiName = [self getCurrentWifiHotSpotName];
+//
+//			NSString* json = [NSString stringWithFormat: @"[{ssid: \"%@\", security_type: \"?\"}]", wifiName];
+//
+//			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page2A.notifyNetworkListChanged(%@)", json]];
+//
+//			[self.webView stringByEvaluatingJavaScriptFromString: @"Page2A.setScanning(false)"];
 
 		}
 		else if ([url.host isEqualToString: @"addNetwork"])
