@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.honeybee;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.WebView;
@@ -24,6 +25,7 @@ public class CustomWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        Log.v(MainActivity.LOG_TAG, "shouldOverrideUrlLoading: "+url);
         Uri uri = Uri.parse(url);
 
         // if request is "schema://" then we override
@@ -33,6 +35,10 @@ public class CustomWebViewClient extends WebViewClient {
             Log.i(MainActivity.LOG_TAG, "Caught message from browser: host=" + host+"\nPath=/" + path);
             // NOTE: this ignores trailing slashes
             ApplicationInterface.parseSchema(GlobalHandler.getInstance(mainActivity), host, path.split("/"));
+            return true;
+        } else if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            mainActivity.startActivity(intent);
             return true;
         }
         // otherwise, do not override
