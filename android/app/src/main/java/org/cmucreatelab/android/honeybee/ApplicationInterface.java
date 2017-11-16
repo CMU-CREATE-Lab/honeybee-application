@@ -87,16 +87,16 @@ public class ApplicationInterface {
                     String scanResultList = "";
                     for (ScanResult item: results) {
                         scanResultList += item.SSID + ",";
-                    }
-                    scanResultList = scanResultList.substring(0, scanResultList.length()-1);
-                    Log.d(MainActivity.LOG_TAG, "onReceive WifiManager got back with "+results.size()+" results: " + scanResultList );
-
-                    // only add SSIDs that are not blank
-                    for (ScanResult result: results) {
-                        if (result.SSID != null && !result.SSID.equals("")) {
-                            list.add(result);
+                        // only add SSIDs that are not blank
+                        if (item.SSID != null && !item.SSID.equals("")) {
+                            list.add(item);
                         }
                     }
+                    if (scanResultList.length() > 0) {
+                        scanResultList = scanResultList.substring(0, scanResultList.length() - 1);
+                    }
+                    Log.d(MainActivity.LOG_TAG, "onReceive WifiManager got back with "+results.size()+" results: " + scanResultList );
+
                     globalHandler.mainActivity.unregisterReceiver(this);
                     JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, list);
                 }
