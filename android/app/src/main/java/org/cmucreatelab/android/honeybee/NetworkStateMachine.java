@@ -83,7 +83,7 @@ public class NetworkStateMachine implements SerialBleHandler.NotificationListene
         }
         Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
         String[] args = response.split(",", -1);
-        if (args.length != 7) {
+        if (args.length != 8) {
             Log.e(MainActivity.LOG_TAG, "Received bad number of args from W request; backing out.");
         }
 
