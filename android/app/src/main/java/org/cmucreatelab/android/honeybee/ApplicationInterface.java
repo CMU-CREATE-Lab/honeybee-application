@@ -1,19 +1,10 @@
 package org.cmucreatelab.android.honeybee;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import org.cmucreatelab.android.genericblemodule.serial.SerialBleHandler;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mike on 8/10/17.
@@ -56,7 +47,7 @@ public class ApplicationInterface {
             public void onNotificationReceived(String messageSent, String response) {
                 Log.i(MainActivity.LOG_TAG, messageSent + " => " + response);
                 String[] args = response.split(",", -1);
-                if (!args[0].equals("I") || args.length != 8) {
+                if (!args[0].equals("I") || args.length != 9) {
                     Log.e(MainActivity.LOG_TAG, "Got a bad response from command I: response="+response);
                 } else {
                     String hwVersion = args[2], fwVersion = args[3], deviceName = args[4], serialNumber = args[5];
@@ -70,40 +61,7 @@ public class ApplicationInterface {
 
 
     private static void wifiScan(final GlobalHandler globalHandler) {
-        final WifiManager wifiManager = (WifiManager) globalHandler.mainActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        // turn on wifi if it is not on
-        if (!wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
-        }
-        // start scan and list the results
-        if (wifiManager.startScan()) {
-            globalHandler.mainActivity.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    List<ScanResult> results = wifiManager.getScanResults();
-                    List<ScanResult> list = new ArrayList<>();
-
-                    // log scan results
-                    String scanResultList = "";
-                    for (ScanResult item: results) {
-                        scanResultList += item.SSID + ",";
-                        // only add SSIDs that are not blank
-                        if (item.SSID != null && !item.SSID.equals("")) {
-                            list.add(item);
-                        }
-                    }
-                    if (scanResultList.length() > 0) {
-                        scanResultList = scanResultList.substring(0, scanResultList.length() - 1);
-                    }
-                    Log.d(MainActivity.LOG_TAG, "onReceive WifiManager got back with "+results.size()+" results: " + scanResultList );
-
-                    globalHandler.mainActivity.unregisterReceiver(this);
-                    JavaScriptInterface.notifyNetworkListChanged(globalHandler.mainActivity, list);
-                }
-            }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        } else {
-            Log.e(MainActivity.LOG_TAG, "WifiManager failed to start scan.");
-        }
+        new WifiScanStateMachine(globalHandler).start();
     }
 
 
