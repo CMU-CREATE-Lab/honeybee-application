@@ -165,7 +165,10 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 {
 	if (peripheral == self.bleUart)
 	{
-		self.bleUart = nil;
+//		self.bleUart = nil;
+		
+		[bleManager connectPeripheral: self.bleUart options: nil];
+		
 		if (central.state == CBCentralManagerStatePoweredOn)
 		{
 			[bleManager scanForPeripheralsWithServices: @[[CBUUID UUIDWithString: bleUartServiceUUID]] options:nil];
@@ -199,16 +202,31 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	NSData* data = characteristic.value;
 	NSLog(@"RX=%@", [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
 	
-	[partialResponseData appendData: data];
+	if (data)
+		[partialResponseData appendData: data];
+	else
+	{
+		NSLog(@"no data!");
+		partialResponseData = [NSMutableData data]; // null data means reset, something's iffy
+	}
+	
 	NSString* responseString = [[NSString alloc] initWithData: partialResponseData encoding: NSUTF8StringEncoding];
 
 	const char* str = [responseString cStringUsingEncoding: NSUTF8StringEncoding];
+	
+	if (!str)
+	{
+		NSLog(@"iffy data: %@", data);
+		// discard data if its not a valid string
+		partialResponseData = [NSMutableData data];
+		str = "";
+	}
 	
 	// remove newlines from beginning
 	size_t newlines = strspn(str, "\r\n");
 
 	size_t nonNewlines = strcspn(str + newlines, "\r\n");
-	if (nonNewlines > 0)
+	if (nonNewlines > 0 && (newlines + nonNewlines < strlen(str)))
 	{
 		NSString* dataString = [[NSString alloc] initWithBytes: str + newlines length: nonNewlines encoding: NSUTF8StringEncoding];
 		partialResponseData = [partialResponseData subdataWithRange: NSMakeRange( newlines + nonNewlines, partialResponseData.length - newlines - nonNewlines)].mutableCopy;
@@ -257,39 +275,76 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		{
 			NSMutableDictionary* infoDict = [NSMutableDictionary dictionary];
 			// W,status,macAddress,ipAddress,networkSaved,securityType,ssid
+//			NSLog(@"W items = %@", items);
+			NSString* conStatus = @"disconnected";
 			for (size_t i = 0; i < items.count; ++i)
 			{
 				switch (i)
 				{
 					case 1:
-					infoDict[@"status"] = items[i];
-					break;
+						infoDict[@"status"] = items[i];
+						if ([infoDict[@"status"] isEqual: @"1"])
+						{
+							conStatus = @"no network";
+						}
+						else if ([infoDict[@"status"] isEqual: @"2"])
+						{
+							conStatus = @"join failed";
+						}
+						else if ([infoDict[@"status"] isEqual: @"3"])
+						{
+							conStatus = @"authentication failed";
+						}
+						else if ([infoDict[@"status"] isEqual: @"4"])
+						{
+							conStatus = @"association failed";
+						}
+						else if ([infoDict[@"status"] isEqual: @"5"])
+						{
+							conStatus = @"joining";
+						}
+						else if ([infoDict[@"status"] isEqual: @"6"])
+						{
+							conStatus = @"connected";
+						}
+						else
+						{
+							conStatus = infoDict[@"status"];
+						}
+						break;
 					case 2:
-					infoDict[@"macAddress"] = items[i];
-					break;
+						infoDict[@"macAddress"] = items[i];
+						break;
 					case 3:
-					infoDict[@"ipAddress"] = items[i];
-					break;
+						infoDict[@"ipAddress"] = items[i];
+						break;
 					case 4:
-					infoDict[@"networkSaved"] = items[i];
-					break;
+						infoDict[@"networkSaved"] = items[i];
+						break;
 					case 5:
-					infoDict[@"securityType"] = items[i];
-					break;
+						infoDict[@"securityType"] = items[i];
+						break;
 					case 6:
-					infoDict[@"ssid"] = items[i];
-					break;
+						infoDict[@"ssid"] = items[i];
+						break;
 				}
 			}
-			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"populateNetworkInfo(\"%@\",\"%@\",\"%@\",\"%@\")", self.networkName, @"connected", infoDict[@"ipAddress"], infoDict[@"macAddress"]]];
+			
+			NSString* webStr = [NSString stringWithFormat: @"Page2B.populateNetworkInfo(\"%@\",\"%@\",\"%@\",\"%@\")", self.networkName, conStatus, infoDict[@"ipAddress"], infoDict[@"macAddress"]];
+			
+//			NSLog(@"webStr = %@", webStr);
+			
+			[self.webView stringByEvaluatingJavaScriptFromString: webStr];
 			
 			if ([infoDict[@"status"] integerValue] != 6)
 			{
 				// if not connected, ask info again
-				NSString* cmd = [NSString stringWithFormat: @"J,%@,\"%@\",\"%@\"", self.securityType, self.networkName, self.password];
+				[NSTimer scheduledTimerWithTimeInterval: 1.0 repeats: NO block:^(NSTimer * _Nonnull timer) {
+					NSString* cmd = [NSString stringWithFormat: @"W\r\n"];
+					[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
+				}];
+
 				
-				
-				[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
 			}
 		}
 		else
@@ -308,7 +363,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 					
 					for (NSInteger i = 0; i < numNets; ++i)
 					{
-						NSString* cmd = [NSString stringWithFormat: @"S,%ld", i];
+						NSString* cmd = [NSString stringWithFormat: @"S,%ld\r\n", i];
 						
 						[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
 					}
@@ -386,7 +441,14 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	
 	//assert(self.bleUart);
 	if (self.bleUart)
-		[self writeValue:uuid_service characteristicUUID:uuid_char p: self.bleUart data:d];
+	{
+		for (size_t k = 0; k < (d.length+19)/20; ++k)
+		{
+			[self writeValue:uuid_service characteristicUUID:uuid_char p: self.bleUart data:
+			 	[d subdataWithRange: NSMakeRange(k*20,  MIN(20, d.length - 20*k))]
+			];
+		}
+	}
 }
 
 //
@@ -468,12 +530,15 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 - (IBAction) connect:(id)sender
 {
-	NSString* cmd = [NSString stringWithFormat: @"J,%@,\"%@\",\"%@\"", self.securityType, self.networkName, self.password];
+	NSString* cmd = [NSString stringWithFormat: @"J,%@,%@,%@\r\n", self.securityType, self.networkName, self.password];
 	
-	
+	NSLog(@"join network: %@", cmd);
+
 	[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
 	
-	[self.webView stringByEvaluatingJavaScriptFromString: @"App.goToPage(\"Page2B\")"];
+	[NSTimer scheduledTimerWithTimeInterval: 0.5 repeats: false block:^(NSTimer * _Nonnull timer) {
+		[self.webView stringByEvaluatingJavaScriptFromString: @"App.goToPage(\"page2b\")"];
+	}];
 	
 	
 	
@@ -559,6 +624,13 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		else if ([url.host isEqualToString: @"joinNetwork"])
 		{
 			self.networkName = [url.pathComponents[1] stringByRemovingPercentEncoding];
+			self.securityType = @([[url.pathComponents[2] stringByRemovingPercentEncoding] integerValue]);
+//
+//			NSArray* netDict = self.networks.allValues[ [self.networks.allValues indexOfObjectPassingTest:^BOOL(NSDictionary*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//				return [obj[@"ssid"] isEqual: self.networkName];
+//			}] ];
+//
+//			self.securityType = self.networks
 			
 			// ShowNetworkLoginSegue
 			
@@ -569,11 +641,14 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		}
 		else if ([url.host isEqualToString: @"requestNetworkInfo"])
 		{
+			[self writeBleUart: [@"W\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
+
 			NSLog(@"handleLocalRequest: requestNetworkInfo");
 
 		}
 		else if ([url.host isEqualToString: @"removeNetwork"])
 		{
+			[self writeBleUart: [@"R\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
 			NSLog(@"handleLocalRequest: removeNetwork");
 
 		}
@@ -588,6 +663,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		}
 		else if ([url.host isEqualToString: @"removeFeedKey"])
 		{
+			[self writeBleUart: [@"K,0\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
 			NSLog(@"handleLocalRequest: removeFeedKey");
 		}
 	}
@@ -612,6 +688,10 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	if ([url.scheme isEqualToString: @"schema"])
 	{
 		return [self handleLocalRequest: request];
+	}
+	else
+	{
+		NSLog(@"webView request: %@", request);
 	}
 //	else if (![url.scheme isEqual:@"http"] && ![url.scheme isEqual:@"https"])
 //	{
