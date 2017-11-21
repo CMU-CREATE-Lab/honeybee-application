@@ -688,15 +688,20 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	
+	NSLog(@"webView request: %@", request);
 	// Determine if we want the system to handle it.
 	NSURL *url = request.URL;
 	if ([url.scheme isEqualToString: @"schema"])
 	{
 		return [self handleLocalRequest: request];
 	}
+	else if ([url.scheme isEqualToString: @"http"] || [url.scheme isEqualToString: @"https"])
+	{
+		[[UIApplication sharedApplication] openURL: url];
+		return NO;
+	}
 	else
 	{
-		NSLog(@"webView request: %@", request);
 	}
 //	else if (![url.scheme isEqual:@"http"] && ![url.scheme isEqual:@"https"])
 //	{
