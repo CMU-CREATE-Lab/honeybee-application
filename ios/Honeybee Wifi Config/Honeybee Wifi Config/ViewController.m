@@ -330,6 +330,11 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 				}
 			}
 			
+			if (infoDict[@"ssid"])
+				self.networkName = infoDict[@"ssid"];
+			else
+				self.networkName = @"<unknown>";
+			
 			NSString* webStr = [NSString stringWithFormat: @"Page2B.populateNetworkInfo(\"%@\",\"%@\",\"%@\",\"%@\")", self.networkName, conStatus, infoDict[@"ipAddress"], infoDict[@"macAddress"]];
 			
 //			NSLog(@"webStr = %@", webStr);
