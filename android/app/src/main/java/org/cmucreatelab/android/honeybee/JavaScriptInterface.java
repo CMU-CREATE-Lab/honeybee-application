@@ -64,13 +64,17 @@ public class JavaScriptInterface {
     }
 
 
-    public static void notifyNetworkListChanged(final MainActivity mainActivity, List<ScanResult> newList) {
+    public static void notifyNetworkListChanged(final MainActivity mainActivity, List<HoneybeeWifiScanResult> newList) {
         // TODO need to consider escape characters \"
         String jsArray = "[";
-        for (ScanResult result: newList) {
-            jsArray += "{ssid: \"" + result.SSID + "\", security_type: " + findSecurityTypeFromString(result.capabilities) + "},";
+        for (HoneybeeWifiScanResult result: newList) {
+            // ignore any blank entries
+            if (result.ssid == null || result.ssid.equals(""))
+                continue;
+            jsArray += "{ssid: \"" + result.ssid + "\", security_type: " + result.securityType + ", rssi: " + result.rssi + "},";
         }
         jsArray += "]";
+        Log.d(MainActivity.LOG_TAG, "notifyNetworkListChanged with jsArray="+jsArray);
         sendJavaScript(mainActivity, "Page2A.notifyNetworkListChanged("+ Uri.encode(jsArray) +")");
         sendJavaScript(mainActivity, "Page2A.setScanning(false)");
     }

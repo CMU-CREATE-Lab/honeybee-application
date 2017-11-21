@@ -153,7 +153,8 @@
     </div>
     <!-- main -->
     <div role="main" class="ui-content no-top" data-iscroll>
-      <h3>ESDR Login</h3>
+      <h3>Speck Sensor Login</h3>
+      <p>Need an account? <a href="https://www.specksensor.com/signup" target="_blank">Sign up!</a></p>
       <div class="ui-field-contain">
         <label for="name">Username:</label>
         <input data-clear-btn="true" name="username" id="esdr-username" value="" autocomplete="off"/>
@@ -163,6 +164,7 @@
         <input type="password" data-clear-btn="true" name="password" id="esdr-password" value="" autocomplete="off"/>
       </div>
       <input type="button" id="esdr-login" value="Login"/>
+      <p><a href="https://www.specksensor.com/password-reset" target="_blank">Forgot your password?</a></p>
     </div>
     <!-- footer -->
     <div data-role="footer" data-position="fixed" data-tap-toggle="false">
@@ -212,7 +214,7 @@
       <ul data-role="listview" data-inset="true" data-icon="false">
         <li><a href="#page1a" data-transition="none">1. Connect Honeybee</a></li>
         <li><a href="#page2a" data-transition="none">2. Network Setup</a></li>
-        <li><a href="#page3a" data-transition="none">3. ESDR Setup</a></li>
+        <li><a href="#page3a" data-transition="none">3. Speck Sensor Setup</a></li>
       </ul>
     </div>
     <!-- header -->
@@ -225,36 +227,25 @@
       <div class="homepage-section-top">
         <p>Congratulations! You are all set! Here's a summary of your device info below:</p>
         <h3>Device Info</h3>
-        <div class="ui-grid-a">
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Device Name</div></div>
-          <div class="ui-block-b"><div id="page4-device-name" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Hardware Version</div></div>
-          <div class="ui-block-b"><div id="page4-device-hw" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Firmware Version</div></div>
-          <div class="ui-block-b"><div id="page4-device-fw" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Serial Number</div></div>
-          <div class="ui-block-b"><div id="page4-device-serial" class="ui-body ui-body-a">--</div></div>
-        </div>
+        <ul>
+          <li>Device Name: <label id="page4-device-name">--</label></li>
+          <li>Hardware Version: <label id="page4-device-hw">--</label></li>
+          <li>Firmware Version: <label id="page4-device-fw">--</label></li>
+          <li>Serial Number: <label id="page4-device-serial">--</label></li>
+        </ul>
         <h3>WiFi Info</h3>
-        <div class="ui-grid-a">
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Network Name</div></div>
-          <div class="ui-block-b"><div id="page4-network-name" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Status</div></div>
-          <div class="ui-block-b"><div id="page4-network-status" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">IP Address</div></div>
-          <div class="ui-block-b"><div id="page4-network-ip" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">MAC Address</div></div>
-          <div class="ui-block-b"><div id="page4-network-mac" class="ui-body ui-body-a">--</div></div>
-        </div>
-        <h3>ESDR Info</h3>
-        <div class="ui-grid-a">
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Feed Name</div></div>
-          <div class="ui-block-b"><div id="page4-feed-name" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Exposure</div></div>
-          <div class="ui-block-b"><div id="page4-feed-exposure" class="ui-body ui-body-a">--</div></div>
-          <div class="ui-block-a"><div class="ui-body ui-body-a">Feed Key</div></div>
-          <div class="ui-block-b"><div id="page4-feed-key" class="ui-body ui-body-a">--</div></div>
-        </div>
+        <ul>
+          <li>Network Name: <label id="page4-network-name">--</label></li>
+          <li>Status: <label id="page4-network-status">--</label></li>
+          <li>IP Address: <label id="page4-network-ip">--</label></li>
+          <li>MAC Address: <label id="page4-network-mac">--</label></li>
+        </ul>
+        <h3>Speck Sensor Info</h3>
+        <ul>
+          <li>Feed Name: <label id="page4-feed-name">--</label></li>
+          <li>Exposure: <label id="page4-feed-exposure">--</label></li>
+          <li>Feed Key: <label id="page4-feed-key">--</label></li>
+        </ul>
         <input id="button-feed-key-remove" type="button" value="Remove Feed Key"/>
       </div>
     </div>
