@@ -82,7 +82,7 @@ var EsdrInterface = {
       Authorization: "Bearer " + accessToken,
     };
     var requestType = "GET";
-    var url = "http://esdr.cmucreatelab.org/api/v1/devices";
+    var url = "https://esdr.cmucreatelab.org/api/v1/devices";
 
     EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
   },
