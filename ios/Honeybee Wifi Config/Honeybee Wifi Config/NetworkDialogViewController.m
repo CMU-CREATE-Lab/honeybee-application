@@ -45,6 +45,7 @@
 
 - (IBAction) connectHoneybee:(id)sender
 {
+    NSLog(@"connectHoneybee");
 //	[self.navigationController dismissViewControllerAnimated: YES completion: nil];
 	ViewController* vc = (id)self.navigationController.presentingViewController;
 	assert(vc);
