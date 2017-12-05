@@ -18,10 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.passwordField.enabled = NO;
 	
+    // set properties passed in from the other View
 	self.ssidField.text = self.networkName;
-	self.passwordField.enabled = NO;
-
+    [_securitySegments setSelectedSegmentIndex:self.securityType];
+    [_securitySegments sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning {

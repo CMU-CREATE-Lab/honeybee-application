@@ -15,6 +15,7 @@
 @property IBOutlet UITextField* passwordField;
 
 @property NSString* networkName;
+@property NSInteger securityType;
 
 - (IBAction) dismiss:(id)sender;
 - (IBAction) connectHoneybee:(id)sender;
