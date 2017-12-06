@@ -352,6 +352,11 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 				
 			}
 		}
+        else if ([items[0] isEqualToString: @"R"])
+        {
+            // after removing network, go back to scan page
+            [self.webView stringByEvaluatingJavaScriptFromString: @"App.goToPage(\"page2a\")"];
+        }
 		else
 		{
 			if ([items[0] isEqualToString: @"S"])
