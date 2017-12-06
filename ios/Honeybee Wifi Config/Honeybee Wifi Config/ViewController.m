@@ -357,6 +357,12 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
             // after removing network, go back to scan page
             [self.webView stringByEvaluatingJavaScriptFromString: @"App.goToPage(\"page2a\")"];
         }
+        else if ([items[0] isEqualToString: @"K"])
+        {
+            // after setting the feed key, go to page 4
+            // NOTE: this also runs when you "clear" the feed key
+            [self.webView stringByEvaluatingJavaScriptFromString: @"App.goToPage(\"page4\")"];
+        }
 		else
 		{
 			if ([items[0] isEqualToString: @"S"])
@@ -665,7 +671,11 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		else if ([url.host isEqualToString: @"setFeedKey"])
 		{
 			NSLog(@"handleLocalRequest: setFeedKey");
-		
+
+            self.feedKey = [url.pathComponents[2] stringByRemovingPercentEncoding];
+            NSString* cmd = [NSString stringWithFormat: @"K,1,%@\r\n", self.feedKey];
+            NSLog(@"about to set feed key over BLE: %@", cmd);
+            [self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
 		}
 		else if ([url.host isEqualToString: @"displayDialog"])
 		{

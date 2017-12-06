@@ -17,6 +17,7 @@
 @property NSString* networkName;
 @property NSValue* securityType;
 @property NSString* password;
+@property NSString* feedKey;
 
 @property NSTimer* wifiTimer;
 
