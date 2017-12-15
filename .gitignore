@@ -1,2 +1,5 @@
 .DS_Store
 web/js/secrets.js
+xcuserdata
+*.xcuserstate
+
