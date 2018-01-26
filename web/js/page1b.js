@@ -9,6 +9,7 @@ var Page1B = {
   html_device_hardware: null,
   html_device_firmware: null,
   html_device_serial_number: null,
+  html_device_feed_key: null,
 
 
   // TODO handle disconnect device by user navigation (otherwise we are connected to multiple devices with no control)
@@ -23,6 +24,7 @@ var Page1B = {
     this.html_device_hardware = $("#device-hw");
     this.html_device_firmware = $("#device-fw");
     this.html_device_serial_number = $("#device-serial");
+    this.html_device_feed_key = $("#device-feedkey");
 
     if (!App.honeybee_device) {
       console.warn("Went to Page1B but does not have a honeybee device; returning to previous page.");
@@ -34,6 +36,9 @@ var Page1B = {
       ApplicationInterface.requestDeviceInfo();
     }
     this.displayDeviceInfo();
+    $("#request-feedkey").off("click");
+    $("#request-feedkey").on("click", Page1B.onClickRequestFeedKey);
+    this.displayFeedKey();
   },
 
 
@@ -79,6 +84,33 @@ var Page1B = {
     this.html_device_hardware.text(hw);
     this.html_device_firmware.text(fw);
     this.html_device_serial_number.text(serial);
+  },
+
+
+  /**
+   * Onclick listener for the "Request Feed Key" button.
+   */
+  onClickRequestFeedKey: function() {
+    App.displaySpinner(true, "Requesting Feed Key...");
+    ApplicationInterface.requestFeedKey();
+  },
+
+
+  populateFeedKey: function(feed_key) {
+    Page1B.displayFeedKey();
+    App.displaySpinner(false);
+  },
+
+
+  displayFeedKey: function() {
+    if (!App.honeybee_device) {
+      console.warn("called displayFeedKey but does not have a honeybee device; returning to previous page.");
+      App.goToPage("page1a");
+      return;
+    }
+    var feed_key = !(App.honeybee_device.esdr_feed_key) ? "--" : App.honeybee_device.esdr_feed_key;
+
+    this.html_device_feed_key.text(feed_key);
   },
 
 }

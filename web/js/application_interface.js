@@ -102,6 +102,14 @@ var ApplicationInterface = {
 
 
   /**
+   * Sends BLE message to request Feed Key from the honeybee.
+   */
+  requestFeedKey: function() {
+    this.sendMessageToApplication("requestFeedKey", []);
+  },
+
+
+  /**
    * Sends a request to change the window location to a URL described by schema://domain/params with each element of params separated by a comma (,). It is up to the platform to override these requests and parse the messages.
    * @param {string} domain - The name of the function.
    * @param {string[]} params - An array of strings representing the function parameters.
