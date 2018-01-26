@@ -680,6 +680,16 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		else if ([url.host isEqualToString: @"displayDialog"])
 		{
 			NSLog(@"handleLocalRequest: displayDialog");
+			NSString* errStr = [url.pathComponents.lastObject stringByRemovingPercentEncoding];
+			
+			UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"ESDR Error" message:errStr preferredStyle:UIAlertControllerStyleAlert];
+			
+			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+			
+			[alert addAction:defaultAction];
+			
+			[self presentViewController:alert animated:YES completion:nil];
+
 		}
 		else if ([url.host isEqualToString: @"removeFeedKey"])
 		{
