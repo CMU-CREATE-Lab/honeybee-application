@@ -57,6 +57,7 @@ var Page4 = {
    */
   onClickRemoveFeedKey: function() {
     console.log("onClickRemoveFeedKey");
+    App.honeybee_device.esdr_feed_key_enabled = false;
     ApplicationInterface.removeFeedKey();
   },
 

@@ -36,7 +36,7 @@ var Page1B = {
       ApplicationInterface.requestDeviceInfo();
     }
     this.displayDeviceInfo();
-    Page1B.displayFeedKey();
+    this.displayFeedKey();
   },
 
 

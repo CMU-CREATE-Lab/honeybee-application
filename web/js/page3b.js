@@ -68,6 +68,7 @@ var Page3B = {
    */
   onFeedKeySent: function() {
     console.log("Page3B.onFeedKeySent");
+    App.honeybee_device.esdr_feed_key_enabled = true;
     App.goToPage("page4");
   }
 
