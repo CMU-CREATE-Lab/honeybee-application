@@ -51,7 +51,8 @@ var Page3A = {
   onEsdrLogin: function(json) {
     console.log("Page3A.onEsdrLogin");
     App.esdr_account = json;
-    App.goToPage("page3b");
+    // TODO find device, or navigate to create new device
+    //App.goToPage("page3b");
   }
 
 }
