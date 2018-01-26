@@ -177,6 +177,89 @@
   </div>
 
 
+  <div data-role="page" id="pageDeviceNew">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>New Device</h3>
+        <div class="ui-field-contain">
+          <label for="device-name">Name:</label>
+          <input data-clear-btn="true" name="device-name" id="device_name" value="" autocomplete="off"/>
+        </div>
+        <input id="create-device" type="button" value="Create"/>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page3a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="pageFeedsIndex">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3 id="page-feeds-index-title">Feeds for DEVICE_NAME</h3>
+      <div id="feeds-exist">
+        <div class="ui-field-contain">
+          <label for="feed-select">Select:</label>
+          <select name="feed-select" id="feed_select">
+            <option value="1">Feed Name</option>
+          </select>
+        </div>
+        <input id="submit-feed" type="button" value="Choose"/>
+      </div>
+      <br/>
+      <div class="ui-field-contain">
+        <label id="label-for-feed-create" for="feed-create">or:</label>
+        <input id="feed-create" type="button" value="Create New Feed"/>
+      </div>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#page3a" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+    </div>
+  </div>
+
+
+  <div data-role="page" id="pageFeedsNew">
+    <!-- header -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <h1>Honeybee</h1>
+    </div>
+    <!-- main -->
+    <div role="main" class="ui-content no-top" data-iscroll>
+      <h3>Create New Feed</h3>
+      <div class="ui-field-contain">
+        <label for="feed-name">Name:</label>
+        <input data-clear-btn="true" name="feed-name" id="new_feed_name" value="" autocomplete="off"/>
+      </div>
+      <div class="ui-field-contain">
+        <label for="feed-exposure">Exposure:</label>
+        <select name="feed-exposure" id="feed_exposure">
+          <option value="indoor">Indoor</option>
+          <option value="outdoor">Outdoor</option>
+          <option value="virtual">Virtual</option>
+        </select>
+      </div>
+      <input id="create-feed" type="button" value="Create"/>
+    </div>
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+      <h1></h1>
+      <a href="#pageFeedsIndex" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Back</a>
+    </div>
+  </div>
+
+
   <div data-role="page" id="page3b">
     <!-- header -->
     <div data-role="header" data-position="fixed" data-tap-toggle="false">
