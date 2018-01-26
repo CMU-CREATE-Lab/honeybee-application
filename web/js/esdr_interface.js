@@ -45,6 +45,30 @@ var EsdrInterface = {
 
 
   /**
+  * Given a serial number, determine if the authorized user has the Device registered on ESDR. If so, return the ESDR Device information. Otherwise, return null.
+  * @param {string} accessToken - EDSR access token for an authorized user.
+  * @param {string} serialNumber - The serial number of the requested ESDR Device.
+  * @param {deviceCallback} callback - A callback that includes a device JSON object (or null) as its parameter.
+  */
+  findDeviceFromSerialNumber: function(accessToken, serialNumber, callback) {
+    var findDeviceResponse = function(responseData) {
+      if (responseData.data.rows.length > 0) {
+        console.log("findDeviceFromSerialNumber: found device id="+responseData.data.rows[0].id);
+        callback(responseData.data.rows[0]);
+      } else {
+        console.log("findDeviceFromSerialNumber: no device found.");
+        callback(null);
+      }
+    };;
+    var ajaxData = {
+      "whereAnd": "serialNumber="+serialNumber,
+    };
+
+    EsdrInterface.requestDevices(accessToken, ajaxData, findDeviceResponse);
+  },
+
+
+  /**
    * @callback ajaxSuccess
    * @param {json} data - The information received from a successful Ajax request.
    */
@@ -83,6 +107,26 @@ var EsdrInterface = {
     };
     var requestType = "GET";
     var url = "https://esdr.cmucreatelab.org/api/v1/devices";
+
+    EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
+  },
+
+
+  /**
+   * Request a list of ESDR Feeds for a given deviceId.
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {int} deviceId - A Device ID associated with an EDSR Device.
+   * @param {ajaxSuccess} success - Ajax response.
+   */
+  requestFeeds: function(accessToken, deviceId, success) {
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var requestType = "GET";
+    var url = "https://esdr.cmucreatelab.org/api/v1/feeds";
+    var ajaxData = {
+      "whereAnd": "deviceId="+deviceId,
+    };
 
     EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
   },
