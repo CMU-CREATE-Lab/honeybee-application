@@ -51,8 +51,20 @@ var Page3A = {
   onEsdrLogin: function(json) {
     console.log("Page3A.onEsdrLogin");
     App.esdr_account = json;
-    // TODO find device, or navigate to create new device
-    //App.goToPage("page3b");
+
+    App.displaySpinner(true, "Searching Device with Serial Number...");
+    var accessToken = App.esdr_account.accessToken;
+    var serialNumber = App.honeybee_device.serial_number;
+    var ajaxResult = function(data) {
+      App.displaySpinner(false);
+      if (data==null) {
+        App.goToPage("page3DeviceNew");
+      } else {
+        App.esdr_device = data;
+        App.goToPage("page3FeedsIndex");
+      }
+    }
+    EsdrInterface.findDeviceFromSerialNumber(accessToken, serialNumber, ajaxResult);
   }
 
 }
