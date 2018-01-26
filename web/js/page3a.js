@@ -63,7 +63,7 @@ var Page3A = {
         App.esdr_device = data;
         App.goToPage("page3FeedsIndex");
       }
-    }
+    };
     EsdrInterface.findDeviceFromSerialNumber(accessToken, serialNumber, ajaxResult);
   }
 

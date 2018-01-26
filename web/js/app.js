@@ -53,6 +53,9 @@ var App = {
       case "page2b":
       case "page3a":
       case "page3b":
+      case "page3DeviceNew":
+      case "page3FeedsIndex":
+      case "page3FeedsNew":
       case "page4":
         break;
       default:
@@ -99,6 +102,15 @@ var App = {
         break;
       case "page3b":
         Page3B.initialize();
+        break;
+      case "page3DeviceNew":
+        Page3DeviceNew.initialize();
+        break;
+      case "page3FeedsIndex":
+        // Page3FeedsIndex.initialize();
+        break;
+      case "page3FeedsNew":
+        Page3FeedsNew.initialize();
         break;
       case "page4":
         Page4.initialize();
