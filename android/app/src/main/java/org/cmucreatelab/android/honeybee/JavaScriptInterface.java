@@ -54,12 +54,14 @@ public class JavaScriptInterface {
     }
 
 
-    public static void populateDeviceInfo(final MainActivity mainActivity, String name, String hw, String fw, String serial) {
+    public static void populateDeviceInfo(final MainActivity mainActivity, String name, String hw, String fw, String serial, String feedKeyEN, String feedKey) {
         String params = "";
         params += "\"" + name + "\", ";
         params += "\"" + hw + "\", ";
         params += "\"" + fw + "\", ";
         params += "\"" + serial + "\"";
+        params += "\"" + feedKeyEN + "\"";
+        params += "\"" + feedKey + "\"";
         sendJavaScript(mainActivity, "Page1B.populateDeviceInfo(" + Uri.encode(params) + ")");
     }
 

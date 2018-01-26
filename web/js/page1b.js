@@ -36,9 +36,7 @@ var Page1B = {
       ApplicationInterface.requestDeviceInfo();
     }
     this.displayDeviceInfo();
-    $("#request-feedkey").off("click");
-    $("#request-feedkey").on("click", Page1B.onClickRequestFeedKey);
-    this.displayFeedKey();
+    Page1B.displayFeedKey();
   },
 
 
@@ -48,17 +46,21 @@ var Page1B = {
    * @param {string} hw - The hardware version of the honeybee device
    * @param {string} fw - The firmware version of the honeybee device
    * @param {string} serial - The serial number of the honeybee device
+   * @param {string} feed_key_enabled - "1" if feed key enabled, "0" otherwise
+   * @param {string} feed_key - The feed key for the honeybee device (if enabled)
    */
-  populateDeviceInfo: function(name, hw, fw, serial) {
+  populateDeviceInfo: function(name, hw, fw, serial, feed_key_enabled, feed_key) {
     if (!App.honeybee_device) {
       console.warn("called populateDeviceInfo but does not have a honeybee device; returning to previous page.");
       App.goToPage("page1a");
       return;
     }
+    var feedKeyEN = (feed_key_enabled == "1");
     // Merge the contents of two or more objects together into the first object. (http://api.jquery.com/jQuery.extend/)
-    $.extend(App.honeybee_device, {hasDeviceInfo: true, device_name: name, hardware_version: hw, firmware_version: fw, serial_number: serial})
+    $.extend(App.honeybee_device, {hasDeviceInfo: true, device_name: name, hardware_version: hw, firmware_version: fw, serial_number: serial, esdr_feed_key_enabled: feedKeyEN, esdr_feed_key: feed_key})
 
     Page1B.displayDeviceInfo();
+    Page1B.displayFeedKey();
     App.displaySpinner(false);
   },
 
@@ -79,26 +81,13 @@ var Page1B = {
     var hw = !(App.honeybee_device.hardware_version) ? "--" : App.honeybee_device.hardware_version;
     var fw = !(App.honeybee_device.firmware_version) ? "--" : App.honeybee_device.firmware_version;
     var serial = !(App.honeybee_device.serial_number) ? "--" : App.honeybee_device.serial_number;
+    var feed_key = !(App.honeybee_device.esdr_feed_key) ? "--" : App.honeybee_device.esdr_feed_key;
 
     this.html_device_name.text(name);
     this.html_device_hardware.text(hw);
     this.html_device_firmware.text(fw);
     this.html_device_serial_number.text(serial);
-  },
-
-
-  /**
-   * Onclick listener for the "Request Feed Key" button.
-   */
-  onClickRequestFeedKey: function() {
-    App.displaySpinner(true, "Requesting Feed Key...");
-    ApplicationInterface.requestFeedKey();
-  },
-
-
-  populateFeedKey: function(feed_key) {
-    Page1B.displayFeedKey();
-    App.displaySpinner(false);
+    this.html_device_feed_key.text(feed_key);
   },
 
 
@@ -110,7 +99,11 @@ var Page1B = {
     }
     var feed_key = !(App.honeybee_device.esdr_feed_key) ? "--" : App.honeybee_device.esdr_feed_key;
 
-    this.html_device_feed_key.text(feed_key);
+    if (App.honeybee_device.esdr_feed_key_enabled) {
+      this.html_device_feed_key.text(feed_key);
+    } else {
+      this.html_device_feed_key.text("(not enabled)");
+    }
   },
 
 }
