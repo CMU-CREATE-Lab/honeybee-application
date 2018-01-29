@@ -64,6 +64,10 @@ var Page3FeedsIndex = {
     console.log("Page3FeedsIndex.onClickChooseFeed");
     var selectedFeed = Page3FeedsIndex.feeds_hashmap[Page3FeedsIndex.html_feed_select.val()];
     console.log("apiKey="+selectedFeed.apiKey);
+    App.honeybee_device.esdr_feed = selectedFeed;
+    App.honeybee_device.esdr_feed_name = selectedFeed.name;
+    App.honeybee_device.esdr_feed_exposure = selectedFeed.exposure;
+    App.honeybee_device.esdr_feed_key = selectedFeed.apiKey;
     App.displaySpinner(true, "Sending Feed Key to Honeybee...");
     ApplicationInterface.setFeedKey(true, selectedFeed.apiKey);
   },

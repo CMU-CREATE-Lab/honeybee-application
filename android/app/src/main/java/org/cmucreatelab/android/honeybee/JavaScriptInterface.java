@@ -59,8 +59,8 @@ public class JavaScriptInterface {
         params += "\"" + name + "\", ";
         params += "\"" + hw + "\", ";
         params += "\"" + fw + "\", ";
-        params += "\"" + serial + "\"";
-        params += "\"" + feedKeyEN + "\"";
+        params += "\"" + serial + "\", ";
+        params += "\"" + feedKeyEN + "\", ";
         params += "\"" + feedKey + "\"";
         sendJavaScript(mainActivity, "Page1B.populateDeviceInfo(" + Uri.encode(params) + ")");
     }

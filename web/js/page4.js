@@ -59,6 +59,13 @@ var Page4 = {
     console.log("onClickRemoveFeedKey");
     App.honeybee_device.esdr_feed_key_enabled = false;
     ApplicationInterface.removeFeedKey();
+    // NOTE: we can't tell if we run set vs. clear from ios, so we just respond immediately.
+    //Page4.onFeedKeyRemoved();
+    App.honeybee_device.esdr_feed = {};
+    delete App.honeybee_device.esdr_feed_name;
+    delete App.honeybee_device.esdr_feed_exposure;
+    delete App.honeybee_device.esdr_feed_key;
+    Page4.displayFeedInfo();
   },
 
 
@@ -66,11 +73,12 @@ var Page4 = {
    * Callback for when the honeybee device has successfully cleared its stored Feed key.
    */
   onFeedKeyRemoved: function() {
-    App.honeybee_device.esdr_feed = {};
-    delete App.honeybee_device.esdr_feed_name;
-    delete App.honeybee_device.esdr_feed_exposure;
-    delete App.honeybee_device.esdr_feed_key;
-    Page4.displayFeedInfo();
+    // NOTE: see above. we cannot handle this directly from ios code
+    // App.honeybee_device.esdr_feed = {};
+    // delete App.honeybee_device.esdr_feed_name;
+    // delete App.honeybee_device.esdr_feed_exposure;
+    // delete App.honeybee_device.esdr_feed_key;
+    // Page4.displayFeedInfo();
   },
 
 
