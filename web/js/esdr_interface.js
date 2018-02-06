@@ -89,7 +89,7 @@ var EsdrInterface = {
     var headers = {};
     var url = "https://esdr.cmucreatelab.org/oauth/token";
 
-    EsdrInterface.createAndSendAjaxRequest("POST", headers, data, url, success, function(error){
+    EsdrInterface.createAndSendSynchronousAjaxRequest("POST", headers, data, url, success, function(error){
       ApplicationInterface.displayDialog("Invalid Username or Password");
     });
   },
@@ -108,7 +108,7 @@ var EsdrInterface = {
     var requestType = "GET";
     var url = "https://esdr.cmucreatelab.org/api/v1/devices";
 
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
   },
 
 
@@ -128,7 +128,7 @@ var EsdrInterface = {
       "whereAnd": "deviceId="+deviceId,
     };
 
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
   },
 
 
@@ -149,7 +149,15 @@ var EsdrInterface = {
       serialNumber: serialNumber,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/products/"+EsdrInterface.productId+"/devices";
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError);
+
+    var onResponse = function(response) {
+      var deviceId = response.data.id;
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"hwVersion",App.honeybee_device.hardware_version);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"fwVersion",App.honeybee_device.firmware_version);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"appVersion",App.APPLICATION_VERSION);
+      success(response);
+    }
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, data, url, onResponse, EsdrInterface.onAjaxError);
   },
 
 
@@ -171,12 +179,19 @@ var EsdrInterface = {
       exposure: exposure,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/devices/"+deviceId+"/feeds";
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, function(response){ success(response.data); }, EsdrInterface.onAjaxError);
+
+    var onResponse = function(response) {
+      var feedId = response.data.id;
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"feeds",feedId,"appVersion",App.APPLICATION_VERSION);
+      success(response.data);
+    }
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, data, url, onResponse, EsdrInterface.onAjaxError);
   },
 
 
   /**
    * Helper to create and send an Ajax request.
+   * @param {boolean} asynchronous - When true, do not assign request to class variable and do not abort any current (synchronous) requests.
    * @param {string} requestType - Should be one of the standard HTML request methods (see: {@link https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods}).
    * @param {json} headers - Headers to include in the HTTP request (see: {@link https://en.wikipedia.org/wiki/List_of_HTTP_header_fields}).
    * @param {josn} data - The data to include in the HTTP requst.
@@ -184,15 +199,9 @@ var EsdrInterface = {
    * @param {ajaxSuccess} onAjaxSuccess - Callback function when the Ajax request receives a successful response.
    * @param {function} onAjaxError - Callback function when the Ajax request throws an error.
    */
-  createAndSendAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
-    if (this.request != null) {
-      console.log("createAndSendAjaxRequest with non-null request; aborting old request.");
-      this.request.abort();
-      this.request = null;
-    }
-
+  createAndSendAjaxRequest: function(asynchronous, requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
     // https://api.jquery.com/jQuery.ajax/
-    this.request = $.ajax({
+    var temp = $.ajax({
       type: requestType,
       dataType: "json",
       url: url,
@@ -202,6 +211,51 @@ var EsdrInterface = {
       success: onAjaxSuccess,
       error: onAjaxError,
     });
+
+    if (asynchronous) {
+      return;
+    }
+
+    if (this.request != null) {
+      console.log("createAndSendAjaxRequest with non-null request; aborting old request.");
+      this.request.abort();
+      this.request = null;
+    }
+    this.request = temp;
+  },
+
+
+  /**
+   * Helper to create and send an Ajax request (see createAndSendAjaxRequest for param info).
+   */
+  createAndSendSynchronousAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
+    EsdrInterface.createAndSendAjaxRequest(false,requestType, headers, data, url, onAjaxSuccess, onAjaxError);
+  },
+
+
+  /**
+   * Helper to add a string property to an esdr object (likely either "device" or "feed").
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {string} objectNamePlural - the type of ESDR object being written to (should be of type "devices" or "feeds").
+   * @param {int} objectId - the id for the ESDR object.
+   * @param {string} propertyKey - The key for the string property.
+   * @param {string} propertyValue - The value for the string property.
+   */
+  requestAddStringPropertyToEsdrObject: function(accessToken, objectNamePlural, objectId, propertyKey, propertyValue) {
+    var requestType = "PUT";
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var data = {
+      type: "string",
+      value: propertyValue,
+    };
+    var url = "https://esdr.cmucreatelab.org/api/v1/"+objectNamePlural+"/"+objectId+"/properties/"+encodeURIComponent(propertyKey);
+
+    // no callbacks for success/fail but print to console
+    var response = function(message) { console.log(message.data); };
+    var error = function(message) { console.log(message); };
+    EsdrInterface.createAndSendAjaxRequest(true, requestType, headers, data, url, response, error);
   },
 
 

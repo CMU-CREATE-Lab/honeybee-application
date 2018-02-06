@@ -8,6 +8,7 @@ var App = {
   // application variables
   honeybee_device: null,
   esdr_account: null,
+  APPLICATION_VERSION: "1.3.0",
 
 
   // helper functions
