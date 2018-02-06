@@ -154,6 +154,7 @@ var EsdrInterface = {
       var deviceId = response.data.id;
       EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"hwVersion",App.honeybee_device.hardware_version);
       EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"fwVersion",App.honeybee_device.firmware_version);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"deviceName",App.honeybee_device.device_name);
       EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"appVersion",App.APPLICATION_VERSION);
       success(response);
     }
