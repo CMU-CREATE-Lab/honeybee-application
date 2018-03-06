@@ -48,8 +48,9 @@ var Page1B = {
    * @param {string} serial - The serial number of the honeybee device
    * @param {string} feed_key_enabled - "1" if feed key enabled, "0" otherwise
    * @param {string} feed_key - The feed key for the honeybee device (if enabled)
+   * @param {string} protocol - The protocol for the honeybee device.
    */
-  populateDeviceInfo: function(name, hw, fw, serial, feed_key_enabled, feed_key) {
+  populateDeviceInfo: function(name, hw, fw, serial, feed_key_enabled, feed_key, protocol) {
     if (!App.honeybee_device) {
       console.warn("called populateDeviceInfo but does not have a honeybee device; returning to previous page.");
       App.goToPage("page1a");
@@ -57,7 +58,7 @@ var Page1B = {
     }
     var feedKeyEN = (feed_key_enabled == "1");
     // Merge the contents of two or more objects together into the first object. (http://api.jquery.com/jQuery.extend/)
-    $.extend(App.honeybee_device, {hasDeviceInfo: true, device_name: name, hardware_version: hw, firmware_version: fw, serial_number: serial, esdr_feed_key_enabled: feedKeyEN, esdr_feed_key: feed_key})
+    $.extend(App.honeybee_device, {hasDeviceInfo: true, device_name: name, hardware_version: hw, firmware_version: fw, serial_number: serial, esdr_feed_key_enabled: feedKeyEN, esdr_feed_key: feed_key, protocol: protocol})
 
     Page1B.displayDeviceInfo();
     Page1B.displayFeedKey();
