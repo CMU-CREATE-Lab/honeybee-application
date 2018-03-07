@@ -50,8 +50,8 @@ public class ApplicationInterface {
                 if (!args[0].equals("I") || args.length != 9) {
                     Log.e(MainActivity.LOG_TAG, "Got a bad response from command I: response="+response);
                 } else {
-                    String hwVersion = args[2], fwVersion = args[3], deviceName = args[4], serialNumber = args[5], feedKeyEN = args[6], feedKey = args[7];
-                    JavaScriptInterface.populateDeviceInfo(globalHandler.mainActivity, deviceName, hwVersion, fwVersion, serialNumber, feedKeyEN, feedKey);
+                    String protocol = args[1], hwVersion = args[2], fwVersion = args[3], deviceName = args[4], serialNumber = args[5], feedKeyEN = args[6], feedKey = args[7];
+                    JavaScriptInterface.populateDeviceInfo(globalHandler.mainActivity, deviceName, hwVersion, fwVersion, serialNumber, feedKeyEN, feedKey, protocol);
                 }
             }
         };
