@@ -10,6 +10,7 @@ var Page1B = {
   html_device_firmware: null,
   html_device_serial_number: null,
   html_device_feed_key: null,
+  html_device_protocol: null,
 
 
   // TODO handle disconnect device by user navigation (otherwise we are connected to multiple devices with no control)
@@ -25,6 +26,7 @@ var Page1B = {
     this.html_device_firmware = $("#device-fw");
     this.html_device_serial_number = $("#device-serial");
     this.html_device_feed_key = $("#device-feedkey");
+    this.html_device_protocol = $("#device-protocol");
 
     if (!App.honeybee_device) {
       console.warn("Went to Page1B but does not have a honeybee device; returning to previous page.");
@@ -83,12 +85,14 @@ var Page1B = {
     var fw = !(App.honeybee_device.firmware_version) ? "--" : App.honeybee_device.firmware_version;
     var serial = !(App.honeybee_device.serial_number) ? "--" : App.honeybee_device.serial_number;
     var feed_key = !(App.honeybee_device.esdr_feed_key) ? "--" : App.honeybee_device.esdr_feed_key;
+    var protocol = !(App.honeybee_device.protocol) ? "--" : App.honeybee_device.protocol;
 
     this.html_device_name.text(name);
     this.html_device_hardware.text(hw);
     this.html_device_firmware.text(fw);
     this.html_device_serial_number.text(serial);
     this.html_device_feed_key.text(feed_key);
+    this.html_device_protocol.text(protocol);
   },
 
 

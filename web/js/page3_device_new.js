@@ -32,7 +32,11 @@ var Page3DeviceNew = {
       App.goToPage("page3FeedsIndex");
     };
 
-    EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, ajaxResult);
+    var productCheckResponse = function(productIdentifier) {
+      EsdrInterface.requestCreateNewDevice(accessToken, productIdentifier, deviceName, serialNumber, ajaxResult);
+    }
+    var deviceNameFromProtocol = App.honeybee_device.device_name;
+    EsdrInterface.findProductFromUniqueIdentifier(deviceNameFromProtocol,productCheckResponse);
   },
 
 }
