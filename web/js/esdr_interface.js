@@ -9,7 +9,7 @@ var EsdrInterface = {
   request: null,
   clientId: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  productId: PRODUCT_ID,
+  defaultProductId: 73,
 
 
   /**
@@ -33,7 +33,34 @@ var EsdrInterface = {
           console.log("findOrCreateDeviceFromSerialNumber: created new device with id="+response2data.data.id);
           callback(response2data.data);
         };
-        EsdrInterface.requestCreateNewDevice(accessToken, deviceName, serialNumber, createDeviceResponse);
+        var productCheckResponse = function(productIdentifier) {
+          EsdrInterface.requestCreateNewDevice(accessToken, productIdentifier, deviceName, serialNumber, createDeviceResponse);
+        }
+        EsdrInterface.findProductFromUniqueIdentifier(deviceName,productCheckResponse);
+      }
+    };
+    var ajaxData = {
+      "whereAnd": "serialNumber="+serialNumber,
+    };
+
+    EsdrInterface.requestDevices(accessToken, ajaxData, findDeviceResponse);
+  },
+
+
+  /**
+  * Given a serial number, determine if the authorized user has the Device registered on ESDR. If so, return the ESDR Device information. Otherwise, return null.
+  * @param {string} accessToken - EDSR access token for an authorized user.
+  * @param {string} serialNumber - The serial number of the requested ESDR Device.
+  * @param {deviceCallback} callback - A callback that includes a device JSON object (or null) as its parameter.
+  */
+  findDeviceFromSerialNumber: function(accessToken, serialNumber, callback) {
+    var findDeviceResponse = function(responseData) {
+      if (responseData.data.rows.length > 0) {
+        console.log("findDeviceFromSerialNumber: found device id="+responseData.data.rows[0].id);
+        callback(responseData.data.rows[0]);
+      } else {
+        console.log("findDeviceFromSerialNumber: no device found.");
+        callback(null);
       }
     };;
     var ajaxData = {
@@ -41,6 +68,33 @@ var EsdrInterface = {
     };
 
     EsdrInterface.requestDevices(accessToken, ajaxData, findDeviceResponse);
+  },
+
+
+  /**
+   * @callback productCallback
+   * @param {string} productIdentifier - The ESDR Product ID that was found (or default product if a valid product could not be parsed).
+   */
+  /**
+  * Determine if the product identifier we were given is valid. If it is not, default to generic HB product id.
+  * @param {string} productIdentifier - Identifier for Product lookup; may be an integer or unique string.
+  * @param {productCallback} callback - A callback that includes a device JSON object (or null) as its parameter.
+  */
+  findProductFromUniqueIdentifier: function(productIdentifier, callback) {
+    var url = "https://esdr.cmucreatelab.org/api/v1/products/"+productIdentifier;
+    var requestType = "GET";
+
+    var onError = function(error) {
+      // ESDR sends 404 status when product is invalid
+      var defaultProduct = EsdrInterface.defaultProductId;
+      console.warn("could not find EDSR Product from identifier="+productIdentifier+"; defaulting to "+defaultProduct);
+      callback(defaultProduct);
+    }
+    var onSuccess = function(response) {
+      // ESDR sends 200 status when it finds a valid product
+      callback(productIdentifier);
+    }
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, {}, {}, url, onSuccess, onError);
   },
 
 
@@ -65,8 +119,8 @@ var EsdrInterface = {
     var headers = {};
     var url = "https://esdr.cmucreatelab.org/oauth/token";
 
-    EsdrInterface.createAndSendAjaxRequest("POST", headers, data, url, success, function(error){
-      ApplicationInterface.displayDialog("Invalid Username/Password");
+    EsdrInterface.createAndSendSynchronousAjaxRequest("POST", headers, data, url, success, function(error){
+      ApplicationInterface.displayDialog("Invalid Username or Password");
     });
   },
 
@@ -84,18 +138,39 @@ var EsdrInterface = {
     var requestType = "GET";
     var url = "https://esdr.cmucreatelab.org/api/v1/devices";
 
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
+  },
+
+
+  /**
+   * Request a list of ESDR Feeds for a given deviceId.
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {int} deviceId - A Device ID associated with an EDSR Device.
+   * @param {ajaxSuccess} success - Ajax response.
+   */
+  requestFeeds: function(accessToken, deviceId, success) {
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var requestType = "GET";
+    var url = "https://esdr.cmucreatelab.org/api/v1/feeds";
+    var ajaxData = {
+      "whereAnd": "deviceId="+deviceId,
+    };
+
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, ajaxData, url, success, EsdrInterface.onAjaxError);
   },
 
 
   /**
    * Request to create a new ESDR device.
    * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {string} productIdentifier - Identifier for ESDR Product; may be an integer or unique string.
    * @param {string} deviceName - The name of the requested ESDR Device.
    * @param {string} serialNumber - The serial number of the requested ESDR Device.
    * @param {ajaxSuccess} success - Ajax response.
    */
-  requestCreateNewDevice: function(accessToken, deviceName, serialNumber, success) {
+  requestCreateNewDevice: function(accessToken, productIdentifier, deviceName, serialNumber, success) {
     var requestType = "POST";
     var headers = {
       Authorization: "Bearer " + accessToken,
@@ -104,8 +179,18 @@ var EsdrInterface = {
       name: deviceName,
       serialNumber: serialNumber,
     };
-    var url = "https://esdr.cmucreatelab.org/api/v1/products/"+EsdrInterface.productId+"/devices";
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, success, EsdrInterface.onAjaxError);
+    var url = "https://esdr.cmucreatelab.org/api/v1/products/"+productIdentifier+"/devices";
+
+    var onResponse = function(response) {
+      var deviceId = response.data.id;
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"hwVersion",App.honeybee_device.hardware_version);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"fwVersion",App.honeybee_device.firmware_version);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"deviceName",App.honeybee_device.device_name);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"appVersion",App.APPLICATION_VERSION);
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"devices",deviceId,"protocol",App.honeybee_device.protocol);
+      success(response);
+    }
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, data, url, onResponse, EsdrInterface.onAjaxError);
   },
 
 
@@ -127,12 +212,19 @@ var EsdrInterface = {
       exposure: exposure,
     };
     var url = "https://esdr.cmucreatelab.org/api/v1/devices/"+deviceId+"/feeds";
-    EsdrInterface.createAndSendAjaxRequest(requestType, headers, data, url, function(response){ success(response.data); }, EsdrInterface.onAjaxError);
+
+    var onResponse = function(response) {
+      var feedId = response.data.id;
+      EsdrInterface.requestAddStringPropertyToEsdrObject(accessToken,"feeds",feedId,"appVersion",App.APPLICATION_VERSION);
+      success(response.data);
+    }
+    EsdrInterface.createAndSendSynchronousAjaxRequest(requestType, headers, data, url, onResponse, EsdrInterface.onAjaxError);
   },
 
 
   /**
    * Helper to create and send an Ajax request.
+   * @param {boolean} asynchronous - When true, do not assign request to class variable and do not abort any current (synchronous) requests.
    * @param {string} requestType - Should be one of the standard HTML request methods (see: {@link https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods}).
    * @param {json} headers - Headers to include in the HTTP request (see: {@link https://en.wikipedia.org/wiki/List_of_HTTP_header_fields}).
    * @param {josn} data - The data to include in the HTTP requst.
@@ -140,15 +232,9 @@ var EsdrInterface = {
    * @param {ajaxSuccess} onAjaxSuccess - Callback function when the Ajax request receives a successful response.
    * @param {function} onAjaxError - Callback function when the Ajax request throws an error.
    */
-  createAndSendAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
-    if (this.request != null) {
-      console.log("createAndSendAjaxRequest with non-null request; aborting old request.");
-      this.request.abort();
-      this.request = null;
-    }
-
+  createAndSendAjaxRequest: function(asynchronous, requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
     // https://api.jquery.com/jQuery.ajax/
-    this.request = $.ajax({
+    var temp = $.ajax({
       type: requestType,
       dataType: "json",
       url: url,
@@ -158,6 +244,51 @@ var EsdrInterface = {
       success: onAjaxSuccess,
       error: onAjaxError,
     });
+
+    if (asynchronous) {
+      return;
+    }
+
+    if (this.request != null) {
+      console.log("createAndSendAjaxRequest with non-null request; aborting old request.");
+      this.request.abort();
+      this.request = null;
+    }
+    this.request = temp;
+  },
+
+
+  /**
+   * Helper to create and send an Ajax request (see createAndSendAjaxRequest for param info).
+   */
+  createAndSendSynchronousAjaxRequest: function(requestType, headers, data, url, onAjaxSuccess, onAjaxError) {
+    EsdrInterface.createAndSendAjaxRequest(false,requestType, headers, data, url, onAjaxSuccess, onAjaxError);
+  },
+
+
+  /**
+   * Helper to add a string property to an esdr object (likely either "device" or "feed").
+   * @param {string} accessToken - EDSR access token for an authorized user.
+   * @param {string} objectNamePlural - the type of ESDR object being written to (should be of type "devices" or "feeds").
+   * @param {int} objectId - the id for the ESDR object.
+   * @param {string} propertyKey - The key for the string property.
+   * @param {string} propertyValue - The value for the string property.
+   */
+  requestAddStringPropertyToEsdrObject: function(accessToken, objectNamePlural, objectId, propertyKey, propertyValue) {
+    var requestType = "PUT";
+    var headers = {
+      Authorization: "Bearer " + accessToken,
+    };
+    var data = {
+      type: "string",
+      value: propertyValue,
+    };
+    var url = "https://esdr.cmucreatelab.org/api/v1/"+objectNamePlural+"/"+objectId+"/properties/"+encodeURIComponent(propertyKey);
+
+    // no callbacks for success/fail but print to console
+    var response = function(message) { console.log(message.data); };
+    var error = function(message) { console.log(message); };
+    EsdrInterface.createAndSendAjaxRequest(true, requestType, headers, data, url, response, error);
   },
 
 

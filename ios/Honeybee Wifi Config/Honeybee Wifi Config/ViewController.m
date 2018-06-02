@@ -273,7 +273,8 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 			
 			deviceInfo = infoDict;
 			
-			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page1B.populateDeviceInfo(\"%@\",\"%@\",\"%@\",\"%@\")", infoDict[@"deviceName"], infoDict[@"hwVersion"], infoDict[@"fwVersion"], infoDict[@"serialNumber"]]];
+			[self.webView stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat: @"Page1B.populateDeviceInfo(\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")", infoDict[@"deviceName"], infoDict[@"hwVersion"], infoDict[@"fwVersion"], infoDict[@"serialNumber"], infoDict[@"feedKeyEN"], infoDict[@"feedKey"],
+                infoDict[@"protocol"]]];
 		}
 		else if ([items[0] isEqualToString: @"W"])
 		{
@@ -594,7 +595,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		}
 		else if ([url.host isEqualToString: @"connectDevice"])
 		{
-			NSInteger deviceIndex = [url.pathComponents[0] integerValue];
+			NSInteger deviceIndex = [url.pathComponents[1] integerValue];
 			NSLog(@"handleLocalRequest: connect to device %ld", deviceIndex);
 			self.statusLabel.text = [NSString stringWithFormat: @"connectToDevice"];
 			
@@ -645,8 +646,8 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		}
 		else if ([url.host isEqualToString: @"joinNetwork"])
 		{
-			self.networkName = [url.pathComponents[1] stringByRemovingPercentEncoding];
-			self.securityType = @([[url.pathComponents[2] stringByRemovingPercentEncoding] integerValue]);
+			self.networkName = url.pathComponents[1];
+			self.securityType = @([url.pathComponents[2] integerValue]);
 //
 //			NSArray* netDict = self.networks.allValues[ [self.networks.allValues indexOfObjectPassingTest:^BOOL(NSDictionary*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 //				return [obj[@"ssid"] isEqual: self.networkName];
@@ -685,7 +686,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		{
 			NSLog(@"handleLocalRequest: setFeedKey");
 
-            self.feedKey = [url.pathComponents[2] stringByRemovingPercentEncoding];
+            self.feedKey = url.pathComponents[2];
             NSString* cmd = [NSString stringWithFormat: @"K,1,%@\r\n", self.feedKey];
             NSLog(@"about to set feed key over BLE: %@", cmd);
             [self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
@@ -693,7 +694,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		else if ([url.host isEqualToString: @"displayDialog"])
 		{
 			NSLog(@"handleLocalRequest: displayDialog");
-			NSString* errStr = [url.pathComponents.lastObject stringByRemovingPercentEncoding];
+			NSString* errStr = url.pathComponents.lastObject;
 			
 			UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"ESDR Error" message:errStr preferredStyle:UIAlertControllerStyleAlert];
 			
