@@ -163,6 +163,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+	NSLog(@"BLE disconnected!");
 	if (peripheral == self.bleUart)
 	{
 //		self.bleUart = nil;
@@ -200,10 +201,10 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
 	NSData* data = characteristic.value;
-	NSLog(@"RX=%@", [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
+	NSLog(@"RX=\"%@\"", [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
 	
 	if (data)
-		[partialResponseData appendData: data];
+		[partialResponseData appendData: [data subdataWithRange: NSMakeRange(0, strnlen(data.bytes, data.length))]];
 	else
 	{
 		NSLog(@"no data!");
@@ -226,12 +227,15 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	size_t newlines = strspn(str, "\r\n");
 
 	size_t nonNewlines = strcspn(str + newlines, "\r\n");
-	if (nonNewlines > 0 && (newlines + nonNewlines < strlen(str)))
+	size_t finalNewlines = strspn(str + newlines + nonNewlines, "\r\n");
+//	if (nonNewlines > 0 && (newlines + nonNewlines < strlen(str)))
+	if ((nonNewlines > 0) && (finalNewlines > 0))
 	{
 		NSString* dataString = [[NSString alloc] initWithBytes: str + newlines length: nonNewlines encoding: NSUTF8StringEncoding];
-		partialResponseData = [partialResponseData subdataWithRange: NSMakeRange( newlines + nonNewlines, partialResponseData.length - newlines - nonNewlines)].mutableCopy;
+		size_t toConsume = newlines + nonNewlines + finalNewlines;
+		partialResponseData = [partialResponseData subdataWithRange: NSMakeRange( toConsume, partialResponseData.length - toConsume)].mutableCopy;
 		
-		NSLog(@"full RX=%@", dataString);
+		NSLog(@"full RX=\"%@\"", dataString);
 		
 		// I,protocol,hwVersion,fwVersion,deviceName,serialNumber,feedKeyEN,feedKey
 		NSArray* items = [dataString componentsSeparatedByString: @","];
@@ -341,16 +345,17 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 			
 			[self.webView stringByEvaluatingJavaScriptFromString: webStr];
 			
-			if ([infoDict[@"status"] integerValue] != 6)
-			{
-				// if not connected, ask info again
-				[NSTimer scheduledTimerWithTimeInterval: 1.0 repeats: NO block:^(NSTimer * _Nonnull timer) {
-					NSString* cmd = [NSString stringWithFormat: @"W\r\n"];
-					[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
-				}];
-
-				
-			}
+			
+//			if ([infoDict[@"status"] integerValue] != 6)
+//			{
+//				// if not connected, ask info again
+//				[NSTimer scheduledTimerWithTimeInterval: 1.0 repeats: NO block:^(NSTimer * _Nonnull timer) {
+//					NSString* cmd = [NSString stringWithFormat: @"W\r\n"];
+//					[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
+//				}];
+//
+//
+//			}
 		}
         else if ([items[0] isEqualToString: @"R"])
         {
@@ -367,6 +372,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		{
 			if ([items[0] isEqualToString: @"S"])
 			{
+				NSLog(@"S response received with %ld items", items.count);
 				if (self.wifiTimer && (items.count > 2) && ([items[1] integerValue] > 0))
 				{
 					// got some networks
@@ -379,7 +385,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 					
 					for (NSInteger i = 0; i < numNets; ++i)
 					{
-						NSString* cmd = [NSString stringWithFormat: @"S,%ld\r\n", i];
+						NSString* cmd = [NSString stringWithFormat: @"S,%ld\r\n", (long)i];
 						
 						[self writeBleUart: [cmd dataUsingEncoding: NSUTF8StringEncoding]];
 					}
@@ -657,7 +663,14 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 		}
 		else if ([url.host isEqualToString: @"requestNetworkInfo"])
 		{
-			[self writeBleUart: [@"W\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
+			ViewController* __weak weakSelf = self;
+			
+			[self.wifiTimer invalidate];
+			self.wifiTimer = nil;
+
+			self.wifiTimer = [NSTimer scheduledTimerWithTimeInterval: 3.0 repeats: YES block: ^(NSTimer * _Nonnull timer) {
+				[weakSelf writeBleUart: [@"W\r\n" dataUsingEncoding: NSUTF8StringEncoding]];
+			}];
 
 			NSLog(@"handleLocalRequest: requestNetworkInfo");
 
