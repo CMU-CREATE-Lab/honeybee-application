@@ -15,6 +15,8 @@
 @property (strong, nonatomic) HoneybeeBluetoothConnection *honeybee;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *wifiUpdateButton;
+@property (weak, nonatomic) IBOutlet UIProgressView *wifiUpdateProgress;
 
 - (IBAction) updateFirmwareAction:(id)sender;
 

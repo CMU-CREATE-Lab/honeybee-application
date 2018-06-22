@@ -22,7 +22,7 @@
 		DA5D10D220D8222200FD9B2A /* aef_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10CF20D8222200FD9B2A /* aef_debug.c */; };
 		DA8661BB20D84FF9004CCDCF /* beedance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8661BA20D84FF9004CCDCF /* beedance.m */; };
 		DACBBA0120D9D7A2007E3283 /* NSData+BeeDance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */; };
-		DADBED1F20D9FB0500D3F539 /* m2m_aio_3a0.bin in Resources */ = {isa = PBXBuildFile; fileRef = DADBED1E20D9FB0500D3F539 /* m2m_aio_3a0.bin */; };
+		DADBED1F20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin in Resources */ = {isa = PBXBuildFile; fileRef = DADBED1E20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin */; };
 		DADBED2220DA03D600D3F539 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DADBED2120DA03D600D3F539 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +80,7 @@
 		DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+BeeDance.m"; sourceTree = "<group>"; };
 		DA8661B920D84C29004CCDCF /* NSData+BeeDance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+BeeDance.h"; sourceTree = "<group>"; };
 		DA8661BA20D84FF9004CCDCF /* beedance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = beedance.m; sourceTree = "<group>"; };
-		DADBED1E20D9FB0500D3F539 /* m2m_aio_3a0.bin */ = {isa = PBXFileReference; explicitFileType = compiled; name = m2m_aio_3a0.bin; path = "../../../../xdk-asf-3.40.0/common/components/wifi/winc1500/firmware_update_project/firmware/firmware/m2m_aio_3a0.bin"; sourceTree = "<group>"; };
+		DADBED1E20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin */ = {isa = PBXFileReference; explicitFileType = compiled; name = winc1500_m2m_aio_3a0_19.5.4.bin; path = Base.lproj/winc1500_m2m_aio_3a0_19.5.4.bin; sourceTree = "<group>"; };
 		DADBED2120DA03D600D3F539 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -134,7 +134,7 @@
 		DA5D107520D705B600FD9B2A /* HoneyBee Companion */ = {
 			isa = PBXGroup;
 			children = (
-				DADBED1E20D9FB0500D3F539 /* m2m_aio_3a0.bin */,
+				DADBED1E20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin */,
 				DA5D10C820D8222200FD9B2A /* airviz-embedded-framework */,
 				DA5D10B620D81F4600FD9B2A /* beedance */,
 				DA5D107620D705B600FD9B2A /* AppDelegate.h */,
@@ -340,7 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5D108620D705B800FD9B2A /* LaunchScreen.storyboard in Resources */,
-				DADBED1F20D9FB0500D3F539 /* m2m_aio_3a0.bin in Resources */,
+				DADBED1F20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin in Resources */,
 				DA5D108320D705B800FD9B2A /* Assets.xcassets in Resources */,
 				DA5D108120D705B600FD9B2A /* Main.storyboard in Resources */,
 			);

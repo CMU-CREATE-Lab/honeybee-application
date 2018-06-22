@@ -36,6 +36,7 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	NSTimer* ackTimer;
 	NSData* firmwareBeingUpdated;
 	size_t firmwareDataSent;
+	void (^firmwareProgressBlock)(float progress, bool done, NSError* error);
 }
 
 - (void) encodingTest
@@ -236,6 +237,8 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 			beedance_decodeLeb128(&ack, bytes, msgData.length);
 			NSLog(@"got ACK %zd", ack);
 
+			float progress = firmwareDataSent/(double)firmwareBeingUpdated.length;
+
 			switch(ack)
 			{
 				case BEEDANCE_MSG_FILE_SETUP:
@@ -258,6 +261,8 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					else
 						[self sendFirmwareSignature];
 					
+					if (firmwareProgressBlock)
+						firmwareProgressBlock(progress, NO, nil);
 					break;
 				}
 				case BEEDANCE_MSG_FILE_SIGNATURE:
@@ -265,6 +270,10 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					NSLog(@"firmware accepted");
 					firmwareDataSent = 0;
 					firmwareBeingUpdated = nil;
+
+					if (firmwareProgressBlock)
+						firmwareProgressBlock(progress, YES, nil);
+
 					break;
 				}
 			}
@@ -281,6 +290,8 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 
 			NSLog(@"got NACK %zd because %zd", nack, code);
 			
+			float progress = firmwareDataSent/(double)firmwareBeingUpdated.length;
+			
 			switch (nack)
 			{
 				case BEEDANCE_MSG_FILE_SETUP:
@@ -289,6 +300,11 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					
 					firmwareDataSent = 0;
 					firmwareBeingUpdated = nil;
+					
+					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -1 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.setupError.description" value: @"Device rejected update attempt." table: nil]}];
+
+					if (firmwareProgressBlock)
+						firmwareProgressBlock(progress, NO, error);
 
 					break;
 				}
@@ -300,6 +316,10 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					firmwareDataSent = 0;
 					firmwareBeingUpdated = nil;
 					
+					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.chunkError.description" value: @"Device rejected data transfer." table: nil]}];
+
+					if (firmwareProgressBlock)
+						firmwareProgressBlock(progress, NO, error);
 					break;
 				}
 				case BEEDANCE_MSG_FILE_SIGNATURE:
@@ -309,6 +329,11 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					firmwareDataSent = 0;
 					firmwareBeingUpdated = nil;
 					
+					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.signatureError.description" value: @"Device rejected signature." table: nil]}];
+					
+					if (firmwareProgressBlock)
+						firmwareProgressBlock(progress, NO, error);
+
 					break;
 				}
 
@@ -319,12 +344,20 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 		case BEEDANCE_MSG_HONEYBEE_MAC:
 		{
 			NSLog(@"got HB MAC addressess");
+			
+			assert(msgData.length >= 12);
+			
+			const uint8_t* bytes = msgData.bytes;
+			
+			self.wifiMacAddress = [NSString stringWithFormat: @"%02X:%02X:%02X:%02X:%02X:%02X", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+			self.bleMacAddress = [NSString stringWithFormat: @"%02X:%02X:%02X:%02X:%02X:%02X", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+
 			break;
 		}
 		case BEEDANCE_MSG_HONEYBEE_SERNO:
 		{
-			NSString* serial = [[NSString alloc] initWithData: msgData encoding: NSUTF8StringEncoding];
-			NSLog(@"got HB serial number %@", serial);
+			self.serialNumber = [[NSString alloc] initWithData: msgData encoding: NSUTF8StringEncoding];
+			NSLog(@"got HB serial number %@", self.serialNumber);
 			break;
 		}
 		case BEEDANCE_MSG_HONEYBEE_VERSION:
@@ -334,6 +367,28 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 			size_t offs = beedance_decodeLeb128(&versionId, bytes, msgData.length);
 			
 			NSString* version = [[NSString alloc] initWithBytes: bytes + offs length: msgData.length - offs encoding: NSUTF8StringEncoding];
+			
+			switch (versionId)
+			{
+				case BEEDANCE_HONEYBEE_VERSION_SAM_APP:
+				{
+					self.appVersion = version;
+					break;
+				}
+				case BEEDANCE_HONEYBEE_VERSION_WIFI:
+				{
+					self.wifiVersion = version;
+					break;
+				}
+				case BEEDANCE_HONEYBEE_VERSION_HARDWARE:
+				{
+					self.hardwareVersion = version;
+					break;
+				}
+			}
+			
+			
+			
 			NSLog(@"got HB version %zd = %@", versionId, version);
 			break;
 		}
@@ -430,9 +485,11 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	
 }
 
-- (void) updateWifiFirmware
+- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock;
 {
-	NSData* fwImageData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"m2m_aio_3a0" ofType: @"bin"]];
+	firmwareProgressBlock = progressBlock;
+	
+	NSData* fwImageData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"winc1500_m2m_aio_3a0_19.5.4" ofType: @"bin"]];
 	
 	
 	

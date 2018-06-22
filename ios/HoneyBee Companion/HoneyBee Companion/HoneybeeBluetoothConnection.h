@@ -20,7 +20,13 @@ extern NSString* bleBeedanceRxCharUUIDString;
 
 
 @property(strong) NSString* name;
+@property(strong) NSString* wifiMacAddress;
+@property(strong) NSString* bleMacAddress;
+@property(strong) NSString* appVersion;
+@property(strong) NSString* wifiVersion;
+@property(strong) NSString* hardwareVersion;
+@property(strong) NSString* serialNumber;
 
-- (void) updateWifiFirmware;
+- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock;
 
 @end
