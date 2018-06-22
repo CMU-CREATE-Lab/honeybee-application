@@ -1,0 +1,696 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA5D107820D705B600FD9B2A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D107720D705B600FD9B2A /* AppDelegate.m */; };
+		DA5D107B20D705B600FD9B2A /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D107A20D705B600FD9B2A /* DeviceListViewController.m */; };
+		DA5D107E20D705B600FD9B2A /* HoneybeeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D107D20D705B600FD9B2A /* HoneybeeDetailViewController.m */; };
+		DA5D108120D705B600FD9B2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5D107F20D705B600FD9B2A /* Main.storyboard */; };
+		DA5D108320D705B800FD9B2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5D108220D705B800FD9B2A /* Assets.xcassets */; };
+		DA5D108620D705B800FD9B2A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5D108420D705B800FD9B2A /* LaunchScreen.storyboard */; };
+		DA5D108920D705B800FD9B2A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D108820D705B800FD9B2A /* main.m */; };
+		DA5D109320D705B800FD9B2A /* HoneyBee_CompanionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D109220D705B800FD9B2A /* HoneyBee_CompanionTests.m */; };
+		DA5D109E20D705B800FD9B2A /* HoneyBee_CompanionUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D109D20D705B800FD9B2A /* HoneyBee_CompanionUITests.m */; };
+		DA5D10B520D8111400FD9B2A /* HoneybeeBluetoothConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */; };
+		DA5D10C320D81F4600FD9B2A /* cobs.c in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10BD20D81F4600FD9B2A /* cobs.c */; };
+		DA5D10C420D81F4600FD9B2A /* beedance.c in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10BE20D81F4600FD9B2A /* beedance.c */; };
+		DA5D10D220D8222200FD9B2A /* aef_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10CF20D8222200FD9B2A /* aef_debug.c */; };
+		DA8661BB20D84FF9004CCDCF /* beedance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8661BA20D84FF9004CCDCF /* beedance.m */; };
+		DACBBA0120D9D7A2007E3283 /* NSData+BeeDance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */; };
+		DADBED1F20D9FB0500D3F539 /* m2m_aio_3a0.bin in Resources */ = {isa = PBXBuildFile; fileRef = DADBED1E20D9FB0500D3F539 /* m2m_aio_3a0.bin */; };
+		DADBED2220DA03D600D3F539 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DADBED2120DA03D600D3F539 /* libz.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA5D108F20D705B800FD9B2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5D106B20D705B600FD9B2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA5D107220D705B600FD9B2A;
+			remoteInfo = "HoneyBee Companion";
+		};
+		DA5D109A20D705B800FD9B2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5D106B20D705B600FD9B2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA5D107220D705B600FD9B2A;
+			remoteInfo = "HoneyBee Companion";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DA5D107320D705B600FD9B2A /* HoneyBee Companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HoneyBee Companion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA5D107620D705B600FD9B2A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DA5D107720D705B600FD9B2A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DA5D107920D705B600FD9B2A /* DeviceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListViewController.h; sourceTree = "<group>"; };
+		DA5D107A20D705B600FD9B2A /* DeviceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewController.m; sourceTree = "<group>"; };
+		DA5D107C20D705B600FD9B2A /* HoneybeeDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoneybeeDetailViewController.h; sourceTree = "<group>"; };
+		DA5D107D20D705B600FD9B2A /* HoneybeeDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneybeeDetailViewController.m; sourceTree = "<group>"; };
+		DA5D108020D705B600FD9B2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DA5D108220D705B800FD9B2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA5D108520D705B800FD9B2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA5D108720D705B800FD9B2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA5D108820D705B800FD9B2A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA5D108E20D705B800FD9B2A /* HoneyBee CompanionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HoneyBee CompanionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA5D109220D705B800FD9B2A /* HoneyBee_CompanionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneyBee_CompanionTests.m; sourceTree = "<group>"; };
+		DA5D109420D705B800FD9B2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA5D109920D705B800FD9B2A /* HoneyBee CompanionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HoneyBee CompanionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA5D109D20D705B800FD9B2A /* HoneyBee_CompanionUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneyBee_CompanionUITests.m; sourceTree = "<group>"; };
+		DA5D109F20D705B800FD9B2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA5D10B320D8111300FD9B2A /* HoneybeeBluetoothConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoneybeeBluetoothConnection.h; sourceTree = "<group>"; };
+		DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneybeeBluetoothConnection.m; sourceTree = "<group>"; };
+		DA5D10B720D81F4600FD9B2A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DA5D10B820D81F4600FD9B2A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DA5D10B920D81F4600FD9B2A /* beedance.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = beedance.md; sourceTree = "<group>"; };
+		DA5D10BB20D81F4600FD9B2A /* beedance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beedance.h; sourceTree = "<group>"; };
+		DA5D10BC20D81F4600FD9B2A /* beedance_honeybee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beedance_honeybee.h; sourceTree = "<group>"; };
+		DA5D10BD20D81F4600FD9B2A /* cobs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cobs.c; sourceTree = "<group>"; };
+		DA5D10BE20D81F4600FD9B2A /* beedance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = beedance.c; sourceTree = "<group>"; };
+		DA5D10BF20D81F4600FD9B2A /* cobs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cobs.h; sourceTree = "<group>"; };
+		DA5D10CA20D8222200FD9B2A /* aef_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aef_debug.h; sourceTree = "<group>"; };
+		DA5D10CB20D8222200FD9B2A /* aef_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aef_utils.h; sourceTree = "<group>"; };
+		DA5D10CC20D8222200FD9B2A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DA5D10CD20D8222200FD9B2A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DA5D10CF20D8222200FD9B2A /* aef_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aef_debug.c; sourceTree = "<group>"; };
+		DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+BeeDance.m"; sourceTree = "<group>"; };
+		DA8661B920D84C29004CCDCF /* NSData+BeeDance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+BeeDance.h"; sourceTree = "<group>"; };
+		DA8661BA20D84FF9004CCDCF /* beedance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = beedance.m; sourceTree = "<group>"; };
+		DADBED1E20D9FB0500D3F539 /* m2m_aio_3a0.bin */ = {isa = PBXFileReference; explicitFileType = compiled; name = m2m_aio_3a0.bin; path = "../../../../xdk-asf-3.40.0/common/components/wifi/winc1500/firmware_update_project/firmware/firmware/m2m_aio_3a0.bin"; sourceTree = "<group>"; };
+		DADBED2120DA03D600D3F539 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA5D107020D705B600FD9B2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DADBED2220DA03D600D3F539 /* libz.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA5D108B20D705B800FD9B2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA5D109620D705B800FD9B2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA5D106A20D705B600FD9B2A = {
+			isa = PBXGroup;
+			children = (
+				DA5D107520D705B600FD9B2A /* HoneyBee Companion */,
+				DA5D109120D705B800FD9B2A /* HoneyBee CompanionTests */,
+				DA5D109C20D705B800FD9B2A /* HoneyBee CompanionUITests */,
+				DA5D107420D705B600FD9B2A /* Products */,
+				DADBED2020DA03D600D3F539 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DA5D107420D705B600FD9B2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D107320D705B600FD9B2A /* HoneyBee Companion.app */,
+				DA5D108E20D705B800FD9B2A /* HoneyBee CompanionTests.xctest */,
+				DA5D109920D705B800FD9B2A /* HoneyBee CompanionUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA5D107520D705B600FD9B2A /* HoneyBee Companion */ = {
+			isa = PBXGroup;
+			children = (
+				DADBED1E20D9FB0500D3F539 /* m2m_aio_3a0.bin */,
+				DA5D10C820D8222200FD9B2A /* airviz-embedded-framework */,
+				DA5D10B620D81F4600FD9B2A /* beedance */,
+				DA5D107620D705B600FD9B2A /* AppDelegate.h */,
+				DA5D107720D705B600FD9B2A /* AppDelegate.m */,
+				DA5D107920D705B600FD9B2A /* DeviceListViewController.h */,
+				DA5D107A20D705B600FD9B2A /* DeviceListViewController.m */,
+				DA5D107C20D705B600FD9B2A /* HoneybeeDetailViewController.h */,
+				DA5D107D20D705B600FD9B2A /* HoneybeeDetailViewController.m */,
+				DA5D107F20D705B600FD9B2A /* Main.storyboard */,
+				DA5D108220D705B800FD9B2A /* Assets.xcassets */,
+				DA5D108420D705B800FD9B2A /* LaunchScreen.storyboard */,
+				DA5D108720D705B800FD9B2A /* Info.plist */,
+				DA5D108820D705B800FD9B2A /* main.m */,
+				DA5D10B320D8111300FD9B2A /* HoneybeeBluetoothConnection.h */,
+				DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */,
+			);
+			path = "HoneyBee Companion";
+			sourceTree = "<group>";
+		};
+		DA5D109120D705B800FD9B2A /* HoneyBee CompanionTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D109220D705B800FD9B2A /* HoneyBee_CompanionTests.m */,
+				DA5D109420D705B800FD9B2A /* Info.plist */,
+			);
+			path = "HoneyBee CompanionTests";
+			sourceTree = "<group>";
+		};
+		DA5D109C20D705B800FD9B2A /* HoneyBee CompanionUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D109D20D705B800FD9B2A /* HoneyBee_CompanionUITests.m */,
+				DA5D109F20D705B800FD9B2A /* Info.plist */,
+			);
+			path = "HoneyBee CompanionUITests";
+			sourceTree = "<group>";
+		};
+		DA5D10B620D81F4600FD9B2A /* beedance */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D10B720D81F4600FD9B2A /* README.md */,
+				DA5D10B820D81F4600FD9B2A /* .gitignore */,
+				DA5D10B920D81F4600FD9B2A /* beedance.md */,
+				DA5D10BA20D81F4600FD9B2A /* src */,
+			);
+			name = beedance;
+			path = ../../../../beedance;
+			sourceTree = "<group>";
+		};
+		DA5D10BA20D81F4600FD9B2A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D10BB20D81F4600FD9B2A /* beedance.h */,
+				DA5D10BC20D81F4600FD9B2A /* beedance_honeybee.h */,
+				DA5D10BD20D81F4600FD9B2A /* cobs.c */,
+				DA5D10BE20D81F4600FD9B2A /* beedance.c */,
+				DA5D10BF20D81F4600FD9B2A /* cobs.h */,
+				DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */,
+				DA8661B920D84C29004CCDCF /* NSData+BeeDance.h */,
+				DA8661BA20D84FF9004CCDCF /* beedance.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		DA5D10C820D8222200FD9B2A /* airviz-embedded-framework */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D10C920D8222200FD9B2A /* inc */,
+				DA5D10CC20D8222200FD9B2A /* README.md */,
+				DA5D10CD20D8222200FD9B2A /* .gitignore */,
+				DA5D10CE20D8222200FD9B2A /* src */,
+			);
+			name = "airviz-embedded-framework";
+			path = "../../../../airviz-embedded-framework";
+			sourceTree = "<group>";
+		};
+		DA5D10C920D8222200FD9B2A /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D10CA20D8222200FD9B2A /* aef_debug.h */,
+				DA5D10CB20D8222200FD9B2A /* aef_utils.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		DA5D10CE20D8222200FD9B2A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				DA5D10CF20D8222200FD9B2A /* aef_debug.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		DADBED2020DA03D600D3F539 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DADBED2120DA03D600D3F539 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA5D107220D705B600FD9B2A /* HoneyBee Companion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA5D10A220D705B800FD9B2A /* Build configuration list for PBXNativeTarget "HoneyBee Companion" */;
+			buildPhases = (
+				DA5D106F20D705B600FD9B2A /* Sources */,
+				DA5D107020D705B600FD9B2A /* Frameworks */,
+				DA5D107120D705B600FD9B2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HoneyBee Companion";
+			productName = "HoneyBee Companion";
+			productReference = DA5D107320D705B600FD9B2A /* HoneyBee Companion.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA5D108D20D705B800FD9B2A /* HoneyBee CompanionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA5D10A520D705B800FD9B2A /* Build configuration list for PBXNativeTarget "HoneyBee CompanionTests" */;
+			buildPhases = (
+				DA5D108A20D705B800FD9B2A /* Sources */,
+				DA5D108B20D705B800FD9B2A /* Frameworks */,
+				DA5D108C20D705B800FD9B2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA5D109020D705B800FD9B2A /* PBXTargetDependency */,
+			);
+			name = "HoneyBee CompanionTests";
+			productName = "HoneyBee CompanionTests";
+			productReference = DA5D108E20D705B800FD9B2A /* HoneyBee CompanionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA5D109820D705B800FD9B2A /* HoneyBee CompanionUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA5D10A820D705B800FD9B2A /* Build configuration list for PBXNativeTarget "HoneyBee CompanionUITests" */;
+			buildPhases = (
+				DA5D109520D705B800FD9B2A /* Sources */,
+				DA5D109620D705B800FD9B2A /* Frameworks */,
+				DA5D109720D705B800FD9B2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA5D109B20D705B800FD9B2A /* PBXTargetDependency */,
+			);
+			name = "HoneyBee CompanionUITests";
+			productName = "HoneyBee CompanionUITests";
+			productReference = DA5D109920D705B800FD9B2A /* HoneyBee CompanionUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA5D106B20D705B600FD9B2A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = Airviz;
+				TargetAttributes = {
+					DA5D107220D705B600FD9B2A = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					DA5D108D20D705B800FD9B2A = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = DA5D107220D705B600FD9B2A;
+					};
+					DA5D109820D705B800FD9B2A = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = DA5D107220D705B600FD9B2A;
+					};
+				};
+			};
+			buildConfigurationList = DA5D106E20D705B600FD9B2A /* Build configuration list for PBXProject "HoneyBee Companion" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA5D106A20D705B600FD9B2A;
+			productRefGroup = DA5D107420D705B600FD9B2A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA5D107220D705B600FD9B2A /* HoneyBee Companion */,
+				DA5D108D20D705B800FD9B2A /* HoneyBee CompanionTests */,
+				DA5D109820D705B800FD9B2A /* HoneyBee CompanionUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA5D107120D705B600FD9B2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5D108620D705B800FD9B2A /* LaunchScreen.storyboard in Resources */,
+				DADBED1F20D9FB0500D3F539 /* m2m_aio_3a0.bin in Resources */,
+				DA5D108320D705B800FD9B2A /* Assets.xcassets in Resources */,
+				DA5D108120D705B600FD9B2A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA5D108C20D705B800FD9B2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA5D109720D705B800FD9B2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA5D106F20D705B600FD9B2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5D107B20D705B600FD9B2A /* DeviceListViewController.m in Sources */,
+				DA5D10C420D81F4600FD9B2A /* beedance.c in Sources */,
+				DA5D107820D705B600FD9B2A /* AppDelegate.m in Sources */,
+				DA5D10C320D81F4600FD9B2A /* cobs.c in Sources */,
+				DA5D108920D705B800FD9B2A /* main.m in Sources */,
+				DACBBA0120D9D7A2007E3283 /* NSData+BeeDance.m in Sources */,
+				DA5D107E20D705B600FD9B2A /* HoneybeeDetailViewController.m in Sources */,
+				DA5D10D220D8222200FD9B2A /* aef_debug.c in Sources */,
+				DA8661BB20D84FF9004CCDCF /* beedance.m in Sources */,
+				DA5D10B520D8111400FD9B2A /* HoneybeeBluetoothConnection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA5D108A20D705B800FD9B2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5D109320D705B800FD9B2A /* HoneyBee_CompanionTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA5D109520D705B800FD9B2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5D109E20D705B800FD9B2A /* HoneyBee_CompanionUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA5D109020D705B800FD9B2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA5D107220D705B600FD9B2A /* HoneyBee Companion */;
+			targetProxy = DA5D108F20D705B800FD9B2A /* PBXContainerItemProxy */;
+		};
+		DA5D109B20D705B800FD9B2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA5D107220D705B600FD9B2A /* HoneyBee Companion */;
+			targetProxy = DA5D109A20D705B800FD9B2A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DA5D107F20D705B600FD9B2A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA5D108020D705B600FD9B2A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA5D108420D705B800FD9B2A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA5D108520D705B800FD9B2A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA5D10A020D705B800FD9B2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					AEF_DEBUG_UART_PRINTF_ENABLED,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DA5D10A120D705B800FD9B2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = AEF_DEBUG_UART_PRINTF_ENABLED;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA5D10A320D705B800FD9B2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				INFOPLIST_FILE = "HoneyBee Companion/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airviz.HoneyBee-Companion";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA5D10A420D705B800FD9B2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				INFOPLIST_FILE = "HoneyBee Companion/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airviz.HoneyBee-Companion";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DA5D10A620D705B800FD9B2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				INFOPLIST_FILE = "HoneyBee CompanionTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airviz.HoneyBee-CompanionTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HoneyBee Companion.app/HoneyBee Companion";
+			};
+			name = Debug;
+		};
+		DA5D10A720D705B800FD9B2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				INFOPLIST_FILE = "HoneyBee CompanionTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airviz.HoneyBee-CompanionTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HoneyBee Companion.app/HoneyBee Companion";
+			};
+			name = Release;
+		};
+		DA5D10A920D705B800FD9B2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				INFOPLIST_FILE = "HoneyBee CompanionUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airviz.HoneyBee-CompanionUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "HoneyBee Companion";
+			};
+			name = Debug;
+		};
+		DA5D10AA20D705B800FD9B2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
+				INFOPLIST_FILE = "HoneyBee CompanionUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airviz.HoneyBee-CompanionUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "HoneyBee Companion";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA5D106E20D705B600FD9B2A /* Build configuration list for PBXProject "HoneyBee Companion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA5D10A020D705B800FD9B2A /* Debug */,
+				DA5D10A120D705B800FD9B2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA5D10A220D705B800FD9B2A /* Build configuration list for PBXNativeTarget "HoneyBee Companion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA5D10A320D705B800FD9B2A /* Debug */,
+				DA5D10A420D705B800FD9B2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA5D10A520D705B800FD9B2A /* Build configuration list for PBXNativeTarget "HoneyBee CompanionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA5D10A620D705B800FD9B2A /* Debug */,
+				DA5D10A720D705B800FD9B2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA5D10A820D705B800FD9B2A /* Build configuration list for PBXNativeTarget "HoneyBee CompanionUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA5D10A920D705B800FD9B2A /* Debug */,
+				DA5D10AA20D705B800FD9B2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA5D106B20D705B600FD9B2A /* Project object */;
+}
