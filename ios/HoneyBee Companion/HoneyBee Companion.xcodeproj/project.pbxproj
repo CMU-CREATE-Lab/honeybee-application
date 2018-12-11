@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA197F9E20DE0A750068C9D4 /* honeybee_app.img.bin in Resources */ = {isa = PBXBuildFile; fileRef = DA197F9D20DE0A750068C9D4 /* honeybee_app.img.bin */; };
+		DA2E249920DF0CCE0066A0FC /* honeybee_boot.img.bin in Resources */ = {isa = PBXBuildFile; fileRef = DA2E249820DF0CCD0066A0FC /* honeybee_boot.img.bin */; };
 		DA5D107820D705B600FD9B2A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D107720D705B600FD9B2A /* AppDelegate.m */; };
 		DA5D107B20D705B600FD9B2A /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D107A20D705B600FD9B2A /* DeviceListViewController.m */; };
 		DA5D107E20D705B600FD9B2A /* HoneybeeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D107D20D705B600FD9B2A /* HoneybeeDetailViewController.m */; };
@@ -21,6 +23,8 @@
 		DA5D10C420D81F4600FD9B2A /* beedance.c in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10BE20D81F4600FD9B2A /* beedance.c */; };
 		DA5D10D220D8222200FD9B2A /* aef_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10CF20D8222200FD9B2A /* aef_debug.c */; };
 		DA8661BB20D84FF9004CCDCF /* beedance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8661BA20D84FF9004CCDCF /* beedance.m */; };
+		DAA007E620DD8AF600A24510 /* HoneybeePropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA007E520DD8AF600A24510 /* HoneybeePropertiesViewController.m */; };
+		DAA007E920DDA6F100A24510 /* UpdateFirmwareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA007E820DDA6F100A24510 /* UpdateFirmwareTableViewCell.m */; };
 		DACBBA0120D9D7A2007E3283 /* NSData+BeeDance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */; };
 		DADBED1F20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin in Resources */ = {isa = PBXBuildFile; fileRef = DADBED1E20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin */; };
 		DADBED2220DA03D600D3F539 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DADBED2120DA03D600D3F539 /* libz.tbd */; };
@@ -44,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA197F9D20DE0A750068C9D4 /* honeybee_app.img.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = honeybee_app.img.bin; path = ../../../../HoneyBee/honeybee_app.img.bin; sourceTree = "<group>"; };
+		DA2E249720DED9380066A0FC /* hb_bootloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hb_bootloader.h; path = "../../../../honeybee-sam4s-bootloader/inc/hb_bootloader.h"; sourceTree = "<group>"; };
+		DA2E249820DF0CCD0066A0FC /* honeybee_boot.img.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = honeybee_boot.img.bin; path = "../../../../honeybee-sam4s-bootloader/honeybee_boot.img.bin"; sourceTree = "<group>"; };
 		DA5D107320D705B600FD9B2A /* HoneyBee Companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HoneyBee Companion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5D107620D705B600FD9B2A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA5D107720D705B600FD9B2A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -80,6 +87,10 @@
 		DA5D10D320D84BA000FD9B2A /* NSData+BeeDance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+BeeDance.m"; sourceTree = "<group>"; };
 		DA8661B920D84C29004CCDCF /* NSData+BeeDance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+BeeDance.h"; sourceTree = "<group>"; };
 		DA8661BA20D84FF9004CCDCF /* beedance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = beedance.m; sourceTree = "<group>"; };
+		DAA007E420DD8AF600A24510 /* HoneybeePropertiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoneybeePropertiesViewController.h; sourceTree = "<group>"; };
+		DAA007E520DD8AF600A24510 /* HoneybeePropertiesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneybeePropertiesViewController.m; sourceTree = "<group>"; };
+		DAA007E720DDA6F100A24510 /* UpdateFirmwareTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateFirmwareTableViewCell.h; sourceTree = "<group>"; };
+		DAA007E820DDA6F100A24510 /* UpdateFirmwareTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateFirmwareTableViewCell.m; sourceTree = "<group>"; };
 		DADBED1E20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin */ = {isa = PBXFileReference; explicitFileType = compiled; name = winc1500_m2m_aio_3a0_19.5.4.bin; path = Base.lproj/winc1500_m2m_aio_3a0_19.5.4.bin; sourceTree = "<group>"; };
 		DADBED2120DA03D600D3F539 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -134,6 +145,9 @@
 		DA5D107520D705B600FD9B2A /* HoneyBee Companion */ = {
 			isa = PBXGroup;
 			children = (
+				DA2E249820DF0CCD0066A0FC /* honeybee_boot.img.bin */,
+				DA2E249720DED9380066A0FC /* hb_bootloader.h */,
+				DA197F9D20DE0A750068C9D4 /* honeybee_app.img.bin */,
 				DADBED1E20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin */,
 				DA5D10C820D8222200FD9B2A /* airviz-embedded-framework */,
 				DA5D10B620D81F4600FD9B2A /* beedance */,
@@ -143,6 +157,8 @@
 				DA5D107A20D705B600FD9B2A /* DeviceListViewController.m */,
 				DA5D107C20D705B600FD9B2A /* HoneybeeDetailViewController.h */,
 				DA5D107D20D705B600FD9B2A /* HoneybeeDetailViewController.m */,
+				DAA007E420DD8AF600A24510 /* HoneybeePropertiesViewController.h */,
+				DAA007E520DD8AF600A24510 /* HoneybeePropertiesViewController.m */,
 				DA5D107F20D705B600FD9B2A /* Main.storyboard */,
 				DA5D108220D705B800FD9B2A /* Assets.xcassets */,
 				DA5D108420D705B800FD9B2A /* LaunchScreen.storyboard */,
@@ -150,6 +166,8 @@
 				DA5D108820D705B800FD9B2A /* main.m */,
 				DA5D10B320D8111300FD9B2A /* HoneybeeBluetoothConnection.h */,
 				DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */,
+				DAA007E720DDA6F100A24510 /* UpdateFirmwareTableViewCell.h */,
+				DAA007E820DDA6F100A24510 /* UpdateFirmwareTableViewCell.m */,
 			);
 			path = "HoneyBee Companion";
 			sourceTree = "<group>";
@@ -339,6 +357,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA197F9E20DE0A750068C9D4 /* honeybee_app.img.bin in Resources */,
+				DA2E249920DF0CCE0066A0FC /* honeybee_boot.img.bin in Resources */,
 				DA5D108620D705B800FD9B2A /* LaunchScreen.storyboard in Resources */,
 				DADBED1F20D9FB0500D3F539 /* winc1500_m2m_aio_3a0_19.5.4.bin in Resources */,
 				DA5D108320D705B800FD9B2A /* Assets.xcassets in Resources */,
@@ -374,8 +394,10 @@
 				DA5D108920D705B800FD9B2A /* main.m in Sources */,
 				DACBBA0120D9D7A2007E3283 /* NSData+BeeDance.m in Sources */,
 				DA5D107E20D705B600FD9B2A /* HoneybeeDetailViewController.m in Sources */,
+				DAA007E920DDA6F100A24510 /* UpdateFirmwareTableViewCell.m in Sources */,
 				DA5D10D220D8222200FD9B2A /* aef_debug.c in Sources */,
 				DA8661BB20D84FF9004CCDCF /* beedance.m in Sources */,
+				DAA007E620DD8AF600A24510 /* HoneybeePropertiesViewController.m in Sources */,
 				DA5D10B520D8111400FD9B2A /* HoneybeeBluetoothConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -52,6 +52,7 @@
 @implementation DeviceListViewController
 {
 	NSMutableSet* pendingBluetoothConnections;
+	NSMutableSet* discoveredPeripherals;
 }
 
 - (void)viewDidLoad
@@ -73,7 +74,8 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
 	self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
 	[super viewWillAppear:animated];
 }
@@ -102,6 +104,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([[segue identifier] isEqualToString:@"showDetail"]) {
+		NSLog(@"SHOW DETAIL");
 	    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	    HoneybeeBluetoothConnection *object = self.objects[indexPath.row];
 	    HoneybeeDetailViewController *controller = (HoneybeeDetailViewController *)[[segue destinationViewController] topViewController];
@@ -156,7 +159,7 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	if (central.state == CBManagerStatePoweredOn)
 	{
 		NSLog(@"BLE Powered On, scanning...");
-		[self.bleManager scanForPeripheralsWithServices: @[[CBUUID UUIDWithString: bleBeedanceServiceUUIDString], [CBUUID UUIDWithString: bleUartServiceUUID]] options:nil];
+		[self.bleManager scanForPeripheralsWithServices: @[[CBUUID UUIDWithString: bleBeedanceServiceUUIDString], [CBUUID UUIDWithString: bleUartServiceUUID]] options: @{CBCentralManagerScanOptionAllowDuplicatesKey: @(YES) }];
 		//[bleManager scanForPeripheralsWithServices: nil options:nil];
 	}
 	
@@ -171,12 +174,31 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	if (!pendingBluetoothConnections)
 	{
 		pendingBluetoothConnections = [NSMutableSet set];
+		discoveredPeripherals = [NSMutableSet set];
 	}
 	
-	[pendingBluetoothConnections addObject: peripheral];
-	
-	[central connectPeripheral: peripheral options: nil];
+	if (![discoveredPeripherals containsObject: peripheral])
+	{
+		[discoveredPeripherals addObject: peripheral];
+		[pendingBluetoothConnections addObject: peripheral];
+		
+		[central connectPeripheral: peripheral options: nil];
+	}
+}
 
+- (void) centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+	for (HoneybeeBluetoothConnection* hb in self.objects)
+	{
+		if ([hb.peripheral isEqual: peripheral])
+		{
+//			[self.objects removeObject: hb];
+//			
+//			[self.tableView reloadData];
+			
+			break;
+		}
+	};
 }
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral

@@ -10,6 +10,7 @@
 
 #include "beedance_honeybee.h"
 #include "NSData+BeeDance.h"
+#include "hb_bootloader.h"
 
 #import <zlib.h>
 
@@ -37,6 +38,11 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	NSData* firmwareBeingUpdated;
 	size_t firmwareDataSent;
 	void (^firmwareProgressBlock)(float progress, bool done, NSError* error);
+}
+
+- (CBPeripheral*) peripheral
+{
+	return peripheral;
 }
 
 - (void) encodingTest
@@ -78,7 +84,7 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	
 	NSData* srcMsgData = [[NSData alloc] initWithBase64EncodedString: b64 options: 0];
 	
-	NSData* packetData = [srcMsgData encodeBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_CHUNK];
+	NSData* packetData = [srcMsgData encodeBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_CHUNK_WRITE];
 	
 	
 	NSLog(@"messageData (%lu) = %@", srcMsgData.length, srcMsgData);
@@ -191,7 +197,7 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 		NSLog(@"sending 0x%08zX - 0x%08zX", firmwareDataSent, firmwareDataSent + len);
 //		NSLog(@"msgData (%lu) = %@", msgData.length, msgData);
 
-		[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_CHUNK data: msgData];
+		[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_CHUNK_WRITE data: msgData];
 		
 		__weak HoneybeeBluetoothConnection* weakSelf = self;
 		
@@ -220,7 +226,7 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	
 	[msgData appendBytes: &signature length: sizeof(signature)];
 	
-	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_SIGNATURE data: msgData];
+	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_SIGNATURE_WRITE data: msgData];
 	
 }
 
@@ -228,73 +234,60 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 - (void) receiveBeeDanceMessageWithSelector: (NSInteger) msgSelector data: (NSData*) msgData
 {
 //	NSLog(@"receiveBeeDanceMessageWithSelector: %ld", msgSelector);
-	switch (msgSelector)
-	{
-		case BEEDANCE_MSG_ACK:
+	const uint8_t* bytes = msgData.bytes;
+	size_t responseStatus = 0;
+	beedance_decodeLeb128(&responseStatus, bytes, msgData.length);
+	NSLog(@"got RESP %zd", responseStatus);
+	
+	float progress = firmwareDataSent/(double)firmwareBeingUpdated.length;
+	if (responseStatus == 0)
+		switch (msgSelector)
 		{
-			const uint8_t* bytes = msgData.bytes;
-			size_t ack = 0;
-			beedance_decodeLeb128(&ack, bytes, msgData.length);
-			NSLog(@"got ACK %zd", ack);
-
-			float progress = firmwareDataSent/(double)firmwareBeingUpdated.length;
-
-			switch(ack)
+			case BEEDANCE_MSG_FILE_SETUP_RESP:
 			{
-				case BEEDANCE_MSG_FILE_SETUP:
-				{
-					NSLog(@"File Setup acknowledged");
-					
-					[self sendNextFirmwareChunk];
-					
-					break;
-				}
-				case BEEDANCE_MSG_FILE_CHUNK:
-				{
-					[ackTimer invalidate];
-					size_t len = MIN(128, firmwareBeingUpdated.length - firmwareDataSent);
-					
-					firmwareDataSent += len;
-					
-					if (firmwareDataSent < firmwareBeingUpdated.length)
-						[self sendNextFirmwareChunk];
-					else
-						[self sendFirmwareSignature];
-					
-					if (firmwareProgressBlock)
-						firmwareProgressBlock(progress, NO, nil);
-					break;
-				}
-				case BEEDANCE_MSG_FILE_SIGNATURE:
-				{
-					NSLog(@"firmware accepted");
-					firmwareDataSent = 0;
-					firmwareBeingUpdated = nil;
-
-					if (firmwareProgressBlock)
-						firmwareProgressBlock(progress, YES, nil);
-
-					break;
-				}
+				NSLog(@"File Setup acknowledged");
+				
+				[self sendNextFirmwareChunk];
+				
+				break;
 			}
-
-			break;
-		}
-		case BEEDANCE_MSG_NACK:
-		{
-			const uint8_t* bytes = msgData.bytes;
-			size_t nack = 0;
-			size_t offs = beedance_decodeLeb128(&nack, bytes, msgData.length);
-			size_t code = 0;
-			offs = beedance_decodeLeb128(&code, bytes, msgData.length);
-
-			NSLog(@"got NACK %zd because %zd", nack, code);
-			
-			float progress = firmwareDataSent/(double)firmwareBeingUpdated.length;
-			
-			switch (nack)
+			case BEEDANCE_MSG_FILE_CHUNK_RESP:
 			{
-				case BEEDANCE_MSG_FILE_SETUP:
+				[ackTimer invalidate];
+				size_t len = MIN(128, firmwareBeingUpdated.length - firmwareDataSent);
+				
+				firmwareDataSent += len;
+				
+				if (firmwareDataSent < firmwareBeingUpdated.length)
+					[self sendNextFirmwareChunk];
+				else if (firmwareBeingUpdated)
+					[self sendFirmwareSignature];
+				
+				if (firmwareProgressBlock)
+					firmwareProgressBlock(progress, NO, nil);
+				break;
+			}
+			case BEEDANCE_MSG_FILE_SIGNATURE_RESP:
+			{
+				NSLog(@"firmware accepted");
+				firmwareDataSent = 0;
+				firmwareBeingUpdated = nil;
+				
+				// reset MCU to commiting updates
+				// TODO: add mode request data, change in BDv0.3.0
+				[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_MODE_REQ data: nil];
+				
+				if (firmwareProgressBlock)
+					firmwareProgressBlock(progress, YES, nil);
+				
+				break;
+			}
+		}
+		else
+		{
+			switch (msgSelector)
+			{
+				case BEEDANCE_MSG_FILE_SETUP_RESP:
 				{
 					NSLog(@"File Setup not accepted, abort upate");
 					
@@ -302,13 +295,13 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					firmwareBeingUpdated = nil;
 					
 					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -1 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.setupError.description" value: @"Device rejected update attempt." table: nil]}];
-
+					
 					if (firmwareProgressBlock)
 						firmwareProgressBlock(progress, NO, error);
-
+					
 					break;
 				}
-				case BEEDANCE_MSG_FILE_CHUNK:
+				case BEEDANCE_MSG_FILE_CHUNK_RESP:
 				{
 					[ackTimer invalidate];
 					NSLog(@"File Chunk not accepted, abort upate");
@@ -317,12 +310,12 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					firmwareBeingUpdated = nil;
 					
 					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.chunkError.description" value: @"Device rejected data transfer." table: nil]}];
-
+					
 					if (firmwareProgressBlock)
 						firmwareProgressBlock(progress, NO, error);
 					break;
 				}
-				case BEEDANCE_MSG_FILE_SIGNATURE:
+				case BEEDANCE_MSG_FILE_SIGNATURE_RESP:
 				{
 					NSLog(@"File signature not accepted, abort upate");
 					
@@ -333,9 +326,22 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 					
 					if (firmwareProgressBlock)
 						firmwareProgressBlock(progress, NO, error);
-
+					
 					break;
 				}
+			}
+		}
+
+		case BEEDANCE_MSG_NACK:
+		{
+			const uint8_t* bytes = msgData.bytes;
+			size_t nack = 0;
+			size_t offs = beedance_decodeLeb128(&nack, bytes, msgData.length);
+			size_t code = 0;
+			offs = beedance_decodeLeb128(&code, bytes, msgData.length);
+			
+			switch (nack)
+			{
 
 			}
 			
@@ -373,6 +379,11 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 				case BEEDANCE_HONEYBEE_VERSION_SAM_APP:
 				{
 					self.appVersion = version;
+					break;
+				}
+				case BEEDANCE_HONEYBEE_VERSION_SAM_SBL:
+				{
+					self.sblVersion = version;
 					break;
 				}
 				case BEEDANCE_HONEYBEE_VERSION_WIFI:
@@ -485,28 +496,56 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	
 }
 
-- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock;
+- (void) cancelFirmwareUpdate
+{
+	firmwareBeingUpdated = nil;
+	firmwareDataSent = 0;
+	firmwareProgressBlock = 0;
+}
+
+
+
+- (void) uploadFirmware: (NSData*) binData forDestination: (size_t) fwDestination progess: (void (^)(float progress, bool done, NSError* error)) progressBlock
 {
 	firmwareProgressBlock = progressBlock;
 	
-	NSData* fwImageData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"winc1500_m2m_aio_3a0_19.5.4" ofType: @"bin"]];
+	NSLog(@"Honeybee firmware image with length %ld", binData.length);
 	
-	
-	
-	NSLog(@"Wifi firmware image with length %ld", fwImageData.length);
-	
-	assert(fwImageData.length);
+	assert(binData.length);
 	
 	NSMutableData* msgData = [NSMutableData dataWithLength: 0];
 	
-	[self encodeLeb128: BEEDANCE_FILE_DST_FW_WIFI inData: msgData];
-	[self encodeLeb128: fwImageData.length inData: msgData];
-
-	firmwareBeingUpdated = fwImageData;
+	[self encodeLeb128: fwDestination inData: msgData];
+	[self encodeLeb128: binData.length inData: msgData];
+	
+	firmwareBeingUpdated = binData;
 	
 	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_SETUP data: msgData];
 	
 }
+
+//- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock
+//{
+//	firmwareProgressBlock = progressBlock;
+//	
+//	NSData* fwImageData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"winc1500_m2m_aio_3a0_19.5.4" ofType: @"bin"]];
+//	
+//	
+//	
+//	NSLog(@"Wifi firmware image with length %ld", fwImageData.length);
+//	
+//	assert(fwImageData.length);
+//	
+//	NSMutableData* msgData = [NSMutableData dataWithLength: 0];
+//	
+//	[self encodeLeb128: BEEDANCE_FILE_DST_FW_WIFI inData: msgData];
+//	[self encodeLeb128: fwImageData.length inData: msgData];
+//	
+//	firmwareBeingUpdated = fwImageData;
+//	
+//	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_SETUP data: msgData];
+//	
+//}
 
 
 @end

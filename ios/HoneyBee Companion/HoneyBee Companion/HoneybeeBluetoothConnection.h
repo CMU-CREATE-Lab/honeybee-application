@@ -23,10 +23,18 @@ extern NSString* bleBeedanceRxCharUUIDString;
 @property(strong) NSString* wifiMacAddress;
 @property(strong) NSString* bleMacAddress;
 @property(strong) NSString* appVersion;
+@property(strong) NSString* sblVersion;
 @property(strong) NSString* wifiVersion;
 @property(strong) NSString* hardwareVersion;
 @property(strong) NSString* serialNumber;
 
-- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock;
+@property(nonatomic, readonly) CBPeripheral* peripheral;
+
+- (void) cancelFirmwareUpdate;
+//- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock;
+
+- (void) uploadFirmware: (NSData*) binData forDestination: (size_t) fwDestination progess: (void (^)(float progress, bool done, NSError* error)) progressBlock;
+
+//- (NSString*) honeyBeeApplImageVersion;
 
 @end
