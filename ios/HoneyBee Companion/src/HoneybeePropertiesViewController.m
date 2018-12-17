@@ -18,6 +18,8 @@ NSString* HBHardwareVersionKey = @"HoneybeeHardwareVersion";
 NSString* HBWifiVersionKey = @"HoneybeeWifiVersion";
 NSString* HBSamAppVersionKey = @"HoneybeeSamAppVersion";
 NSString* HBSamSblVersionKey = @"HoneybeeSamSblVersion";
+NSString* HBSerialNumberKey = @"HoneybeeSerialNumber";
+NSString* HBSetupKey = @"HoneybeeSetup";
 
 
 NSString* honeybeeApplImageName = @"honeybee_app.img";
@@ -42,7 +44,7 @@ NSString* honeybeeWifiImageName = @"winc1500_m2m_aio_3a0_19.5.4";
 {
     [super viewDidLoad];
 	
-	honeybeePropertyKeys = @[HBSamAppVersionKey, HBSamSblVersionKey, HBWifiVersionKey, HBHardwareVersionKey];
+	honeybeePropertyKeys = @[HBSamAppVersionKey, HBSamSblVersionKey, HBWifiVersionKey, HBHardwareVersionKey, HBSerialNumberKey, HBSetupKey];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -122,15 +124,33 @@ NSString* honeybeeWifiImageName = @"winc1500_m2m_aio_3a0_19.5.4";
 	
 	
 
-	if ([key isEqual: HBHardwareVersionKey])
+	if ([key isEqual: HBSetupKey])
 	{
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: HBHardwareVersionKey forIndexPath: indexPath];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: HBSetupKey forIndexPath: indexPath];
 		
-		cell.textLabel.text = [NSString stringWithFormat: @"Hardware Version %@", self.honeybee.hardwareVersion];
+		cell.textLabel.text = [NSString stringWithFormat: @"Network"];
 		
 		return cell;
 
 	}
+    else if ([key isEqual: HBHardwareVersionKey])
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: HBHardwareVersionKey forIndexPath: indexPath];
+        
+        cell.textLabel.text = [NSString stringWithFormat: @"Hardware Version %@", self.honeybee.hardwareVersion];
+        
+        return cell;
+        
+    }
+    else if ([key isEqual: HBSerialNumberKey])
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: HBSerialNumberKey forIndexPath: indexPath];
+        
+        cell.textLabel.text = [NSString stringWithFormat: @"Serial Number %@", self.honeybee.serialNumber];
+        
+        return cell;
+        
+    }
 	else if ([key isEqual: HBSamAppVersionKey])
 	{
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: HBSamAppVersionKey forIndexPath: indexPath];
@@ -315,15 +335,20 @@ NSString* honeybeeWifiImageName = @"winc1500_m2m_aio_3a0_19.5.4";
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([[segue destinationViewController] respondsToSelector: @selector(setHoneybee:)])
+    {
+        [(id)[segue destinationViewController] setHoneybee: self.honeybee];
+    }
 }
-*/
+
 
 
 - (NSData*) getFirmwareBinaryFromImage: (NSData*) imageData

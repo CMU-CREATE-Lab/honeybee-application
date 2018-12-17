@@ -167,9 +167,9 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-	NSLog(@"discovered %@", peripheral.debugDescription);
-	NSLog(@"ad %@", advertisementData.debugDescription);
-	NSLog(@"rssi %@", RSSI);
+//    NSLog(@"discovered %@", peripheral.debugDescription);
+//    NSLog(@"ad %@", advertisementData.debugDescription);
+//    NSLog(@"rssi %@", RSSI);
 	
 	if (!pendingBluetoothConnections)
 	{
@@ -192,9 +192,10 @@ NSString* bleUartServiceUUID = @"6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 	{
 		if ([hb.peripheral isEqual: peripheral])
 		{
-//			[self.objects removeObject: hb];
-//			
-//			[self.tableView reloadData];
+            NSLog(@"disconnected honeybee");
+            [self.objects removeObject: hb];
+
+            [self.tableView reloadData];
 			
 			break;
 		}

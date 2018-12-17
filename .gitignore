@@ -1,5 +1,7 @@
 .DS_Store
 web/js/secrets.js
 xcuserdata
+xcshareddata
 *.xcuserstate
-
+contents.xcworkspacedata
+IDEWorkspaceChecks.plist

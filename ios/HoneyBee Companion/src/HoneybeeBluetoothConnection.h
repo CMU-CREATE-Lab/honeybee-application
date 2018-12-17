@@ -30,6 +30,11 @@ extern NSString* bleBeedanceRxCharUUIDString;
 
 @property(nonatomic, readonly) CBPeripheral* peripheral;
 
+
+- (void) getNetworkStatus: (void (^)(NSDictionary* statusDict, NSError* error)) responseCallback;
+- (void) requestWifiScan: (void (^)(NSDictionary* network, NSError* error)) responseCallback;
+- (void) joinNetwork: (NSDictionary*) network;
+
 - (void) cancelFirmwareUpdate;
 //- (void) updateWifiFirmware: (void (^)(float progress, bool done, NSError* error)) progressBlock;
 

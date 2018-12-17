@@ -19,13 +19,11 @@
 		DA5D109320D705B800FD9B2A /* HoneyBee_CompanionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D109220D705B800FD9B2A /* HoneyBee_CompanionTests.m */; };
 		DA5D109E20D705B800FD9B2A /* HoneyBee_CompanionUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D109D20D705B800FD9B2A /* HoneyBee_CompanionUITests.m */; };
 		DA5D10B520D8111400FD9B2A /* HoneybeeBluetoothConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */; };
+		DA8C91A321C07DD300001799 /* HBNetworkSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C91A221C07DD300001799 /* HBNetworkSetupViewController.m */; };
+		DA8C91A621C2FDE100001799 /* NSDictionary+BeeDance.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C91A521C2FCF500001799 /* NSDictionary+BeeDance.m */; };
 		DAA007E620DD8AF600A24510 /* HoneybeePropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA007E520DD8AF600A24510 /* HoneybeePropertiesViewController.m */; };
 		DAA007E920DDA6F100A24510 /* UpdateFirmwareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA007E820DDA6F100A24510 /* UpdateFirmwareTableViewCell.m */; };
-		DAC51D4E21C043DC00E8EEF0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D3A21C043DB00E8EEF0 /* README.md */; };
-		DAC51D4F21C043DC00E8EEF0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D3B21C043DB00E8EEF0 /* .gitignore */; };
 		DAC51D5021C043DC00E8EEF0 /* aef_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DAC51D3D21C043DB00E8EEF0 /* aef_debug.c */; };
-		DAC51D5121C043DC00E8EEF0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D3F21C043DB00E8EEF0 /* README.md */; };
-		DAC51D5221C043DC00E8EEF0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D4021C043DB00E8EEF0 /* .gitignore */; };
 		DAC51D5421C043DC00E8EEF0 /* beedance.md in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D4221C043DB00E8EEF0 /* beedance.md */; };
 		DAC51D5521C043DC00E8EEF0 /* NSData+BeeDance.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC51D4721C043DB00E8EEF0 /* NSData+BeeDance.m */; };
 		DAC51D5621C043DC00E8EEF0 /* cobs.c in Sources */ = {isa = PBXBuildFile; fileRef = DAC51D4821C043DB00E8EEF0 /* cobs.c */; };
@@ -33,6 +31,7 @@
 		DAC51D5821C043DC00E8EEF0 /* beedance.c in Sources */ = {isa = PBXBuildFile; fileRef = DAC51D4A21C043DB00E8EEF0 /* beedance.c */; };
 		DAC51D5921C043DC00E8EEF0 /* beedance.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC51D4B21C043DB00E8EEF0 /* beedance.m */; };
 		DAC51D5B21C0445A00E8EEF0 /* winc1500_m2m_aio_3a0_19.5.4.bin in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D5A21C0445A00E8EEF0 /* winc1500_m2m_aio_3a0_19.5.4.bin */; };
+		DAC51D5E21C0482500E8EEF0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC51D5D21C0482500E8EEF0 /* Default-568h@2x.png */; };
 		DADBED2220DA03D600D3F539 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DADBED2120DA03D600D3F539 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +76,10 @@
 		DA5D109F20D705B800FD9B2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA5D10B320D8111300FD9B2A /* HoneybeeBluetoothConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoneybeeBluetoothConnection.h; sourceTree = "<group>"; };
 		DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneybeeBluetoothConnection.m; sourceTree = "<group>"; };
+		DA8C91A121C07DD300001799 /* HBNetworkSetupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBNetworkSetupViewController.h; sourceTree = "<group>"; };
+		DA8C91A221C07DD300001799 /* HBNetworkSetupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBNetworkSetupViewController.m; sourceTree = "<group>"; };
+		DA8C91A421C2FAE900001799 /* NSDictionary+BeeDance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BeeDance.h"; sourceTree = "<group>"; };
+		DA8C91A521C2FCF500001799 /* NSDictionary+BeeDance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BeeDance.m"; sourceTree = "<group>"; };
 		DAA007E420DD8AF600A24510 /* HoneybeePropertiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoneybeePropertiesViewController.h; sourceTree = "<group>"; };
 		DAA007E520DD8AF600A24510 /* HoneybeePropertiesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoneybeePropertiesViewController.m; sourceTree = "<group>"; };
 		DAA007E720DDA6F100A24510 /* UpdateFirmwareTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateFirmwareTableViewCell.h; sourceTree = "<group>"; };
@@ -85,10 +88,8 @@
 		DAC51D3821C043DB00E8EEF0 /* aef_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aef_utils.h; sourceTree = "<group>"; };
 		DAC51D3921C043DB00E8EEF0 /* aef_nrf51.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aef_nrf51.h; sourceTree = "<group>"; };
 		DAC51D3A21C043DB00E8EEF0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DAC51D3B21C043DB00E8EEF0 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DAC51D3D21C043DB00E8EEF0 /* aef_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aef_debug.c; sourceTree = "<group>"; };
 		DAC51D3F21C043DB00E8EEF0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DAC51D4021C043DB00E8EEF0 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DAC51D4221C043DB00E8EEF0 /* beedance.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = beedance.md; sourceTree = "<group>"; };
 		DAC51D4421C043DB00E8EEF0 /* beedance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beedance.h; sourceTree = "<group>"; };
 		DAC51D4521C043DB00E8EEF0 /* msgpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msgpack.h; sourceTree = "<group>"; };
@@ -101,6 +102,8 @@
 		DAC51D4C21C043DB00E8EEF0 /* cobs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cobs.h; sourceTree = "<group>"; };
 		DAC51D4D21C043DB00E8EEF0 /* NSData+BeeDance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+BeeDance.h"; sourceTree = "<group>"; };
 		DAC51D5A21C0445A00E8EEF0 /* winc1500_m2m_aio_3a0_19.5.4.bin */ = {isa = PBXFileReference; explicitFileType = compiled; name = winc1500_m2m_aio_3a0_19.5.4.bin; path = src/Base.lproj/winc1500_m2m_aio_3a0_19.5.4.bin; sourceTree = SOURCE_ROOT; };
+		DAC51D5C21C0480900E8EEF0 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		DAC51D5D21C0482500E8EEF0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DADBED2120DA03D600D3F539 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -133,6 +136,7 @@
 		DA5D106A20D705B600FD9B2A = {
 			isa = PBXGroup;
 			children = (
+				DAC51D5D21C0482500E8EEF0 /* Default-568h@2x.png */,
 				DAC51D3521C043DB00E8EEF0 /* airviz-embedded-framework */,
 				DAC51D3E21C043DB00E8EEF0 /* beedance */,
 				DA5D107520D705B600FD9B2A /* HoneyBee Companion */,
@@ -177,6 +181,9 @@
 				DA5D10B420D8111300FD9B2A /* HoneybeeBluetoothConnection.m */,
 				DAA007E720DDA6F100A24510 /* UpdateFirmwareTableViewCell.h */,
 				DAA007E820DDA6F100A24510 /* UpdateFirmwareTableViewCell.m */,
+				DAC51D5C21C0480900E8EEF0 /* debug.h */,
+				DA8C91A121C07DD300001799 /* HBNetworkSetupViewController.h */,
+				DA8C91A221C07DD300001799 /* HBNetworkSetupViewController.m */,
 			);
 			name = "HoneyBee Companion";
 			path = src;
@@ -205,7 +212,6 @@
 			children = (
 				DAC51D3621C043DB00E8EEF0 /* inc */,
 				DAC51D3A21C043DB00E8EEF0 /* README.md */,
-				DAC51D3B21C043DB00E8EEF0 /* .gitignore */,
 				DAC51D3C21C043DB00E8EEF0 /* src */,
 			);
 			name = "airviz-embedded-framework";
@@ -234,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				DAC51D3F21C043DB00E8EEF0 /* README.md */,
-				DAC51D4021C043DB00E8EEF0 /* .gitignore */,
 				DAC51D4221C043DB00E8EEF0 /* beedance.md */,
 				DAC51D4321C043DB00E8EEF0 /* src */,
 			);
@@ -245,16 +250,18 @@
 		DAC51D4321C043DB00E8EEF0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				DA8C91A421C2FAE900001799 /* NSDictionary+BeeDance.h */,
+				DA8C91A521C2FCF500001799 /* NSDictionary+BeeDance.m */,
 				DAC51D4421C043DB00E8EEF0 /* beedance.h */,
 				DAC51D4521C043DB00E8EEF0 /* msgpack.h */,
 				DAC51D4621C043DB00E8EEF0 /* beedance_honeybee.h */,
+				DAC51D4D21C043DB00E8EEF0 /* NSData+BeeDance.h */,
 				DAC51D4721C043DB00E8EEF0 /* NSData+BeeDance.m */,
 				DAC51D4821C043DB00E8EEF0 /* cobs.c */,
 				DAC51D4921C043DB00E8EEF0 /* msgpack.c */,
 				DAC51D4A21C043DB00E8EEF0 /* beedance.c */,
 				DAC51D4B21C043DB00E8EEF0 /* beedance.m */,
 				DAC51D4C21C043DB00E8EEF0 /* cobs.h */,
-				DAC51D4D21C043DB00E8EEF0 /* NSData+BeeDance.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -371,14 +378,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC51D5B21C0445A00E8EEF0 /* winc1500_m2m_aio_3a0_19.5.4.bin in Resources */,
-				DAC51D5221C043DC00E8EEF0 /* .gitignore in Resources */,
 				DAC51D5421C043DC00E8EEF0 /* beedance.md in Resources */,
-				DAC51D4F21C043DC00E8EEF0 /* .gitignore in Resources */,
 				DA197F9E20DE0A750068C9D4 /* honeybee_app.img.bin in Resources */,
+				DAC51D5E21C0482500E8EEF0 /* Default-568h@2x.png in Resources */,
 				DA2E249920DF0CCE0066A0FC /* honeybee_boot.img.bin in Resources */,
 				DA5D108620D705B800FD9B2A /* LaunchScreen.storyboard in Resources */,
-				DAC51D4E21C043DC00E8EEF0 /* README.md in Resources */,
-				DAC51D5121C043DC00E8EEF0 /* README.md in Resources */,
 				DA5D108320D705B800FD9B2A /* Assets.xcassets in Resources */,
 				DA5D108120D705B600FD9B2A /* Main.storyboard in Resources */,
 			);
@@ -413,9 +417,11 @@
 				DA5D107E20D705B600FD9B2A /* HoneybeeDetailViewController.m in Sources */,
 				DAA007E920DDA6F100A24510 /* UpdateFirmwareTableViewCell.m in Sources */,
 				DAC51D5521C043DC00E8EEF0 /* NSData+BeeDance.m in Sources */,
+				DA8C91A621C2FDE100001799 /* NSDictionary+BeeDance.m in Sources */,
 				DAC51D5721C043DC00E8EEF0 /* msgpack.c in Sources */,
 				DAC51D5921C043DC00E8EEF0 /* beedance.m in Sources */,
 				DAA007E620DD8AF600A24510 /* HoneybeePropertiesViewController.m in Sources */,
+				DA8C91A321C07DD300001799 /* HBNetworkSetupViewController.m in Sources */,
 				DAC51D5021C043DC00E8EEF0 /* aef_debug.c in Sources */,
 				DA5D10B520D8111400FD9B2A /* HoneybeeBluetoothConnection.m in Sources */,
 			);
@@ -590,7 +596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
-				INFOPLIST_FILE = "HoneyBee Companion/Info.plist";
+				INFOPLIST_FILE = src/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -607,7 +613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZYF8X9Z6M2;
-				INFOPLIST_FILE = "HoneyBee Companion/Info.plist";
+				INFOPLIST_FILE = src/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

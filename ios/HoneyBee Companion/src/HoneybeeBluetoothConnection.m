@@ -10,6 +10,8 @@
 
 #include "beedance_honeybee.h"
 #include "NSData+BeeDance.h"
+#include "NSDictionary+BeeDance.h"
+#include "msgpack.h"
 #include "hb_bootloader.h"
 
 #import <zlib.h>
@@ -20,10 +22,14 @@
  tx			"58040002-39C8-4304-97E1-EA175C7C295E"
  rx			"58040003-39C8-4304-97E1-EA175C7C295E"
  */
+//NSString* bleBeedanceServiceUUIDString        = @"58040001-39c8-4304-97e1-ea175c7c295e";
+//NSString* bleBeedanceTxCharUUIDString         = @"58040002-39c8-4304-97e1-ea175c7c295e";
+//NSString* bleBeedanceRxCharUUIDString         = @"58040003-39C8-4304-97E1-EA175C7C295E";
 
-NSString* bleBeedanceServiceUUIDString 		= @"58040001-39c8-4304-97e1-ea175c7c295e";
-NSString* bleBeedanceTxCharUUIDString 		= @"58040002-39c8-4304-97e1-ea175c7c295e";
-NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E";
+// WD 41690001-7276-697A-5761-746368646F67
+NSString* bleBeedanceServiceUUIDString      = @"41690001-7276-697A-5761-746368646F67";
+NSString* bleBeedanceTxCharUUIDString       = @"41690002-7276-697A-5761-746368646F67";
+NSString* bleBeedanceRxCharUUIDString       = @"41690003-7276-697A-5761-746368646F67";
 
 
 @implementation HoneybeeBluetoothConnection
@@ -38,6 +44,9 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	NSData* firmwareBeingUpdated;
 	size_t firmwareDataSent;
 	void (^firmwareProgressBlock)(float progress, bool done, NSError* error);
+    
+    void (^networkStatusCallback)(NSDictionary* statusDict, NSError* error);
+    void (^wifiScanCallback)(NSDictionary* network, NSError* error);
 }
 
 - (CBPeripheral*) peripheral
@@ -80,22 +89,22 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 //	| 2            | 1    | 131 | 2      | 1 |
 //	| 0x8401 (132) | 0x09 | ... | 0xXXXX | 0 |
 
-	NSString* b64 = @"gJsB0Ylpe8dw9rPcEnTbe11LVtOWvxV3obD0oiXyrxySZxjl9AYE75C55ADk3Tq1Gf8CuvQ87uCL6zeL7PTXrPL28D2v3XWRMxkdHEDLdCQZIZPZFP6sKlLHj9UESeSNY0eIPGmDy/5HvSt+T8WVrg6d1NFDwGdz4xQIfuU/n3O4Mwo=";
-	
-	NSData* srcMsgData = [[NSData alloc] initWithBase64EncodedString: b64 options: 0];
-	
-	NSData* packetData = [srcMsgData encodeBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_CHUNK_WRITE];
-	
-	
-	NSLog(@"messageData (%lu) = %@", srcMsgData.length, srcMsgData);
-	NSLog(@"packetData (%lu)  = %@", packetData.length, packetData);
-
-	[packetData processBeedanceMessage: ^(NSInteger msgSelector, NSData *msgData) {
-		NSLog(@"decodedData (%lu) = %@", msgData.length, msgData);
-		
-	}];
-
-	
+//    NSString* b64 = @"gJsB0Ylpe8dw9rPcEnTbe11LVtOWvxV3obD0oiXyrxySZxjl9AYE75C55ADk3Tq1Gf8CuvQ87uCL6zeL7PTXrPL28D2v3XWRMxkdHEDLdCQZIZPZFP6sKlLHj9UESeSNY0eIPGmDy/5HvSt+T8WVrg6d1NFDwGdz4xQIfuU/n3O4Mwo=";
+//
+//    NSData* srcMsgData = [[NSData alloc] initWithBase64EncodedString: b64 options: 0];
+//
+//    NSData* packetData = [srcMsgData encodeBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_CHUNK_WRITE];
+//
+//
+//    NSLog(@"messageData (%lu) = %@", srcMsgData.length, srcMsgData);
+//    NSLog(@"packetData (%lu)  = %@", packetData.length, packetData);
+//
+//    [packetData processBeedanceMessage: ^(NSInteger msgSelector, NSData *msgData) {
+//        NSLog(@"decodedData (%lu) = %@", msgData.length, msgData);
+//
+//    }];
+//
+//
 	
 }
 
@@ -119,16 +128,16 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 
 - (void) sendBeedanceMessageWithSelector: (size_t) msgSelector data: (NSData*) msgData
 {
-//	NSString* b64 = [msgData base64EncodedStringWithOptions: 0];
-//	NSLog(@"b64 \"%@\"", b64);
+//    NSString* b64 = [msgData base64EncodedStringWithOptions: 0];
+//    NSLog(@"b64 \"%@\"", b64);
 
 	beedance_sendMessageWithBlock(msgSelector, msgData, ^ptrdiff_t(NSData *data) {
-//		NSLog(@"data (%lu) = %@", data.length, data);
-		
-//		[data processBeedanceMessage: ^(NSInteger msgSelector, NSData *msgData) {
-//			NSLog(@"decodedData (%lu) = %@", msgData.length, msgData);
+//        NSLog(@"data (%lu) = %@", data.length, data);
 //
-//		}];
+//        [data processBeedanceMessage: ^(NSInteger msgSelector, NSData *msgData) {
+//            NSLog(@"decodedData (%lu) = %@", msgData.length, msgData);
+//
+//        }];
 		
 		[self writeBleUart: data];
 		return 0;
@@ -136,19 +145,86 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 
 }
 
+- (void) getNetworkStatus: (void (^)(NSDictionary* statusDict, NSError* error)) responseCallback
+{
+    networkStatusCallback = responseCallback;
+    
+    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_NETWORK_COMMAND_REQ data: [NSData dataWithLeb128EncodedInt: 0]];
+}
+
+- (void) requestWifiScan: (void (^)(NSDictionary* network, NSError* error)) responseCallback
+{
+    wifiScanCallback = responseCallback;
+    
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_WIFI_CREDENTIALS_READ data: nil];
+
+    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_NETWORK_COMMAND_REQ data: [NSData dataWithLeb128EncodedInt: 1]];
+}
+
+- (void) joinNetwork: (NSDictionary*) network
+{
+
+    // send wifi credentials
+    NSMutableDictionary* netDict = [network dictionaryWithValuesForKeys: @[@"SSID", @"security", @"key"]].mutableCopy;
+    
+    netDict[@"usage"] = @"update";
+    
+    NSData* netData = [netDict encodeAsMsgpack];
+    
+    NSLog(@"netDict = %@", netDict);
+    NSLog(@"netData = %@", netData);
+
+    // stop scan
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_NETWORK_COMMAND_REQ data: [NSMutableData dataWithLeb128EncodedInt: 2]];
+
+	
+    // write new network credentials
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_WIFI_CREDENTIALS_WRITE data: netData];
+	[NSTimer scheduledTimerWithTimeInterval: 0.3 repeats: NO block:^(NSTimer * _Nonnull timer) {
+		[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_WIFI_CREDENTIALS_WRITE data: netData];
+		[NSTimer scheduledTimerWithTimeInterval: 0.3 repeats: NO block:^(NSTimer * _Nonnull timer) {
+			[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_NETWORK_COMMAND_REQ data: [NSMutableData dataWithLeb128EncodedInt: 3]];
+			[NSTimer scheduledTimerWithTimeInterval: 0.3 repeats: NO block:^(NSTimer * _Nonnull timer) {
+				[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_WIFI_CREDENTIALS_READ data: nil];
+			}];
+		}];
+	}];
+
+//    // connect
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_NETWORK_COMMAND_REQ data: [NSMutableData dataWithLeb128EncodedInt: 3]];
+//
+//    // request back credentials for debugging purposes
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_WIFI_CREDENTIALS_READ data: nil];
+
+    
+}
+
 - (void) requestDeviceInfo
 {
 	NSLog(@"-requestDeviceInfo");
-	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_REQ_INFO data: nil];
+    
+    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_DEVICE_INFO_READ data: [NSData dataWithLeb128EncodedInt: BEEDANCE_HONEYBEE_VERSION_SERNO]];
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_DEVICE_INFO_READ data: [NSData dataWithLeb128EncodedInt: BEEDANCE_HONEYBEE_VERSION_WIFI_MAC]];
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_DEVICE_INFO_READ data: [NSData dataWithLeb128EncodedInt: BEEDANCE_HONEYBEE_VERSION_BLE_MAC]];
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_DEVICE_INFO_READ data: [NSData dataWithLeb128EncodedInt: BEEDANCE_HONEYBEE_VERSION_HARDWARE]];
+
+//    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_REQ_INFO data: nil];
+}
+
+- (void) requestDeviceHandshake
+{
+    NSLog(@"-requestDeviceHandshake");
+    
+    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_DEVICE_INFO_READ data: [NSData dataWithLeb128EncodedInt: BEEDANCE_HONEYBEE_VERSION_BEEDANCE]];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-	NSLog(@"didDiscoverServices: %@", error);
+//    NSLog(@"didDiscoverServices: %@", error);
 	for (CBService* service in peripheral.services)
 	{
-		NSLog(@"service: %@", service.UUID);
-		NSLog(@"included servs: %@", service.includedServices);
+//        NSLog(@"service: %@", service.UUID);
+//        NSLog(@"included servs: %@", service.includedServices);
 		
 		[peripheral discoverCharacteristics: nil forService: service];
 		[peripheral discoverIncludedServices: nil forService: service];
@@ -236,186 +312,241 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 //	NSLog(@"receiveBeeDanceMessageWithSelector: %ld", msgSelector);
 	const uint8_t* bytes = msgData.bytes;
 	size_t responseStatus = 0;
-	beedance_decodeLeb128(&responseStatus, bytes, msgData.length);
-	NSLog(@"got RESP %zd", responseStatus);
+	NSLog(@"got message 0x%zX (%zu)", msgSelector, msgData.length);
 	
 	float progress = firmwareDataSent/(double)firmwareBeingUpdated.length;
-	if (responseStatus == 0)
-		switch (msgSelector)
-		{
-			case BEEDANCE_MSG_FILE_SETUP_RESP:
-			{
-				NSLog(@"File Setup acknowledged");
-				
-				[self sendNextFirmwareChunk];
-				
-				break;
-			}
-			case BEEDANCE_MSG_FILE_CHUNK_RESP:
-			{
-				[ackTimer invalidate];
-				size_t len = MIN(128, firmwareBeingUpdated.length - firmwareDataSent);
-				
-				firmwareDataSent += len;
-				
-				if (firmwareDataSent < firmwareBeingUpdated.length)
-					[self sendNextFirmwareChunk];
-				else if (firmwareBeingUpdated)
-					[self sendFirmwareSignature];
-				
-				if (firmwareProgressBlock)
-					firmwareProgressBlock(progress, NO, nil);
-				break;
-			}
-			case BEEDANCE_MSG_FILE_SIGNATURE_RESP:
-			{
-				NSLog(@"firmware accepted");
-				firmwareDataSent = 0;
-				firmwareBeingUpdated = nil;
-				
-				// reset MCU to commiting updates
-				// TODO: add mode request data, change in BDv0.3.0
-				[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_MODE_REQ data: nil];
-				
-				if (firmwareProgressBlock)
-					firmwareProgressBlock(progress, YES, nil);
-				
-				break;
-			}
-		}
-		else
-		{
-			switch (msgSelector)
-			{
-				case BEEDANCE_MSG_FILE_SETUP_RESP:
-				{
-					NSLog(@"File Setup not accepted, abort upate");
-					
-					firmwareDataSent = 0;
-					firmwareBeingUpdated = nil;
-					
-					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -1 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.setupError.description" value: @"Device rejected update attempt." table: nil]}];
-					
-					if (firmwareProgressBlock)
-						firmwareProgressBlock(progress, NO, error);
-					
-					break;
-				}
-				case BEEDANCE_MSG_FILE_CHUNK_RESP:
-				{
-					[ackTimer invalidate];
-					NSLog(@"File Chunk not accepted, abort upate");
-					
-					firmwareDataSent = 0;
-					firmwareBeingUpdated = nil;
-					
-					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.chunkError.description" value: @"Device rejected data transfer." table: nil]}];
-					
-					if (firmwareProgressBlock)
-						firmwareProgressBlock(progress, NO, error);
-					break;
-				}
-				case BEEDANCE_MSG_FILE_SIGNATURE_RESP:
-				{
-					NSLog(@"File signature not accepted, abort upate");
-					
-					firmwareDataSent = 0;
-					firmwareBeingUpdated = nil;
-					
-					NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.signatureError.description" value: @"Device rejected signature." table: nil]}];
-					
-					if (firmwareProgressBlock)
-						firmwareProgressBlock(progress, NO, error);
-					
-					break;
-				}
-			}
-		}
 
-		case BEEDANCE_MSG_NACK:
-		{
-			const uint8_t* bytes = msgData.bytes;
-			size_t nack = 0;
-			size_t offs = beedance_decodeLeb128(&nack, bytes, msgData.length);
-			size_t code = 0;
-			offs = beedance_decodeLeb128(&code, bytes, msgData.length);
-			
-			switch (nack)
-			{
+    switch (msgSelector)
+    {
+        case BEEDANCE_MSG_DBG:
+        {
+            size_t dbgId = 0;
+            size_t offs = beedance_decodeLeb128(&dbgId, bytes, msgData.length);
+            NSString* dbgString = [[NSString alloc] initWithData: [msgData subdataWithRange: NSMakeRange(offs, msgData.length - offs)] encoding: NSUTF8StringEncoding];
+            NSLog(@"BD-DBG (%zu): %@", dbgId, dbgString);
+            break;
+        }
+        case BEEDANCE_MSG_FILE_SETUP_RESP:
+        {
+            beedance_decodeLeb128(&responseStatus, bytes, msgData.length);
+            if (responseStatus == 0)
+            {
+                NSLog(@"File Setup acknowledged");
+                
+                [self sendNextFirmwareChunk];
+            }
+            else
+            {
+                NSLog(@"File Setup not accepted, abort upate");
+                
+                firmwareDataSent = 0;
+                firmwareBeingUpdated = nil;
+                
+                NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -1 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.setupError.description" value: @"Device rejected update attempt." table: nil]}];
+                
+                if (firmwareProgressBlock)
+                    firmwareProgressBlock(progress, NO, error);
+            }
+            break;
+        }
+        case BEEDANCE_MSG_FILE_CHUNK_RESP:
+        {
+            beedance_decodeLeb128(&responseStatus, bytes, msgData.length);
+            if (responseStatus == 0)
+            {
+                [ackTimer invalidate];
+                size_t len = MIN(128, firmwareBeingUpdated.length - firmwareDataSent);
+                
+                firmwareDataSent += len;
+                
+                if (firmwareDataSent < firmwareBeingUpdated.length)
+                    [self sendNextFirmwareChunk];
+                else if (firmwareBeingUpdated)
+                    [self sendFirmwareSignature];
+                
+                if (firmwareProgressBlock)
+                    firmwareProgressBlock(progress, NO, nil);
+            }
+            else
+            {
+                [ackTimer invalidate];
+                NSLog(@"File Chunk not accepted, abort upate");
+                
+                firmwareDataSent = 0;
+                firmwareBeingUpdated = nil;
+                
+                NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.chunkError.description" value: @"Device rejected data transfer." table: nil]}];
+                
+                if (firmwareProgressBlock)
+                    firmwareProgressBlock(progress, NO, error);
+            }
+            break;
+        }
+        case BEEDANCE_MSG_FILE_SIGNATURE_RESP:
+        {
+            beedance_decodeLeb128(&responseStatus, bytes, msgData.length);
+            if (responseStatus == 0)
+            {
+            NSLog(@"firmware accepted");
+            firmwareDataSent = 0;
+            firmwareBeingUpdated = nil;
+            
+            // reset MCU to commiting updates
+            // TODO: add mode request data, change in BDv0.3.0
+            [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_MODE_REQ data: nil];
+            
+            if (firmwareProgressBlock)
+                firmwareProgressBlock(progress, YES, nil);
+            }
+            else
+            {
+                NSLog(@"File signature not accepted, abort upate");
+                
+                firmwareDataSent = 0;
+                firmwareBeingUpdated = nil;
+                
+                NSError* error = [NSError errorWithDomain: @"honeybee.dfu.wifi.error" code: -2 userInfo: @{NSLocalizedDescriptionKey:[[NSBundle mainBundle] localizedStringForKey: @"honeybee.dfu.wifi.signatureError.description" value: @"Device rejected signature." table: nil]}];
+                
+                if (firmwareProgressBlock)
+                    firmwareProgressBlock(progress, NO, error);
+            }
+            break;
+        }
+        case BEEDANCE_MSG_DEVICE_INFO_READ:
+        {
+            size_t offs = 0;
+            size_t infoId = 0;
+            offs += beedance_decodeLeb128(&infoId, bytes + offs, msgData.length - offs);
+            
+            NSMutableData* infoData = [NSMutableData dataWithLeb128EncodedInt: infoId];
 
-			}
-			
-			break;
-		}
-		case BEEDANCE_MSG_HONEYBEE_MAC:
-		{
-			NSLog(@"got HB MAC addressess");
-			
-			assert(msgData.length >= 12);
-			
-			const uint8_t* bytes = msgData.bytes;
-			
-			self.wifiMacAddress = [NSString stringWithFormat: @"%02X:%02X:%02X:%02X:%02X:%02X", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
-			self.bleMacAddress = [NSString stringWithFormat: @"%02X:%02X:%02X:%02X:%02X:%02X", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+            switch ((beedance_version_info_t)infoId)
+            {
+                case BEEDANCE_HONEYBEE_VERSION_BEEDANCE:
+                {
+                    [infoData appendData: [[NSString stringWithFormat: @"%u.%u.%u", (BEEDANCE_PROTOCOL_VERSION & 0xFF0000) >> 16, (BEEDANCE_PROTOCOL_VERSION & 0xFF00) >> 8, BEEDANCE_PROTOCOL_VERSION & 0xFF] dataUsingEncoding: NSUTF8StringEncoding]];
+                    [self sendBeedanceMessageWithSelector: BEEDANCE_MSG_DEVICE_INFO_RESP data: infoData];
+                    break;
+                }
+                default:
+                {
+                    NSLog(@"Can't answer info request for %zu", infoId);
+                    break;
+                }
+            }
+            
+            
+            break;
+        }
+        case BEEDANCE_MSG_DEVICE_INFO_RESP:
+        {
+            size_t offs = 0;
+            size_t infoId = 0;
+            offs += beedance_decodeLeb128(&infoId, bytes + offs, msgData.length - offs);
+            
+            NSData* infoData = [msgData subdataWithRange: NSMakeRange( offs, msgData.length - offs)];
+            
+            NSString* infoString = [[NSString alloc] initWithData: infoData encoding: NSUTF8StringEncoding];
+            
+            // if not a valid decoding
+            if (!infoString)
+            {
+                uint8_t buf[infoData.length];
+                
+                msgpack_readString(buf, infoData.length, infoData.bytes, infoData.length);
+                infoString = [[NSString alloc] initWithBytes: buf length: strlen((void*)buf) encoding:NSUTF8StringEncoding];
+            }
 
-			break;
-		}
-		case BEEDANCE_MSG_HONEYBEE_SERNO:
-		{
-			self.serialNumber = [[NSString alloc] initWithData: msgData encoding: NSUTF8StringEncoding];
-			NSLog(@"got HB serial number %@", self.serialNumber);
-			break;
-		}
-		case BEEDANCE_MSG_HONEYBEE_VERSION:
-		{
-			const uint8_t* bytes = msgData.bytes;
-			size_t versionId = 0;
-			size_t offs = beedance_decodeLeb128(&versionId, bytes, msgData.length);
-			
-			NSString* version = [[NSString alloc] initWithBytes: bytes + offs length: msgData.length - offs encoding: NSUTF8StringEncoding];
-			
-			switch (versionId)
-			{
-				case BEEDANCE_HONEYBEE_VERSION_SAM_APP:
-				{
-					self.appVersion = version;
-					break;
-				}
-				case BEEDANCE_HONEYBEE_VERSION_SAM_SBL:
-				{
-					self.sblVersion = version;
-					break;
-				}
-				case BEEDANCE_HONEYBEE_VERSION_WIFI:
-				{
-					self.wifiVersion = version;
-					break;
-				}
-				case BEEDANCE_HONEYBEE_VERSION_HARDWARE:
-				{
-					self.hardwareVersion = version;
-					break;
-				}
-			}
-			
-			
-			
-			NSLog(@"got HB version %zd = %@", versionId, version);
-			break;
-		}
-		default:
-		{
-			NSLog(@"Unknown message selector %ld.", msgSelector);
-			break;
-		}
-	}
+            NSLog(@"msgData %@", msgData);
+            NSLog(@"infoData %@", infoData);
+            NSLog(@"Received Version Info %zu: %@", infoId, infoString);
+
+            switch ((beedance_version_info_t)infoId)
+            {
+                case BEEDANCE_HONEYBEE_VERSION_BEEDANCE:
+                {
+                    NSLog(@"Received HB Protocol Version: %@", infoString);
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_HOST_SBL:
+                {
+                    self.sblVersion = infoString;
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_HOST_APP:
+                {
+                    self.appVersion = infoString;
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_WIFI_PLATFORM:
+                {
+                    self.wifiVersion = infoString;
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_HARDWARE:
+                {
+                    self.hardwareVersion = infoString;
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_SERNO:
+                {
+                    self.serialNumber = infoString;
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_BLE_MAC:
+                {
+                    self.bleMacAddress = infoString;
+                    break;
+                }
+                case BEEDANCE_HONEYBEE_VERSION_WIFI_MAC:
+                {
+                    self.wifiMacAddress = infoString;
+                    break;
+                }
+                default:
+                {
+                    NSLog(@"Received Invalid Version Info %zu: %@", infoId, infoString);
+                    break;
+                }
+            }
+            break;
+        }
+        case BEEDANCE_MSG_NETWORK_STATUS_RESP:
+        {
+//            NSString* msgStructure = [msgData parseMsgpack];
+//            NSLog(@"Received Network Status Structure:\n%@", msgStructure);
+
+            NSDictionary* unpackedDict = [msgData decodeMsgpack];
+            
+            NSLog(@"Received Network Status: %@", unpackedDict);
+            if (networkStatusCallback)
+            {
+                networkStatusCallback(unpackedDict, nil);
+            }
+            break;
+        }
+        case BEEDANCE_MSG_WIFI_CREDENTIALS_RESP:
+        {
+//            NSString* msgStructure = [msgData parseMsgpack];
+//            NSLog(@"Received Wifi Structure:\n%@", msgStructure);
+            
+            NSDictionary* unpackedDict = [msgData decodeMsgpack];
+            
+            NSLog(@"Received Wifi Status: %@", unpackedDict);
+            if (wifiScanCallback)
+            {
+                wifiScanCallback(unpackedDict, nil);
+            }
+            break;
+        }
+    }
 
 }
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-//	NSLog(@"didUpdateValueForCharacteristic %@", characteristic.UUID);
+//    NSLog(@"didUpdateValueForCharacteristic %@", characteristic.UUID);
 	if ([characteristic isEqual: rxChar])
 	{
 		NSData* data = characteristic.value;
@@ -471,7 +602,8 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 		assert(rxChar);
 		assert(txChar);
 		
-		[self requestDeviceInfo];
+        [self requestDeviceHandshake];
+        [self requestDeviceInfo];
 	}
 }
 
@@ -480,6 +612,13 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	//assert(self.bleUart);
 	if (peripheral)
 	{
+        if (peripheral.state != CBPeripheralStateConnected)
+        {
+            NSLog(@"peripheral no longer connected, cannot send data");
+            return;
+        }
+        
+        assert(txChar);
 		for (size_t k = 0; k < (d.length+19)/20; ++k)
 		{
 			[peripheral writeValue: [d subdataWithRange: NSMakeRange(k*20,  MIN(20, d.length - 20*k))] forCharacteristic: txChar type: CBCharacteristicWriteWithoutResponse];
@@ -520,7 +659,7 @@ NSString* bleBeedanceRxCharUUIDString 		= @"58040003-39C8-4304-97E1-EA175C7C295E
 	
 	firmwareBeingUpdated = binData;
 	
-	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_SETUP data: msgData];
+	[self sendBeedanceMessageWithSelector: BEEDANCE_MSG_FILE_SETUP_REQ data: msgData];
 	
 }
 

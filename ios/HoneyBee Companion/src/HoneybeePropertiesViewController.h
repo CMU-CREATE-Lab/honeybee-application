@@ -15,3 +15,4 @@
 @property(nonatomic, strong) HoneybeeBluetoothConnection* honeybee;
 
 @end
+
